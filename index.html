@@ -975,6 +975,333 @@
       .question-card { padding: 1.25rem; }
       .q-prompt { font-size: 1.08rem; }
     }
+/* ==================== READING COMPREHENSION MODULE ==================== */
+    .reading-header-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .reading-split {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 920px) {
+      .reading-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .article-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 5.25rem;
+    }
+
+    @media (max-width: 920px) {
+      .article-card {
+        position: static;
+      }
+    }
+
+    .article-meta {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-soft);
+      display: inline-block;
+      padding: 0.22rem 0.65rem;
+      border-radius: 6px;
+      margin-bottom: 0.65rem;
+    }
+
+    .article-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 0.45rem;
+      color: var(--text);
+    }
+
+    .article-subtitle {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+      line-height: 1.45;
+    }
+
+    .article-byline {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      padding-bottom: 1rem;
+      margin-bottom: 1.15rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-tip {
+      font-size: 0.82rem;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .article-body p {
+      margin-bottom: 1rem;
+      font-size: 0.99rem;
+      line-height: 1.78;
+      color: var(--text);
+    }
+
+    .article-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Hover-over French Glosses for Nouns & Verbs */
+    .gloss {
+      position: relative;
+      border-bottom: 1.5px dotted #93c5fd;
+      cursor: help;
+      border-radius: 3px;
+      padding: 0 1px;
+      transition: background-color 0.15s ease;
+    }
+
+    .gloss:hover,
+    .gloss:focus {
+      background-color: var(--primary-soft);
+      border-bottom-color: var(--primary);
+      outline: none;
+    }
+
+    .gloss::after {
+      content: attr(data-fr);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--text);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1.25;
+      padding: 0.35rem 0.6rem;
+      border-radius: 7px;
+      white-space: nowrap;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.22);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      z-index: 50;
+    }
+
+    .gloss::before {
+      content: "";
+      position: absolute;
+      bottom: calc(100% + 1px);
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--text);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+      z-index: 50;
+    }
+
+    .gloss:hover::after,
+    .gloss:focus::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .gloss:hover::before,
+    .gloss:focus::before {
+      opacity: 1;
+    }
+
+    /* Reading Quiz Panel */
+    .reading-quiz-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .rq-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      box-shadow: var(--shadow);
+    }
+
+    .rq-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .rq-skill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.18rem 0.55rem;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .rq-num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .rq-prompt {
+      font-size: 1.03rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+      color: var(--text);
+    }
+
+    .rq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .rq-option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.72rem 0.95rem;
+      border-radius: 9px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font-size: 0.93rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+    }
+
+    .rq-option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .rq-option-btn.correct {
+      border-color: var(--success);
+      background: var(--success-soft);
+      color: #14532d;
+    }
+
+    .rq-option-btn.correct .option-letter {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+
+    .rq-option-btn.incorrect {
+      border-color: var(--danger);
+      background: var(--danger-soft);
+      color: #7f1d1d;
+    }
+
+    .rq-option-btn.incorrect .option-letter {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+
+    .rq-feedback {
+      display: none;
+      margin-top: 0.85rem;
+      padding: 0.85rem 1rem;
+      border-radius: 9px;
+      border-left: 4px solid;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .rq-feedback.show {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .rq-feedback.correct {
+      background: var(--success-soft);
+      border-color: var(--success);
+      color: #14532d;
+    }
+
+    .rq-feedback.incorrect {
+      background: var(--danger-soft);
+      border-color: var(--danger);
+      color: #7f1d1d;
+    }
+
+    .rq-fb-fr {
+      margin-top: 0.45rem;
+      padding-top: 0.45rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      font-style: italic;
+    }
+/* Inline Fill-in-the-Blank Dropdowns inside Reading Articles */
+    .blank-select {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-soft);
+      border: 1.5px solid var(--primary);
+      border-radius: 7px;
+      padding: 0.25rem 0.5rem;
+      margin: 0.1rem 0.2rem;
+      cursor: pointer;
+      max-width: 100%;
+    }
+    .blank-select.blank-correct {
+      background: var(--success-soft);
+      border-color: var(--success);
+      color: #14532d;
+    }
+    .blank-select.blank-incorrect {
+      background: var(--danger-soft);
+      border-color: var(--danger);
+      color: #7f1d1d;
+    }
+    .blanks-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
@@ -993,35 +1320,40 @@
       <button class="nav-btn active" id="nav-dashboard" onclick="switchView('dashboard')">Grammar Topics</button>
       <button class="nav-btn" id="nav-mock" onclick="startMockExam()">Full Mock Exam</button>
       <button class="nav-btn" id="nav-vocab" onclick="switchView('vocab')">Vocabulary Lab</button>
+      <button class="nav-btn" id="nav-reading" onclick="switchView('reading')">Reading Lab</button>
     </nav>
   </div>
 </header>
 
 <main>
   <!-- ==================== VIEW 1: DASHBOARD ==================== -->
-  <section id="view-dashboard" class="view active">
+ <section id="view-dashboard" class="view active">
     <div class="hero-card">
       <div class="hero-text">
         <h1>Master English Grammar & Exam Vocabulary for Semester 1 in L1</h1>
         <p>Practice individual grammar topics with instant rule explanations, test yourself with a randomized mock exam, or drill key vocabulary with flashcards and quick quizzes.</p>
       </div>
       <div class="hero-actions">
-        <button class="btn btn-white" id="hero-mock-btn" onclick="startMockExam()">Start Full Mock Exam</button>
+        <button class="btn btn-white" id="hero-mock-btn" onclick="startMockExam('full')">Start Full Mock Exam</button>
         <button class="btn btn-accent" onclick="switchView('vocab')">Open Vocabulary Lab</button>
       </div>
     </div>
 
     <div class="mock-setup-card">
       <div>
-        <strong>Full Mock Exam Settings</strong>
-        <p id="mock-setup-desc" style="font-size: 0.88rem; color: var(--text-muted);">Automatically selects 5 random questions from each grammar topic and generates a topic-by-topic diagnostic report.</p>
+        <strong>Mock Exam Center</strong>
+        <p id="mock-setup-desc" style="font-size: 0.88rem; color: var(--text-muted);">
+          <strong>Full Exam:</strong> 45 Grammar (5 × 9 topics) + 10 Vocabulary + 2 Reading Comprehensions. Or practice Grammar-Only (45 Qs) or Vocab-Only (20 Qs).
+        </p>
       </div>
-      <div class="mock-options">
+      <div class="mock-options" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
         <select id="mock-order-select" class="control-select" aria-label="Mock exam question order">
+          <option value="section">Order: Section by Section (Recommended)</option>
           <option value="shuffled">Order: All Questions Shuffled</option>
-          <option value="section">Order: Section by Section</option>
         </select>
-        <button class="btn btn-primary" onclick="startMockExam()">Launch Mock Exam</button>
+        <button class="btn btn-primary" onclick="startMockExam('full')">Full Mock Exam</button>
+        <button class="btn btn-outline" onclick="startMockExam('grammar')">Grammar Only (45)</button>
+        <button class="btn btn-outline" onclick="startMockExam('vocab')">Vocab Only (20)</button>
       </div>
     </div>
 
@@ -1035,8 +1367,7 @@
     </div>
   </section>
 
-  <!-- ==================== VIEW 2: QUIZ / MOCK EXAM RUNNER ==================== -->
-  <section id="view-quiz" class="view">
+    <section id="view-quiz" class="view">
     <div class="quiz-wrapper">
       <div class="quiz-topbar">
         <div class="quiz-meta">
@@ -1053,6 +1384,13 @@
         <div class="q-tags">
           <span class="q-tag-topic" id="q-topic-tag">Topic</span>
           <span class="q-tag-type" id="q-type-tag">Multiple Choice</span>
+        </div>
+
+        <!-- Reading Passage Box (Shown automatically during Reading Comprehension questions in Mock Exams) -->
+        <div id="quiz-reading-passage" style="display: none; background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 10px; padding: 1rem 1.15rem; margin-bottom: 1.1rem; max-height: 290px; overflow-y: auto; font-size: 0.94rem; line-height: 1.65;">
+          <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--primary); margin-bottom: 0.35rem;" id="qrp-meta">Reading Passage • Hover bold words for French</div>
+          <h4 id="qrp-title" style="margin: 0 0 0.6rem 0; font-size: 1.05rem;"></h4>
+          <div id="qrp-body"></div>
         </div>
 
         <div class="q-prompt" id="q-prompt">Question text loads here...</div>
@@ -1081,6 +1419,9 @@
       </div>
     </div>
   </section>
+
+  <!-- ==================== VIEW 2: QUIZ / MOCK EXAM RUNNER ==================== -->
+  
 
   <!-- ==================== VIEW 3: RESULTS & DIAGNOSTIC REPORT ==================== -->
   <section id="view-results" class="view">
@@ -1197,6 +1538,45 @@
           <button class="btn btn-primary btn-sm" onclick="shuffleFlashcards()">Shuffle Deck</button>
         </div>
       </div>
+    </div>
+  </section>
+<!-- ==================== VIEW 5: READING COMPREHENSION LAB ==================== -->
+  <section id="view-reading" class="view">
+    <div class="reading-header-card">
+      <div>
+        <h2 style="font-size: 1.25rem; margin-bottom: 0.15rem;">B1/B2 Reading Comprehension Lab</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          Read the press article on the left (hover or tap any underlined noun or verb for its French translation) and answer the 7 exam questions on the right.
+        </p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.65rem;">
+        <select id="reading-category-select" class="control-select" aria-label="Filter by category" onchange="filterReadingCategory(this.value)">
+          <option value="ALL">All Categories (10)</option>
+          <option value="Fairtrade">Fairtrade</option>
+          <option value="Sustainability">Sustainability</option>
+          <option value="Borders">Borders</option>
+        </select>
+        <select id="reading-article-select" class="control-select" aria-label="Select reading article" onchange="selectReadingArticle(Number(this.value))"></select>
+        <span class="score-pill" id="reading-score-pill">Score: 0 / 7</span>
+        <button class="btn btn-outline btn-sm" onclick="resetCurrentReading()">Reset Quiz</button>
+      </div>
+    </div>
+
+    <div class="reading-split">
+      <!-- Left Column: Annotated Article -->
+      <article class="article-card" id="reading-article-pane">
+        <span class="article-meta" id="ra-level">B1 / B2 Press Article</span>
+        <h3 class="article-title" id="ra-title"></h3>
+        <div class="article-subtitle" id="ra-subtitle"></div>
+        <div class="article-byline" id="ra-byline"></div>
+        <div class="article-tip">
+          💡 <strong>Vocab Aid:</strong> Hover over (or tap on mobile) any underlined <strong>noun</strong> or <strong>verb</strong> to see its French translation in context.
+        </div>
+        <div class="article-body" id="ra-body"></div>
+      </article>
+
+      <!-- Right Column: 7 Comprehension Questions -->
+      <div class="reading-quiz-col" id="reading-quiz-pane"></div>
     </div>
   </section>
 </main>
@@ -9631,6 +10011,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDashboard();
   renderVocabList();
   updateFlashcard();
+  initReadingLab();
 
   // Allow pressing Enter to submit fill-in-the-blank or move to next question
   document.getElementById("fill-input").addEventListener("keydown", (e) => {
@@ -9647,7 +10028,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* -------------------- NAVIGATION -------------------- */
-
+	
 function switchView(viewName) {
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
@@ -9659,6 +10040,8 @@ function switchView(viewName) {
     document.getElementById("nav-dashboard").classList.add("active");
   } else if (viewName === "vocab") {
     document.getElementById("nav-vocab").classList.add("active");
+  } else if (viewName === "reading") {
+    document.getElementById("nav-reading").classList.add("active");
   } else if (viewName === "quiz" && currentSession.mode === "mock") {
     document.getElementById("nav-mock").classList.add("active");
   }
@@ -9705,12 +10088,12 @@ function renderDashboard() {
     grid.appendChild(card);
   });
 
-  document.getElementById("total-q-badge").textContent =
-    `${questionBank.length} Questions Available (${topics.length} Topics)`;
+document.getElementById("total-q-badge").textContent =
+    questionBank.length + " Questions Available (" + topics.length + " Topics)";
   document.getElementById("hero-mock-btn").textContent =
-    `Start ${mockTotalCount}-Question Mock Exam`;
+    "Start Full Mock Exam";
   document.getElementById("mock-setup-desc").textContent =
-    `Automatically selects up to 5 random questions from each of the ${topics.length} grammar topics (${mockTotalCount} questions total) and generates a topic-by-topic diagnostic report.`;
+    "Full Exam: " + mockTotalCount + " Grammar (5 x " + topics.length + " topics) + 10 Vocab + 2 Reading Comprehensions. Or practice Grammar-Only (" + mockTotalCount + " Qs) or Vocab-Only (20 Qs).";
 }
 
 /* -------------------- UTILITY: SHUFFLE & SMART GRADING -------------------- */
@@ -9822,7 +10205,7 @@ function startTopicPractice(topicName) {
 
   currentSession = {
     mode: "topic",
-    topicName,
+    topicName: topicName,
     title: topicName,
     questions: prepared,
     currentIndex: 0,
@@ -9834,25 +10217,155 @@ function startTopicPractice(topicName) {
   launchQuizUI();
 }
 
-function startMockExam() {
-  const orderMode = document.getElementById("mock-order-select").value;
-  const topics = getUniqueTopics();
-  let selected = [];
+function buildVocabQuestionsFromList(items, tagMode) {
+  const enrichedAll = vocabList.map(v => ({
+    item: v,
+    ...extractFrenchData(v)
+  }));
 
-  topics.forEach(topicName => {
-    const pool = getQuestionsByTopic(topicName);
-    const fiveRandom = shuffleArray(pool).slice(0, 5);
-    selected.push(...fiveRandom);
+  return items.map((item, idx) => {
+    const { fullFrench, cleanEnglishDef, acceptedFrench } = extractFrenchData(item);
+    const direction = idx % 2 === 0 ? "EN_TO_FR" : "FR_TO_EN";
+    const useFill = idx % 4 === 2 || idx % 4 === 3;
+    const topicLabel =
+      tagMode === "mock"
+        ? "Vocabulary (" + item.topic + ")"
+        : item.topic + (direction === "EN_TO_FR" ? " • EN -> FR" : " • FR -> EN");
+
+    if (direction === "EN_TO_FR") {
+      if (!useFill) {
+        const distractors = shuffleArray(
+          enrichedAll
+            .filter(e => e.item.word !== item.word && e.fullFrench !== fullFrench)
+            .map(e => e.fullFrench)
+        ).slice(0, 3);
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+
+        return {
+          topic: topicLabel,
+          type: "mcq",
+          prompt: 'Translate from English into French: "' + item.word + '"',
+          hint: "Part of speech: " + item.pos + ' • Context: "' + item.example + '"',
+          options: shuffleArray([fullFrench, ...uniqueDistractors]),
+          answer: fullFrench,
+          explanation: '"' + item.word + '" (' + item.pos + ') = "' + fullFrench + '". Meaning: ' + cleanEnglishDef + '. Example: "' + item.example + '"'
+        };
+      } else {
+        return {
+          topic: topicLabel,
+          type: "fill",
+          isVocabTranslation: true,
+          prompt: 'Translate from English into French: "' + item.word + '"',
+          hint: "Part of speech: " + item.pos + " • English clue: " + cleanEnglishDef,
+          answers: acceptedFrench,
+          explanation: '"' + item.word + '" (' + item.pos + ') translates to "' + fullFrench + '". Example: "' + item.example + '"'
+        };
+      }
+    } else {
+      if (!useFill) {
+        const distractors = shuffleArray(
+          enrichedAll
+            .filter(e => e.item.word !== item.word)
+            .map(e => e.item.word)
+        ).slice(0, 3);
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+
+        return {
+          topic: topicLabel,
+          type: "mcq",
+          prompt: 'Translate from French into English: "' + fullFrench + '"',
+          hint: "Part of speech: " + item.pos + " • Clue: " + cleanEnglishDef,
+          options: shuffleArray([item.word, ...uniqueDistractors]),
+          answer: item.word,
+          explanation: '"' + fullFrench + '" translates to "' + item.word + '" (' + item.pos + '). Example: "' + item.example + '"'
+        };
+      } else {
+        const acceptedEnglish = [item.word];
+        if (item.word.toLowerCase().startsWith("to ")) {
+          acceptedEnglish.push(item.word.slice(3).trim());
+        }
+        return {
+          topic: topicLabel,
+          type: "fill",
+          isVocabTranslation: true,
+          prompt: 'Translate from French into English: "' + fullFrench + '"',
+          hint: "Part of speech: " + item.pos + " • Definition clue: " + cleanEnglishDef,
+          answers: acceptedEnglish,
+          explanation: '"' + fullFrench + '" translates to "' + item.word + '" (' + item.pos + '). Example: "' + item.example + '"'
+        };
+      }
+    }
+  });
+}
+
+function buildReadingMockQuestions(articleCount) {
+  const standardArticles = readingArticles.filter(a => !a.blanks);
+  const chosenArticles = shuffleArray(standardArticles).slice(0, articleCount);
+  const readingQs = [];
+
+  chosenArticles.forEach((art, aIdx) => {
+    const annotatedBody = art.paragraphs
+      .map(p => '<p style="margin-bottom:0.65rem;">' + annotateTextWithGlossary(p, art.glossary) + "</p>")
+      .join("");
+    const annotatedTitle = annotateTextWithGlossary(art.title, art.glossary);
+
+    art.questions.forEach(q => {
+      readingQs.push({
+        topic: "Reading Comp (" + art.category + ")",
+        type: "mcq",
+        prompt: q.prompt,
+        hint: "Skill: " + q.skill + " • Read the passage above (hover bold words for French help)",
+        options: shuffleArray([...q.options]),
+        answer: q.answer,
+        explanation: q.explanationEn + " — [FR] " + q.explanationFr,
+        readingPassage: {
+          meta: "Passage " + (aIdx + 1) + " of " + chosenArticles.length + " • " + art.category + " (" + art.byline + ")",
+          titleHtml: annotatedTitle,
+          bodyHtml: annotatedBody
+        }
+      });
+    });
   });
 
-  if (orderMode === "shuffled") {
-    selected = shuffleArray(selected);
+  return readingQs;
+}
+
+function startMockExam(mockType = "full") {
+  const orderMode = document.getElementById("mock-order-select").value;
+  let grammarQs = [];
+  let selected = [];
+  let examTitle = "";
+
+  if (mockType === "full" || mockType === "grammar") {
+    const topics = getUniqueTopics();
+    topics.forEach(topicName => {
+      const pool = getQuestionsByTopic(topicName);
+      grammarQs.push(...shuffleArray(pool).slice(0, 5));
+    });
+  }
+
+  if (mockType === "full") {
+    const vocabQs = buildVocabQuestionsFromList(shuffleArray([...vocabList]).slice(0, 10), "mock");
+    const readingQs = buildReadingMockQuestions(2);
+    if (orderMode === "shuffled") {
+      const mixedGv = shuffleArray([...grammarQs, ...vocabQs]);
+      selected = [...mixedGv, ...readingQs];
+    } else {
+      selected = [...grammarQs, ...vocabQs, ...readingQs];
+    }
+    examTitle = "Full Mock Exam (" + selected.length + " Qs: 45 Grammar + 10 Vocab + 2 Readings)";
+  } else if (mockType === "grammar") {
+    selected = orderMode === "shuffled" ? shuffleArray(grammarQs) : grammarQs;
+    examTitle = "Grammar-Only Mock Exam (" + selected.length + " Questions)";
+  } else {
+    selected = buildVocabQuestionsFromList(shuffleArray([...vocabList]).slice(0, 20), "mock");
+    examTitle = "Vocabulary-Only Mock Exam (" + selected.length + " Questions)";
   }
 
   currentSession = {
     mode: "mock",
     topicName: null,
-    title: `Full Mock Exam (${selected.length} Questions)`,
+    title: examTitle,
     questions: selected,
     currentIndex: 0,
     score: 0,
@@ -9867,7 +10380,6 @@ function extractFrenchData(item) {
   const match = item.definition.match(/\(French:\s*([^)]+)\)/i);
   const fullFrench = match ? match[1].trim() : item.definition;
   const cleanEnglishDef = item.definition.replace(/\s*\(French:[^)]+\)/i, "").trim();
-  // Split slash/comma variants into individual accepted French answers
   const variants = fullFrench
     .split(/\s*[,/]\s*/)
     .map(v => v.trim())
@@ -9880,109 +10392,7 @@ function getVocabByCategory(category) {
   if (!category || category === "all") return [...vocabList];
   return vocabList.filter(v => (v.topic || "").toLowerCase() === category.toLowerCase());
 }
-
-function startVocabQuiz(category = "all") {
-  const pool = getVocabByCategory(category);
-  const shuffledPool = shuffleArray(pool);
-
-  // Pre-extract French translations for every item in the full vocabList for rich distractors
-  const enrichedAll = vocabList.map(v => ({
-    item: v,
-    ...extractFrenchData(v)
-  }));
-
-  const generatedQuestions = shuffledPool.map((item, idx) => {
-    const { fullFrench, cleanEnglishDef, acceptedFrench } = extractFrenchData(item);
-    const direction = idx % 2 === 0 ? "EN_TO_FR" : "FR_TO_EN";
-    const useFill = idx % 4 === 2 || idx % 4 === 3; // Mix Multiple Choice (50%) and Typed Translation (50%)
-
-    if (direction === "EN_TO_FR") {
-      if (!useFill) {
-        const distractors = shuffleArray(
-          enrichedAll
-            .filter(e => e.item.word !== item.word && e.fullFrench !== fullFrench)
-            .map(e => e.fullFrench)
-        ).slice(0, 3);
-        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
-
-        return {
-          topic: `${item.topic} • EN → FR`,
-          type: "mcq",
-          prompt: `Translate from English into French: "${item.word}"`,
-          hint: `Part of speech: ${item.pos} • Context: "${item.example}"`,
-          options: shuffleArray([fullFrench, ...uniqueDistractors]),
-          answer: fullFrench,
-          explanation: `"${item.word}" (${item.pos}) = "${fullFrench}". Meaning: ${cleanEnglishDef}. Example: "${item.example}"`
-        };
-      } else {
-        return {
-          topic: `${item.topic} • EN → FR`,
-          type: "fill",
-          isVocabTranslation: true,
-          prompt: `Translate from English into French: "${item.word}"`,
-          hint: `Part of speech: ${item.pos} • English clue: ${cleanEnglishDef}`,
-          answers: acceptedFrench,
-          explanation: `"${item.word}" (${item.pos}) translates to "${fullFrench}". Example: "${item.example}"`
-        };
-      }
-    } else {
-      // FR_TO_EN
-      if (!useFill) {
-        const distractors = shuffleArray(
-          enrichedAll
-            .filter(e => e.item.word !== item.word)
-            .map(e => e.item.word)
-        ).slice(0, 3);
-        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
-
-        return {
-          topic: `${item.topic} • FR → EN`,
-          type: "mcq",
-          prompt: `Translate from French into English: "${fullFrench}"`,
-          hint: `Part of speech: ${item.pos} • Clue: ${cleanEnglishDef}`,
-          options: shuffleArray([item.word, ...uniqueDistractors]),
-          answer: item.word,
-          explanation: `"${fullFrench}" translates to "${item.word}" (${item.pos}). Example: "${item.example}"`
-        };
-      } else {
-        const acceptedEnglish = [item.word];
-        if (item.word.toLowerCase().startsWith("to ")) {
-          acceptedEnglish.push(item.word.slice(3).trim());
-        }
-        return {
-          topic: `${item.topic} • FR → EN`,
-          type: "fill",
-          isVocabTranslation: true,
-          prompt: `Translate from French into English: "${fullFrench}"`,
-          hint: `Part of speech: ${item.pos} • Definition clue: ${cleanEnglishDef}`,
-          answers: acceptedEnglish,
-          explanation: `"${fullFrench}" translates to "${item.word}" (${item.pos}). Example: "${item.example}"`
-        };
-      }
-    }
-  });
-
-  const testTitle =
-    category === "all"
-      ? `Complete Vocabulary Test — All Categories (${generatedQuestions.length} Words)`
-      : `${category} Vocabulary Test (${generatedQuestions.length} Words)`;
-
-  currentSession = {
-    mode: "vocab",
-    topicName: category === "all" ? "Complete Vocabulary Test" : `${category} Vocabulary`,
-    vocabCategory: category,
-    title: testTitle,
-    questions: generatedQuestions,
-    currentIndex: 0,
-    score: 0,
-    answeredCount: 0,
-    userHistory: []
-  };
-
-  launchQuizUI();
-}
-
-/* -------------------- QUIZ ENGINE -------------------- */
+	/* -------------------- QUIZ ENGINE -------------------- */
 
 function launchQuizUI() {
   switchView("quiz");
@@ -9994,12 +10404,23 @@ function renderCurrentQuestion() {
   const total = currentSession.questions.length;
   const q = currentSession.questions[idx];
 
+  const passageBox = document.getElementById("quiz-reading-passage");
+  if (passageBox) {
+    if (q.readingPassage) {
+      passageBox.style.display = "block";
+      document.getElementById("qrp-meta").textContent = q.readingPassage.meta;
+      document.getElementById("qrp-title").innerHTML = q.readingPassage.titleHtml;
+      document.getElementById("qrp-body").innerHTML = q.readingPassage.bodyHtml;
+    } else {
+      passageBox.style.display = "none";
+    }
+  }
+
   // Topbar updates
   document.getElementById("quiz-title-label").textContent = currentSession.title;
-  document.getElementById("quiz-progress-text").textContent = `Question ${idx + 1} of ${total}`;
-  document.getElementById("quiz-score-pill").textContent = `Score: ${currentSession.score} / ${currentSession.answeredCount}`;
-  document.getElementById("quiz-progress-fill").style.width = `${(idx / total) * 100}%`;
-
+  document.getElementById("quiz-progress-text").textContent = "Question " + (idx + 1) + " of " + total;
+  document.getElementById("quiz-score-pill").textContent = "Score: " + currentSession.score + " / " + currentSession.answeredCount;
+  document.getElementById("quiz-progress-fill").style.width = ((idx / total) * 100) + "%";
   // Tags & Prompt
   document.getElementById("q-topic-tag").textContent = q.topic || "General Grammar";
   document.getElementById("q-type-tag").textContent = q.type === "mcq" ? "Multiple Choice" : "Fill in the Blank";
@@ -10381,6 +10802,1983 @@ function shuffleFlashcards() {
   flashcardIndex = 0;
   updateFlashcard();
 }
+/* ============================================================================
+   5. READING COMPREHENSION DATA & ENGINE (ONE-PASTE DROP-IN)
+   ============================================================================ */
+
+const readingArticles = [
+  {
+    id: 1,
+    category: "Fairtrade",
+    level: "B1 / B2 • Press Analysis (Fairtrade & Ethics)",
+    title: "Fairtrade only really benefits supermarkets. A rethink is needed",
+    subtitle: "The movement has honourable intentions, but offers too few benefits to producers of the global south. It’s time to enhance an outdated model",
+    byline: "Ndongo Samba Sylla, The Guardian, 4 Aug 2017",
+    paragraphs: [
+      "In response to the growing demand of citizens in developed countries for quality consumption, the proliferation of “ethical labels” is simply staggering. For some, the purchase and consumption of goods has become a political act. News that Green & Black’s new chocolate bar will be neither organic nor Fairtrade-certified – instead, the beans have been sourced via certified scheme Cocoa Life – has caused controversy, while the world’s biggest Fairtrade retailer, Sainsbury’s, recently came under fire for dropping the Fairtrade label from its own-brand tea.",
+      "Most of these so-called ethical retailers and schemes – Cocoa Life included – are certainly, to my mind, not driven by “ethics”. Fairtrade, at least, was a grassroots movement aiming for changes from below, which is not always the case for the ethical labels used by some supermarkets and retailers. Those who introduce ethical labels just want to position themselves in a growing market and make a profit – and under these conditions, it is not easy for the average consumer to distinguish tares from wheat.",
+      "The Fairtrade (FT) mark is one of the most well-known and respected labels in the world, with an economic model that aims to improve the living conditions of rural producers of the global south in a solidarity approach with consumers in the north. The objective is to facilitate access to the markets of the north, to guarantee them decent prices and to eliminate the “unfair” middlemen exploiting them."
+    ],
+    glossary: {
+      "Fairtrade": "commerce équitable (n.)",
+      "benefits": "profite à / avantages (v./n.)",
+      "supermarkets": "supermarchés (n.)",
+      "rethink": "remise en question / réexamen (n.)",
+      "is": "est (v.)",
+      "needed": "nécessaire / requis (v.)",
+      "movement": "mouvement (n.)",
+      "has": "a (v.)",
+      "intentions": "intentions (n.)",
+      "offers": "offre / propose (v.)",
+      "producers": "producteurs (n.)",
+      "south": "Sud (n.)",
+      "time": "temps / moment (n.)",
+      "enhance": "améliorer / renforcer (v.)",
+      "model": "modèle (n.)",
+      "response": "réponse (n.)",
+      "demand": "demande (n.)",
+      "citizens": "citoyens (n.)",
+      "countries": "pays (n.)",
+      "quality": "qualité (n.)",
+      "consumption": "consommation (n.)",
+      "proliferation": "prolifération / multiplication (n.)",
+      "labels": "labels / étiquettes (n.)",
+      "purchase": "achat (n.)",
+      "goods": "biens / marchandises (n.)",
+      "become": "devenu (v.)",
+      "act": "acte (n.)",
+      "News": "nouvelle / annonce (n.)",
+      "chocolate": "chocolat (n.)",
+      "bar": "tablette / barre (n.)",
+      "will": "(auxiliaire du futur) (v.)",
+      "be": "être (v.)",
+      "beans": "fèves (de cacao) (n.)",
+      "have": "ont (v.)",
+      "been": "été (v.)",
+      "sourced": "approvisionnées / achetées (v.)",
+      "scheme": "programme / dispositif (n.)",
+      "caused": "provoqué / causé (v.)",
+      "controversy": "polémique / controverse (n.)",
+      "world’s": "du monde (n.)",
+      "retailer": "détaillant / distributeur (n.)",
+      "came": "s'est retrouvé (came under fire = essuyer des critiques) (v.)",
+      "fire": "critiques (under fire = sous le feu des critiques) (n.)",
+      "dropping": "abandonner / retirer (v.)",
+      "label": "label / étiquette (n.)",
+      "brand": "marque (n.)",
+      "tea": "thé (n.)",
+      "retailers": "détaillants / enseignes (n.)",
+      "schemes": "programmes / systèmes (n.)",
+      "included": "inclus (v.)",
+      "are": "sont (v.)",
+      "mind": "esprit / avis (to my mind = à mon avis) (n.)",
+      "driven": "motivés / guidés (v.)",
+      "ethics": "éthique / morale (n.)",
+      "was": "était (v.)",
+      "grassroots": "de base / citoyen (n./adj.)",
+      "aiming": "visant (v.)",
+      "changes": "changements (n.)",
+      "case": "cas (n.)",
+      "used": "utilisés (v.)",
+      "introduce": "lancent / introduisent (v.)",
+      "want": "veulent (v.)",
+      "position": "positionner (v.)",
+      "market": "marché (n.)",
+      "make": "faire / réaliser (v.)",
+      "profit": "profit / bénéfice (n.)",
+      "conditions": "conditions (n.)",
+      "consumer": "consommateur (n.)",
+      "distinguish": "distinguer / différencier (v.)",
+      "tares": "ivraie (mauvaise herbe) (n.)",
+      "wheat": "blé (bon grain) (n.)",
+      "mark": "label / marque (n.)",
+      "world": "monde (n.)",
+      "aims": "vise à (v.)",
+      "improve": "améliorer (v.)",
+      "living": "de vie (living conditions = conditions de vie) (n.)",
+      "solidarity": "solidarité (n.)",
+      "approach": "approche / démarche (n.)",
+      "consumers": "consommateurs (n.)",
+      "north": "Nord (n.)",
+      "objective": "objectif (n.)",
+      "facilitate": "faciliter (v.)",
+      "access": "accès (n.)",
+      "markets": "marchés (n.)",
+      "guarantee": "garantir (v.)",
+      "prices": "prix (n.)",
+      "eliminate": "éliminer / supprimer (v.)",
+      "middlemen": "intermédiaires (n.)",
+      "exploiting": "exploitant (v.)"
+    },
+    questions: [
+      {
+        skill: "Main Idea",
+        prompt: "What is the author's main argument regarding Fairtrade and recent ethical labels?",
+        options: [
+          "Fairtrade has good goals, but its current model needs reform while many newer supermarket labels are driven purely by profit.",
+          "Supermarkets have successfully replaced Fairtrade with far more ethical and transparent certification schemes.",
+          "Consumers in developed countries are no longer interested in buying ethical or organic food products.",
+          "Fairtrade should be abolished completely because it prevents rural producers from accessing northern markets."
+        ],
+        answer: "Fairtrade has good goals, but its current model needs reform while many newer supermarket labels are driven purely by profit.",
+        explanationEn: "The subtitle and paragraphs 2–3 state that Fairtrade began as a grassroots movement with 'honourable intentions' that now needs enhancing, whereas most new supermarket schemes are profit-driven rather than driven by ethics.",
+        explanationFr: "Le sous-titre et les paragraphes 2 et 3 expliquent que le commerce équitable a des intentions honorables mais doit être modernisé, tandis que la plupart des nouveaux labels de supermarchés visent avant tout le profit."
+      },
+      {
+        skill: "Detail & Contrast",
+        prompt: "How did Green & Black’s and Sainsbury’s recently provoke controversy?",
+        options: [
+          "Green & Black’s launched a chocolate bar without Fairtrade or organic certification, and Sainsbury’s removed the Fairtrade label from its own-brand tea.",
+          "Both companies raised the price of Fairtrade chocolate and tea while cutting payments to rural farmers.",
+          "Both retailers were accused of falsely printing the Fairtrade mark on uncertified cocoa beans.",
+          "Green & Black’s bought Sainsbury’s tea division to eliminate competition in the ethical market."
+        ],
+        answer: "Green & Black’s launched a chocolate bar without Fairtrade or organic certification, and Sainsbury’s removed the Fairtrade label from its own-brand tea.",
+        explanationEn: "Paragraph 1 explicitly notes that Green & Black's sourced beans via Cocoa Life instead of organic/Fairtrade certification, while Sainsbury's 'came under fire for dropping the Fairtrade label from its own-brand tea.'",
+        explanationFr: "Le paragraphe 1 précise que Green & Black's a utilisé le programme Cocoa Life au lieu de la certification bio/équitable, tandis que Sainsbury's a été critiqué pour avoir retiré le label Fairtrade de son thé."
+      },
+      {
+        skill: "Vocabulary & False Friend",
+        prompt: "In paragraph 1, the author writes that 'the purchase and consumption of goods has become a political act.' Watch out for the French false friend 'goods': what does 'goods' mean here?",
+        options: [
+          "Commercial products and merchandise bought by consumers",
+          "Charitable donations given to rural farmers",
+          "Moral virtues and honourable intentions",
+          "Tax refunds on imported agricultural crops"
+        ],
+        answer: "Commercial products and merchandise bought by consumers",
+        explanationEn: "'Goods' (always plural in this sense) means merchandise or commercial products ('biens / marchandises'), NOT 'good things' or 'bons' (which is a common false-friend trap for French speakers).",
+        explanationFr: "Attention au faux-ami : le nom pluriel « goods » signifie ici « biens » ou « marchandises » (produits commerciaux), et non « les bons » ou « le bien »."
+      },
+      {
+        skill: "Idiomatic Vocabulary in Context",
+        prompt: "What does the idiom 'to distinguish tares from wheat' mean at the end of paragraph 2?",
+        options: [
+          "To tell the difference between genuine ethical initiatives and superficial, profit-driven ones",
+          "To separate organic cocoa beans from conventional tea leaves during harvest",
+          "To calculate whether farmers earn more from wheat or from cash crops",
+          "To compare supermarket prices in developed countries with production costs in the south"
+        ],
+        answer: "To tell the difference between genuine ethical initiatives and superficial, profit-driven ones",
+        explanationEn: "Borrowing from the biblical parable of wheat and weeds ('tares' = ivraie), the author means average shoppers struggle to separate genuinely ethical labels from misleading marketing schemes.",
+        explanationFr: "Issu de l'expression « séparer le bon grain de l'ivraie », cet idiome signifie que le consommateur moyen a du mal à distinguer les vraies démarches éthiques des labels purement commerciaux."
+      },
+      {
+        skill: "Inference",
+        prompt: "What does the author imply about the 'Cocoa Life' scheme used by Green & Black’s?",
+        options: [
+          "Unlike Fairtrade, it was not born from a grassroots movement and is primarily motivated by commercial positioning rather than ethics.",
+          "It guarantees higher minimum prices to rural cocoa producers than the original Fairtrade system.",
+          "It is an independent government agency created to regulate supermarket profit margins.",
+          "It has completely eliminated unfair middlemen from the global chocolate supply chain."
+        ],
+        answer: "Unlike Fairtrade, it was not born from a grassroots movement and is primarily motivated by commercial positioning rather than ethics.",
+        explanationEn: "In paragraph 2, the author writes that 'Most of these so-called ethical retailers and schemes – Cocoa Life included – are certainly, to my mind, not driven by \"ethics\"' and contrasts them with Fairtrade's grassroots origins.",
+        explanationFr: "Au paragraphe 2, l'auteur affirme que la plupart de ces programmes — « Cocoa Life inclus » — ne sont pas motivés par l'éthique, contrairement à Fairtrade qui est né d'un mouvement citoyen."
+      },
+      {
+        skill: "Vocabulary & False Friend",
+        prompt: "In paragraph 3, Fairtrade's objective is to 'guarantee them decent prices and to eliminate the \"unfair\" middlemen exploiting them.' Watch out for the French false friend 'decent': what does 'decent prices' mean?",
+        options: [
+          "Fair, adequate prices that allow farmers to live properly",
+          "Modest, polite, and socially respectful behaviour",
+          "Artificially low prices designed to attract supermarket shoppers",
+          "Temporary promotional discounts on imported goods"
+        ],
+        answer: "Fair, adequate prices that allow farmers to live properly",
+        explanationEn: "In French, 'décent' often evokes modesty or propriety ('convenable / pudique'), whereas in English 'decent' frequently means 'fair, satisfactory, and sufficient to live on' ('prix justes / convenables').",
+        explanationFr: "Faux-ami partiel : en anglais, « decent » signifie ici « juste, suffisant, convenable » (permettant de vivre dignement), et non « pudique » ou « réservé »."
+      },
+      {
+        skill: "Comprehension & Purpose",
+        prompt: "According to paragraph 3, how does Fairtrade’s economic model aim to help rural producers in the global south?",
+        options: [
+          "By improving their market access in the north, ensuring fair prices, and removing exploitative intermediaries",
+          "By encouraging northern consumers to reduce their overall purchase of imported agricultural goods",
+          "By helping large supermarkets create their own private ethical labels",
+          "By subsidizing shipping taxes between southern farms and northern ports"
+        ],
+        answer: "By improving their market access in the north, ensuring fair prices, and removing exploitative intermediaries",
+        explanationEn: "The final sentence of paragraph 3 lists three clear goals: 'to facilitate access to the markets of the north, to guarantee them decent prices and to eliminate the \"unfair\" middlemen exploiting them.'",
+        explanationFr: "La dernière phrase du paragraphe 3 énumère trois objectifs : faciliter l'accès aux marchés du Nord, garantir des prix justes et éliminer les intermédiaires (« middlemen ») qui exploitent les producteurs."
+      }
+    ]
+  },
+{
+    id: 2,
+    category: "Fairtrade",
+    level: "B1 / B2 • Economic Critique (Fairtrade)",
+    title: "The Structural Contradiction of the Fairtrade Economic Model",
+    subtitle: "Why moral criticism alone falls short—and how market competition forces Fairtrade to lower its own standards",
+    byline: "Adapted Press Excerpt • Fairtrade Economics",
+    paragraphs: [
+      "The Fairtrade movement is regularly accused of working with companies that have behaved unethically in the past or that are considered symbols of the unfairness of the international trading system. What is often highlighted is the gulf between the principles of the Fairtrade movement and its practices. This moral criticism, however, is insufficient. Economic criticism from the perspective of producers is needed as well.",
+      "The Fairtrade economic model faces a structural contradiction. On the one hand, if the minimum price for Fairtrade products is high, they may not find outlets. Sales will be low. The economic benefits to producer organisations will also be negligible. On the other hand, if the minimum price of Fairtrade products is \"competitive\", sales may increase but the impact in terms of poverty reduction will be insignificant.",
+      "Besides, due to the fierce competition caused by the proliferation of labels, the Fairtrade movement is induced to \"lower\" its standards – conservative minimum prices, lower requirements in terms of Fairtrade content for composite products, etc. – in the hope of boosting its sales. So, it should not be a surprise that in some contexts, non-Fairtrade producers are better off than comparable FT producers. This kind of hard evidence is often downplayed by the Fairtrade movement."
+    ],
+    glossary: {
+      "Structural": "structurelle (adj.)",
+      "Contradiction": "contradiction (n.)",
+      "Fairtrade": "commerce équitable (n.)",
+      "Economic": "économique (adj.)",
+      "Model": "modèle (n.)",
+      "moral": "morale (adj.)",
+      "criticism": "critique (n.)",
+      "alone": "seule (adv./adj.)",
+      "falls short": "est insuffisante / n'est pas à la hauteur (v.)",
+      "market": "marché (n.)",
+      "competition": "concurrence (n.)",
+      "forces": "oblige / contraint (v.)",
+      "lower": "abaisser / réduire (v.)",
+      "own": "propres (adj.)",
+      "standards": "normes / critères (n.)",
+      "movement": "mouvement (n.)",
+      "regularly": "régulièrement (adv.)",
+      "accused": "accusé (v.)",
+      "companies": "entreprises / sociétés (n.)",
+      "behaved": "comportées (v.)",
+      "unethically": "de manière contraire à l'éthique (adv.)",
+      "past": "passé (n.)",
+      "considered": "considérées (v.)",
+      "symbols": "symboles (n.)",
+      "unfairness": "injustice / caractère inéquitable (n.)",
+      "international": "international (adj.)",
+      "trading": "commercial (adj.)",
+      "system": "système (n.)",
+      "often": "souvent (adv.)",
+      "highlighted": "mis en évidence / souligné (v.)",
+      "gulf": "gouffre / fossé (n.)",
+      "between": "entre (prép.)",
+      "principles": "principes (n.)",
+      "practices": "pratiques (n.)",
+      "however": "cependant / toutefois (adv.)",
+      "insufficient": "insuffisante (adj.)",
+      "perspective": "point de vue / perspective (n.)",
+      "producers": "producteurs (n.)",
+      "needed": "nécessaire (v.)",
+      "as well": "également / aussi (adv.)",
+      "economic": "économique (adj.)",
+      "model": "modèle (n.)",
+      "faces": "fait face à / est confronté à (v.)",
+      "structural": "structurelle (adj.)",
+      "contradiction": "contradiction (n.)",
+      "On the one hand": "d'une part (loc.)",
+      "minimum": "minimum (adj.)",
+      "price": "prix (n.)",
+      "products": "produits (n.)",
+      "high": "élevé (adj.)",
+      "may": "peuvent / risquent de (aux.)",
+      "find": "trouver (v.)",
+      "outlets": "débouchés / points de vente (n.)",
+      "Sales": "ventes (n.)",
+      "low": "faibles / bas (adj.)",
+      "benefits": "avantages / retombées (n.)",
+      "producer": "producteurs (n.)",
+      "organisations": "organisations (n.)",
+      "also": "aussi / également (adv.)",
+      "negligible": "négligeables / minimes (adj.)",
+      "On the other hand": "d'autre part (loc.)",
+      "competitive": "compétitif (adj.)",
+      "sales": "ventes (n.)",
+      "increase": "augmenter (v.)",
+      "impact": "impact / effet (n.)",
+      "in terms of": "en matière de / sur le plan de (loc.)",
+      "poverty": "pauvreté (n.)",
+      "reduction": "réduction (n.)",
+      "insignificant": "insignifiant / dérisoire (adj.)",
+      "Besides": "en outre / par ailleurs (adv.)",
+      "due to": "en raison de / dû à (prép.)",
+      "fierce": "féroce / acharnée (adj.)",
+      "caused": "causée / provoquée (v.)",
+      "proliferation": "prolifération / multiplication (n.)",
+      "labels": "labels / étiquettes (n.)",
+      "induced": "amené / incité (v.)",
+      "conservative": "prudents / modérés (adj.)",
+      "prices": "prix (n.)",
+      "requirements": "exigences / critères (n.)",
+      "content": "teneur / contenu (n.)",
+      "composite": "composés / transformés (adj.)",
+      "hope": "espoir (n.)",
+      "boosting": "stimuler / doper (v.)",
+      "should": "devrait (aux.)",
+      "surprise": "surprise (n.)",
+      "contexts": "contextes (n.)",
+      "better off": "plus aisés / dans une meilleure situation financière (adj.)",
+      "comparable": "comparables (adj.)",
+      "kind": "genre / type (n.)",
+      "hard evidence": "preuves tangibles / données concrètes (n.)",
+      "downplayed": "minimisées / passées sous silence (v.)"
+    },
+    questions: [
+      {
+        skill: "Main Idea",
+        prompt: "What is the central thesis of the passage?",
+        options: [
+          "Fairtrade suffers from a built-in economic dilemma between setting high prices and maintaining strong sales, which weakens its impact.",
+          "Fairtrade should partner exclusively with large multinational corporations to increase its global market share.",
+          "Moral criticism of Fairtrade's corporate partners is the only valid argument against the movement.",
+          "Non-Fairtrade farmers always earn less than certified Fairtrade farmers across every agricultural sector."
+        ],
+        answer: "Fairtrade suffers from a built-in economic dilemma between setting high prices and maintaining strong sales, which weakens its impact.",
+        explanationEn: "Paragraphs 1 and 2 argue that moral criticism is not enough because Fairtrade's economic model faces a 'structural contradiction' between high minimum prices (low sales) and competitive prices (minimal poverty reduction).",
+        explanationFr: "Les paragraphes 1 et 2 expliquent que la critique morale ne suffit pas car le modèle économique du commerce équitable souffre d'une « contradiction structurelle » entre prix élevés (ventes faibles) et prix compétitifs (impact limité sur la pauvreté)."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 1, what does 'the gulf between the principles of the Fairtrade movement and its practices' mean?",
+        options: [
+          "A wide gap or contradiction between Fairtrade's stated ideals and its actual business actions",
+          "A geographical ocean separating northern consumers from southern agricultural producers",
+          "A financial fund created to compensate farmers when global market prices collapse",
+          "A trade agreement signed between ethical retailers and international shipping companies"
+        ],
+        answer: "A wide gap or contradiction between Fairtrade's stated ideals and its actual business actions",
+        explanationEn: "Figuratively, a 'gulf' ('un gouffre / un fossé') refers to a major divide between what an organisation claims to stand for ('principles') and what it actually does ('practices').",
+        explanationFr: "Au sens figuré, « gulf » (« gouffre » ou « fossé ») désigne un écart profond entre les idéaux affichés (« principles ») et les actions réelles (« practices »)."
+      },
+      {
+        skill: "Cause & Effect",
+        prompt: "According to paragraph 2, what happens if Fairtrade sets a high minimum price for its products?",
+        options: [
+          "The products struggle to find buyers, resulting in low sales and minimal financial gain for producer groups.",
+          "Supermarkets immediately replace all conventional brands with certified Fairtrade alternatives.",
+          "Consumer demand increases rapidly because shoppers associate high prices with superior quality.",
+          "Poverty is quickly eliminated in rural farming communities across the developing world."
+        ],
+        answer: "The products struggle to find buyers, resulting in low sales and minimal financial gain for producer groups.",
+        explanationEn: "Paragraph 2 states: 'if the minimum price for Fairtrade products is high, they may not find outlets. Sales will be low. The economic benefits to producer organisations will also be negligible.'",
+        explanationFr: "Le paragraphe 2 indique que si le prix minimum est élevé, les produits risquent de ne pas trouver de débouchés (« outlets »), entraînant des ventes faibles et des bénéfices négligeables."
+      },
+      {
+        skill: "Vocabulary & False Friend",
+        prompt: "In paragraph 3, the text mentions 'conservative minimum prices'. Watch out for the French false friend 'conservative': what does it mean here?",
+        options: [
+          "Cautiously low or modest rather than ambitious",
+          "Politically right-wing or traditionalist",
+          "Preserved with artificial chemical additives",
+          "Strictly enforced by government inspectors"
+        ],
+        answer: "Cautiously low or modest rather than ambitious",
+        explanationEn: "While 'conservateur' in French usually refers to politics or food preservatives, in financial English a 'conservative' figure means a cautious, deliberately low estimate or price.",
+        explanationFr: "Attention au faux-ami : en finance ou économie, « conservative » signifie « prudent, modéré, peu élevé » (et non « conservateur » au sens politique ou alimentaire)."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "How has the proliferation of competing ethical labels affected Fairtrade's standards?",
+        options: [
+          "It has pressured Fairtrade to reduce minimum prices and lower the required Fairtrade content in mixed products.",
+          "It has forced Fairtrade to raise its certification requirements to distinguish itself from rivals.",
+          "It has caused Fairtrade to stop selling composite products such as chocolate bars and biscuits.",
+          "It has eliminated competition between supermarkets and independent producer organisations."
+        ],
+        answer: "It has pressured Fairtrade to reduce minimum prices and lower the required Fairtrade content in mixed products.",
+        explanationEn: "Paragraph 3 explains that fierce competition has induced Fairtrade to lower its standards, including 'conservative minimum prices' and 'lower requirements in terms of Fairtrade content for composite products'.",
+        explanationFr: "Le paragraphe 3 précise que la concurrence acharnée pousse Fairtrade à baisser ses exigences : prix minimums prudents et teneur réduite en ingrédients équitables dans les produits composés."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 3, what does 'composite products' refer to?",
+        options: [
+          "Multi-ingredient processed goods (such as chocolate bars) made from both Fairtrade and non-Fairtrade ingredients",
+          "Raw agricultural crops harvested by a single cooperative without machinery",
+          "Recyclable packaging materials used by ethical supermarkets",
+          "Luxury items exported exclusively to wealthy northern markets"
+        ],
+        answer: "Multi-ingredient processed goods (such as chocolate bars) made from both Fairtrade and non-Fairtrade ingredients",
+        explanationEn: "'Composite products' ('produits composés') are foods made of several ingredients (like cocoa, sugar, and milk) where only a certain percentage needs to be Fairtrade-certified.",
+        explanationFr: "Les « composite products » (« produits composés ») sont des produits transformés contenant plusieurs ingrédients (cacao, sucre, lait…), dont seul un certain pourcentage est certifié équitable."
+      },
+      {
+        skill: "Author's Attitude & Inference",
+        prompt: "What does the author imply at the end of the passage about Fairtrade's communication?",
+        options: [
+          "The movement tends to minimise or ignore concrete data showing that non-certified farmers sometimes fare better.",
+          "Fairtrade regularly publishes transparent studies proving its critics right.",
+          "Independent economists refuse to compare Fairtrade producers with conventional farmers.",
+          "Most consumers are already well aware that non-Fairtrade producers earn higher incomes."
+        ],
+        answer: "The movement tends to minimise or ignore concrete data showing that non-certified farmers sometimes fare better.",
+        explanationEn: "The final sentence states that 'hard evidence' showing non-Fairtrade producers can be better off 'is often downplayed [minimised] by the Fairtrade movement.'",
+        explanationFr: "La dernière phrase souligne que les preuves tangibles (« hard evidence ») montrant que des producteurs non certifiés s'en sortent mieux sont souvent minimisées (« downplayed ») par le mouvement."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "What does the idiom 'better off' mean in the sentence 'non-Fairtrade producers are better off than comparable FT producers'?",
+        options: [
+          "In a more favourable financial or economic position",
+          "More likely to leave the agricultural sector permanently",
+          "Less experienced in international export regulations",
+          "More heavily subsidised by northern charities"
+        ],
+        answer: "In a more favourable financial or economic position",
+        explanationEn: "In English, 'to be better off' means to have more money or be in a better overall situation ('être plus aisé / s'en sortir mieux financièrement').",
+        explanationFr: "L'expression idiomatique « to be better off » signifie « être plus aisé financièrement » ou « s'en sortir mieux »."
+      }
+    ]
+  },
+  {
+    id: 3,
+    category: "Fairtrade",
+    level: "B1 / B2 • In-Depth Analysis (Fairtrade)",
+    title: "Does Fairtrade Really Work? Prices, Oversupply and Certification Costs",
+    subtitle: "Why low sales volumes, colonial crop specialisation and certification fees often cancel out the benefits for coffee and tea farmers",
+    byline: "Adapted Press Report • Development Economics",
+    paragraphs: [
+      "The Fairtrade mark is one of the most well-known and respected labels in the world. Its economic model aims to improve the living conditions of rural producers of the global south in a solidarity approach with consumers in the north. The objective is to guarantee decent prices and to eliminate the \"unfair\" middlemen exploiting the farmers. In the Fairtrade system, growers are paid a minimum price for the products they sell through Fairtrade channels. If the market price rises higher than the minimum price, then growers just receive the market price. If the market price falls below the minimum price, farmers are still guaranteed the minimum when they sell through Fairtrade channels. In order to receive this price, growers must pay to become certified, join a cooperative, and pay \"fair wages\" to coffee laborers.",
+      "The Fairtrade economic model has a structural contradiction. On the one hand, if the minimum price for Fairtrade products is high, producers don't find outlets. Sales will be low. On the other hand, if the minimum price of Fairtrade products is \"competitive\", sales increase but the impact in terms of poverty reduction is insignificant. There is generally more supply than demand for Fairtrade products. Due to fierce competition, Fairtrade cooperatives have to \"lower\" their standards (lower minimum prices, lower standards of production) in the hope of boosting their sales.",
+      "The law of supply and demand says that when demand increases, prices rise. But when supply and competition increase, prices fall. Supply is higher than demand for all Fairtrade products. No one can guarantee that producers can sell all their products under Fairtrade conditions (payment of minimum prices). In 2014, only 28% of Fairtrade coffee was sold in Fairtrade markets. Fairtrade bananas are the bestselling product (56%-64%), while Fairtrade tea is the least sold product (7%). On average, many Fairtrade cooperatives must sell most of their products through non-Fairtrade channels, where they don't receive a minimum price.",
+      "Fairtrade maintains poor countries in a disadvantageous economic specialisation. These countries have specialised in exporting only a few items (coffee, tea, etc.) since colonial times. We should encourage less coffee production, not more. Lower worldwide coffee production brings the most benefit to each grower, because it raises coffee prices. But efforts to pay coffee growers more only stimulate more coffee production. And more coffee production causes lower prices and keeps coffee growers poor. A better approach is to help specialised communities move away from specialisation – through cash grants to start different enterprises, and international sponsorship to help their children obtain better education and other jobs.",
+      "Fairtrade imposes significant costs on poor growers. For example, Fairtrade certification for coffee costs about $0.03 per pound. This doesn't sound like much, but in some years it is greater than the profit farmers make thanks to the higher Fairtrade price. On average, the economic benefits of participating in the fair-trade system are offset by the price the growers have to pay for Fairtrade certification. In other words, the long-term benefit over time from Fairtrade is essentially zero."
+    ],
+    glossary: {
+      "Fairtrade": "commerce équitable (n.)",
+      "Really": "vraiment (adv.)",
+      "Prices": "prix (n.)",
+      "Oversupply": "surproduction / offre excédentaire (n.)",
+      "Certification": "certification (n.)",
+      "Costs": "coûts / frais (n.)",
+      "low": "faibles / bas (adj.)",
+      "sales": "ventes (n.)",
+      "volumes": "volumes (n.)",
+      "colonial": "coloniale (adj.)",
+      "crop": "cultures agricoles (n.)",
+      "specialisation": "spécialisation (n.)",
+      "certification": "certification (n.)",
+      "fees": "frais / cotisations (n.)",
+      "often": "souvent (adv.)",
+      "cancel out": "annulent / compensent (v.)",
+      "benefits": "avantages / bénéfices (n.)",
+      "farmers": "agriculteurs / cultivateurs (n.)",
+      "mark": "label / marque (n.)",
+      "well-known": "connus / réputés (adj.)",
+      "respected": "respectés (adj.)",
+      "labels": "labels / étiquettes (n.)",
+      "world": "monde (n.)",
+      "economic": "économique (adj.)",
+      "model": "modèle (n.)",
+      "aims": "vise à (v.)",
+      "improve": "améliorer (v.)",
+      "living conditions": "conditions de vie (n.)",
+      "rural": "ruraux (adj.)",
+      "producers": "producteurs (n.)",
+      "global": "mondial / du globe (adj.)",
+      "south": "Sud (n.)",
+      "solidarity": "solidarité (n.)",
+      "approach": "approche / démarche (n.)",
+      "consumers": "consommateurs (n.)",
+      "north": "Nord (n.)",
+      "objective": "objectif (n.)",
+      "guarantee": "garantir (v.)",
+      "decent": "justes / convenables (adj.)",
+      "prices": "prix (n.)",
+      "eliminate": "éliminer (v.)",
+      "unfair": "injustes / déloyaux (adj.)",
+      "middlemen": "intermédiaires (n.)",
+      "exploiting": "exploitant (v.)",
+      "system": "système (n.)",
+      "growers": "cultivateurs / producteurs (n.)",
+      "paid": "payés (v.)",
+      "minimum": "minimum (adj.)",
+      "price": "prix (n.)",
+      "products": "produits (n.)",
+      "sell": "vendent (v.)",
+      "through": "via / par l'intermédiaire de (prép.)",
+      "channels": "circuits / filières (n.)",
+      "market": "marché (n.)",
+      "rises": "augmente / monte (v.)",
+      "higher": "plus élevé (adj.)",
+      "than": "que (conj.)",
+      "receive": "reçoivent (v.)",
+      "falls": "chute / baisse (v.)",
+      "below": "en dessous de (prép.)",
+      "still": "toujours / quand même (adv.)",
+      "guaranteed": "garantis (v.)",
+      "In order to": "afin de / pour (loc.)",
+      "become": "devenir (v.)",
+      "certified": "certifiés (adj.)",
+      "join": "rejoindre / adhérer à (v.)",
+      "cooperative": "coopérative (n.)",
+      "fair": "équitables / justes (adj.)",
+      "wages": "salaires (n.)",
+      "laborers": "ouvriers agricoles / travailleurs (n.)",
+      "structural": "structurelle (adj.)",
+      "contradiction": "contradiction (n.)",
+      "On the one hand": "d'une part (loc.)",
+      "high": "élevé (adj.)",
+      "find": "trouvent (v.)",
+      "outlets": "débouchés (n.)",
+      "Sales": "ventes (n.)",
+      "On the other hand": "d'autre part (loc.)",
+      "competitive": "compétitif (adj.)",
+      "increase": "augmentent (v.)",
+      "impact": "impact / effet (n.)",
+      "in terms of": "en matière de (loc.)",
+      "poverty": "pauvreté (n.)",
+      "reduction": "réduction (n.)",
+      "insignificant": "insignifiant (adj.)",
+      "generally": "généralement (adv.)",
+      "supply": "offre (n.)",
+      "demand": "demande (n.)",
+      "Due to": "en raison de (prép.)",
+      "fierce": "féroce (adj.)",
+      "competition": "concurrence (n.)",
+      "cooperatives": "coopératives (n.)",
+      "lower": "abaisser / plus bas (v./adj.)",
+      "standards": "normes / critères (n.)",
+      "production": "production (n.)",
+      "hope": "espoir (n.)",
+      "boosting": "stimuler (v.)",
+      "law": "loi (n.)",
+      "increases": "augmente (v.)",
+      "rise": "montent / augmentent (v.)",
+      "fall": "baissent / chutent (v.)",
+      "Supply": "offre (n.)",
+      "under": "sous / selon (prép.)",
+      "conditions": "conditions (n.)",
+      "payment": "paiement (n.)",
+      "sold": "vendu (v.)",
+      "markets": "marchés (n.)",
+      "bestselling": "le plus vendu (adj.)",
+      "product": "produit (n.)",
+      "while": "tandis que / alors que (conj.)",
+      "least": "moins (adv.)",
+      "On average": "en moyenne (loc.)",
+      "maintains": "maintient (v.)",
+      "poor": "pauvres (adj.)",
+      "countries": "pays (n.)",
+      "disadvantageous": "désavantageuse (adj.)",
+      "specialised": "spécialisés (v./adj.)",
+      "exporting": "exporter (v.)",
+      "few": "quelques (dét.)",
+      "items": "produits / articles (n.)",
+      "since": "depuis (prép.)",
+      "times": "époque / temps (n.)",
+      "should": "devrions (aux.)",
+      "encourage": "encourager (v.)",
+      "less": "moins de (dét.)",
+      "worldwide": "mondiale (adj.)",
+      "brings": "apporte (v.)",
+      "benefit": "avantage / bénéfice (n.)",
+      "each": "chaque (dét.)",
+      "grower": "producteur / cultivateur (n.)",
+      "raises": "fait monter (v.)",
+      "efforts": "efforts (n.)",
+      "stimulate": "stimulent / encouragent (v.)",
+      "causes": "provoque / entraîne (v.)",
+      "keeps": "maintient / garde (v.)",
+      "better": "meilleure (adj.)",
+      "communities": "communautés (n.)",
+      "move away from": "s'éloigner de / sortir de (v.)",
+      "through": "grâce à / par le biais de (prép.)",
+      "cash grants": "subventions en espèces / aides financières (n.)",
+      "enterprises": "entreprises / activités (n.)",
+      "international": "international (adj.)",
+      "sponsorship": "parrainage / financement (n.)",
+      "obtain": "obtenir (v.)",
+      "education": "éducation (n.)",
+      "imposes": "impose (v.)",
+      "significant": "importants / considérables (adj.)",
+      "costs": "coûts (n.)",
+      "For example": "par exemple (loc.)",
+      "about": "environ (adv.)",
+      "per": "par (prép.)",
+      "pound": "livre (unité de poids ≈ 454 g) (n.)",
+      "sound": "paraître / sembler (v.)",
+      "greater": "plus élevé / supérieur (adj.)",
+      "profit": "bénéfice / profit (n.)",
+      "thanks to": "grâce à (prép.)",
+      "participating": "participer (v.)",
+      "fair-trade": "commerce équitable (adj.)",
+      "offset": "compensés / annulés (v.)",
+      "In other words": "autrement dit (loc.)",
+      "long-term": "à long terme (adj.)",
+      "over time": "avec le temps (loc.)",
+      "essentially": "essentiellement / pratiquement (adv.)",
+      "zero": "nul / zéro (adj.)"
+    },
+    questions: [
+      {
+        skill: "Detail & Mechanism",
+        prompt: "Under the Fairtrade pricing system described in paragraph 1, what happens when the global market price rises above the Fairtrade minimum price?",
+        options: [
+          "Growers receive the higher global market price rather than the lower minimum price.",
+          "Growers still only receive the fixed Fairtrade minimum price, while cooperatives keep the difference.",
+          "Growers must pay an extra certification surcharge to benefit from the market increase.",
+          "Supermarkets suspend Fairtrade purchases until the global market price drops again."
+        ],
+        answer: "Growers receive the higher global market price rather than the lower minimum price.",
+        explanationEn: "Paragraph 1 explicitly states: 'If the market price rises higher than the minimum price, then growers just receive the market price.'",
+        explanationFr: "Le paragraphe 1 précise : « Si le prix du marché dépasse le prix minimum, les cultivateurs reçoivent tout simplement le prix du marché. »"
+      },
+      {
+        skill: "Data & Statistics",
+        prompt: "According to paragraph 3, why do most Fairtrade cooperatives fail to receive the guaranteed minimum price for their entire harvest?",
+        options: [
+          "Supply exceeds demand, forcing cooperatives to sell the majority of their crops through conventional non-Fairtrade channels.",
+          "Only 7% of Fairtrade bananas and 28% of Fairtrade tea meet international quality inspections.",
+          "Consumers in northern countries refuse to buy Fairtrade coffee unless it is discounted.",
+          "Middlemen legally block cooperatives from selling more than half of their harvest under Fairtrade terms."
+        ],
+        answer: "Supply exceeds demand, forcing cooperatives to sell the majority of their crops through conventional non-Fairtrade channels.",
+        explanationEn: "Paragraph 3 explains that because 'supply is higher than demand for all Fairtrade products' (e.g., only 28% of FT coffee and 7% of FT tea is sold on FT markets), cooperatives must sell most of their output via regular channels.",
+        explanationFr: "Le paragraphe 3 montre que l'offre dépasse la demande (seuls 28 % du café et 7 % du thé équitables trouvent preneur sur le marché équitable), obligeant les coopératives à écouler le reste via les circuits classiques."
+      },
+      {
+        skill: "Economic Logic",
+        prompt: "Why does the author argue in paragraph 4 that paying coffee growers higher prices can actually keep them poor?",
+        options: [
+          "Higher prices encourage farmers to produce even more coffee, creating global oversupply that drives prices back down.",
+          "Higher prices force developing countries to import expensive agricultural machinery from Europe.",
+          "Higher prices cause consumers to switch permanently from drinking coffee to drinking tea.",
+          "Higher prices make farmers ineligible for international educational sponsorships."
+        ],
+        answer: "Higher prices encourage farmers to produce even more coffee, creating global oversupply that drives prices back down.",
+        explanationEn: "Paragraph 4 outlines a vicious cycle: 'efforts to pay coffee growers more only stimulate more coffee production. And more coffee production causes lower prices and keeps coffee growers poor.'",
+        explanationFr: "Le paragraphe 4 décrit un cercle vicieux : payer davantage les producteurs stimule la production de café, ce qui provoque une baisse des prix mondiaux et maintient les cultivateurs dans la pauvreté."
+      },
+      {
+        skill: "Alternative Solutions",
+        prompt: "What alternative does the author propose in paragraph 4 to help agricultural communities escape poverty?",
+        options: [
+          "Providing cash grants to launch new businesses and funding education so children can access different careers.",
+          "Increasing Fairtrade minimum prices by 50% across all former colonial cash crops.",
+          "Banning non-Fairtrade tea and coffee imports into northern supermarkets.",
+          "Encouraging rural farmers to double their coffee harvests to offset lower market prices."
+        ],
+        answer: "Providing cash grants to launch new businesses and funding education so children can access different careers.",
+        explanationEn: "The end of paragraph 4 recommends helping communities move away from colonial-era single-crop specialisation 'through cash grants to start different enterprises, and international sponsorship to help their children obtain better education and other jobs.'",
+        explanationFr: "La fin du paragraphe 4 préconise d'aider les communautés à sortir de la monoculture grâce à des subventions pour créer d'autres entreprises et au financement de l'éducation des enfants."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 5, the author writes that 'the economic benefits ... are offset by the price the growers have to pay for Fairtrade certification.' What does 'offset' mean here?",
+        options: [
+          "Cancelled out or neutralised by an equal opposite cost",
+          "Doubled through government matching funds",
+          "Delayed until the following harvest season",
+          "Reimbursed automatically by northern consumers"
+        ],
+        answer: "Cancelled out or neutralised by an equal opposite cost",
+        explanationEn: "To 'offset' ('compenser / annuler') means that one amount counterbalances another, leaving a net result of zero.",
+        explanationFr: "Le verbe « offset » signifie ici « compenser » ou « annuler » : les frais de certification annulent les gains obtenus grâce au prix équitable."
+      },
+      {
+        skill: "Quantitative Reasoning",
+        prompt: "What conclusion does paragraph 5 draw about the $0.03 per pound certification fee for Fairtrade coffee?",
+        options: [
+          "Over time, certification costs eat up the extra revenue from Fairtrade prices, leaving growers with virtually zero net gain.",
+          "The fee is negligible and is always paid by northern supermarkets rather than farmers.",
+          "Growers only pay the $0.03 fee in years when global coffee prices hit record highs.",
+          "Paying the fee guarantees that 100% of a farmer's coffee will be sold at Fairtrade prices."
+        ],
+        answer: "Over time, certification costs eat up the extra revenue from Fairtrade prices, leaving growers with virtually zero net gain.",
+        explanationEn: "Paragraph 5 states that in some years the $0.03/lb fee exceeds the extra profit made from Fairtrade prices, meaning 'the long-term benefit over time from Fairtrade is essentially zero.'",
+        explanationFr: "Le paragraphe 5 conclut que le coût de certification (0,03 $/livre) dépasse parfois le gain lié au prix équitable, rendant le bénéfice net à long terme quasi nul."
+      },
+      {
+        skill: "Vocabulary & False Friend",
+        prompt: "In paragraph 1, growers must pay 'fair wages to coffee laborers'. Watch out for the French false friend 'laborers': what does 'laborers' mean?",
+        options: [
+          "Manual or agricultural workers paid to do physical work",
+          "Farmers who own large multinational plantations",
+          "Scientific researchers working in agricultural laboratories",
+          "Government inspectors who verify Fairtrade labels"
+        ],
+        answer: "Manual or agricultural workers paid to do physical work",
+        explanationEn: "Despite resembling 'laboureur' (ploughman), English 'laborers' ('ouvriers / travailleurs manuels') refers broadly to paid manual workers—here, hired farm workers.",
+        explanationFr: "Attention au faux-ami partiel : « laborers » ne désigne pas uniquement des « laboureurs », mais l'ensemble des « ouvriers agricoles » ou « travailleurs manuels »."
+      },
+      {
+        skill: "Overall Tone",
+        prompt: "Which phrase best describes the author's overall tone across the five sections?",
+        options: [
+          "Sceptical and analytical, questioning whether Fairtrade's economics truly help farmers",
+          "Enthusiastic and promotional, urging shoppers to buy more Fairtrade goods",
+          "Indifferent and neutral, avoiding any judgement on poverty reduction",
+          "Satirical and humorous, mocking consumers in developed countries"
+        ],
+        answer: "Sceptical and analytical, questioning whether Fairtrade's economics truly help farmers",
+        explanationEn: "While acknowledging Fairtrade's reputation in paragraph 1, the author uses economic data (28% coffee, 7% tea, $0.03 fee) to argue systematically that the model fails farmers.",
+        explanationFr: "Tout en reconnaissant la notoriété du label, l'auteur adopte un ton analytique et sceptique, s'appuyant sur des chiffres pour démontrer les limites économiques du système."
+      }
+    ]
+  },
+  {
+    id: 4,
+    category: "Fairtrade",
+    level: "B1 • Informative & Persuasive (Fairtrade)",
+    title: "How Fairtrade Empowers Farmers and Transforms Rural Communities",
+    subtitle: "From the Fairtrade Premium to fundamental human rights: the case for paying a fair price for global agriculture",
+    byline: "Adapted Educational Text • Global Trade & Human Rights",
+    paragraphs: [
+      "Fairtrade is a project that helps to reduce poverty in developing countries where local workers participate in world trade. Fairtrade ensures workers receive a fair and stable price, and an additional amount of money called the Fairtrade Premium. They decide how to invest this money in their businesses and communities.",
+      "Fairtrade products are a little more expensive than other products. But when you buy Fairtrade, you are fair to workers in developing countries. You help people who work very hard to support themselves, their families and their local communities. It supports producers so that they can continue to trade and grow in today's market.",
+      "Fairtrade helps people in developing countries. It gives them power to sell their produce for a fair price. Therefore, their businesses can grow. Local communities can also benefit because farmers can invest in things such as food, clean water, health care and education.",
+      "Farming is the largest employer in the world. It is a source of income for 40% of today's global population and often provides jobs for poor rural households. But farmers are exploited by powerful corporations. Many farmers do not receive a fair price for what they produce. Workers do not receive a fair wage and are denied labour, economic, social, civil and political rights."
+    ],
+    glossary: {
+      "Fairtrade": "commerce équitable (n.)",
+      "Empowers": "donne du pouvoir / autonomise (v.)",
+      "Farmers": "agriculteurs (n.)",
+      "Transforms": "transforme (v.)",
+      "Rural": "rurales (adj.)",
+      "Communities": "communautés (n.)",
+      "Premium": "prime (n.)",
+      "fundamental": "fondamentaux (adj.)",
+      "human rights": "droits humains / droits de l'homme (n.)",
+      "case": "plaidoyer / arguments en faveur de (n.)",
+      "paying": "payer (v.)",
+      "fair": "équitable / juste (adj.)",
+      "price": "prix (n.)",
+      "global": "mondiale (adj.)",
+      "agriculture": "agriculture (n.)",
+      "project": "projet (n.)",
+      "helps": "aide (v.)",
+      "reduce": "réduire (v.)",
+      "poverty": "pauvreté (n.)",
+      "developing": "en développement (adj.)",
+      "countries": "pays (n.)",
+      "local": "locaux (adj.)",
+      "workers": "travailleurs (n.)",
+      "participate": "participent (v.)",
+      "world trade": "commerce mondial (n.)",
+      "ensures": "garantit / assure (v.)",
+      "receive": "reçoivent (v.)",
+      "stable": "stable (adj.)",
+      "additional": "supplémentaire (adj.)",
+      "amount": "montant / somme (n.)",
+      "called": "appelé (v.)",
+      "decide": "décident (v.)",
+      "invest": "investir (v.)",
+      "businesses": "entreprises / exploitations (n.)",
+      "communities": "communautés (n.)",
+      "products": "produits (n.)",
+      "expensive": "chers (adj.)",
+      "than": "que (conj.)",
+      "hard": "dur / durement (adv.)",
+      "support": "subvenir aux besoins de / soutenir (v.)",
+      "themselves": "eux-mêmes (pron.)",
+      "families": "familles (n.)",
+      "supports": "soutient (v.)",
+      "producers": "producteurs (n.)",
+      "continue": "continuer (v.)",
+      "trade": "commercer / vendre (v.)",
+      "grow": "se développer / croître (v.)",
+      "market": "marché (n.)",
+      "power": "pouvoir / capacité (n.)",
+      "sell": "vendre (v.)",
+      "produce": "produits agricoles / récoltes (n.)",
+      "Therefore": "par conséquent / donc (adv.)",
+      "also": "aussi / également (adv.)",
+      "benefit": "en bénéficier / profiter (v.)",
+      "farmers": "agriculteurs (n.)",
+      "things": "choses / domaines (n.)",
+      "such as": "tels que / comme (loc.)",
+      "clean water": "eau potable (n.)",
+      "health care": "soins de santé (n.)",
+      "education": "éducation (n.)",
+      "Farming": "agriculture (n.)",
+      "largest": "plus grand (adj.)",
+      "employer": "employeur (n.)",
+      "world": "monde (n.)",
+      "source": "source (n.)",
+      "income": "revenus (n.)",
+      "population": "population (n.)",
+      "often": "souvent (adv.)",
+      "provides": "fournit (v.)",
+      "jobs": "emplois (n.)",
+      "poor": "pauvres (adj.)",
+      "rural": "ruraux (adj.)",
+      "households": "ménages / foyers (n.)",
+      "exploited": "exploités (v.)",
+      "powerful": "puissantes (adj.)",
+      "corporations": "multinationales / grandes entreprises (n.)",
+      "wage": "salaire (n.)",
+      "denied": "privés de / refusés (v.)",
+      "labour": "du travail / syndicaux (adj.)",
+      "economic": "économiques (adj.)",
+      "social": "sociaux (adj.)",
+      "civil": "civiques / civils (adj.)",
+      "political": "politiques (adj.)",
+      "rights": "droits (n.)"
+    },
+    questions: [
+      {
+        skill: "Main Idea",
+        prompt: "What is the primary purpose of this text?",
+        options: [
+          "To explain how Fairtrade supports farmers in developing countries and why consumers should buy Fairtrade products",
+          "To prove that Fairtrade certification fees bankrupt small agricultural cooperatives",
+          "To compare the taste and quality of Fairtrade food with conventional supermarket brands",
+          "To argue that developing countries should stop exporting agricultural products altogether"
+        ],
+        answer: "To explain how Fairtrade supports farmers in developing countries and why consumers should buy Fairtrade products",
+        explanationEn: "Across all four paragraphs, the text highlights how Fairtrade reduces poverty, funds community projects, and protects farmers from corporate exploitation.",
+        explanationFr: "Tout au long des quatre paragraphes, le texte explique comment le commerce équitable réduit la pauvreté, finance des projets communautaires et protège les agriculteurs contre l'exploitation."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "What is the 'Fairtrade Premium' mentioned in paragraph 1?",
+        options: [
+          "An extra sum of money paid on top of the fair price, which workers themselves choose how to invest",
+          "A higher retail tax charged to consumers who purchase imported luxury foods",
+          "A penalty fee paid by corporations that violate workers' labour rights",
+          "An annual membership subscription paid by shoppers in developed countries"
+        ],
+        answer: "An extra sum of money paid on top of the fair price, which workers themselves choose how to invest",
+        explanationEn: "Paragraph 1 defines the Fairtrade Premium as 'an additional amount of money' that workers receive and 'decide how to invest ... in their businesses and communities.'",
+        explanationFr: "Le paragraphe 1 définit la prime équitable (« Fairtrade Premium ») comme une somme supplémentaire que les travailleurs décident eux-mêmes d'investir dans leurs exploitations et leurs communautés."
+      },
+      {
+        skill: "Community Impact",
+        prompt: "According to paragraph 3, what specific areas do farmers invest in when their communities benefit from Fairtrade?",
+        options: [
+          "Food, clean water, health care, and education",
+          "International advertising campaigns and supermarket chains",
+          "Industrial factories and urban real estate",
+          "Political lobbying in developed countries"
+        ],
+        answer: "Food, clean water, health care, and education",
+        explanationEn: "Paragraph 3 explicitly lists: 'farmers can invest in things such as food, clean water, health care and education.'",
+        explanationFr: "Le paragraphe 3 cite précisément ces quatre domaines : l'alimentation (« food »), l'eau potable (« clean water »), les soins de santé (« health care ») et l'éducation (« education »)."
+      },
+      {
+        skill: "Data & Global Context",
+        prompt: "What statistic does paragraph 4 provide to show the global importance of farming?",
+        options: [
+          "Farming is the world's largest employer and provides income for 40% of the global population.",
+          "40% of all agricultural products worldwide are currently Fairtrade-certified.",
+          "Powerful corporations employ 40% of rural households in developing countries.",
+          "Fairtrade increases farm workers' wages by an average of 40%."
+        ],
+        answer: "Farming is the world's largest employer and provides income for 40% of the global population.",
+        explanationEn: "Paragraph 4 states: 'Farming is the largest employer in the world. It is a source of income for 40% of today's global population'.",
+        explanationFr: "Le paragraphe 4 précise que l'agriculture est le premier employeur mondial et constitue une source de revenus pour 40 % de la population mondiale."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 3, 'It gives them power to sell their produce for a fair price.' What does the noun 'produce' mean here?",
+        options: [
+          "Agricultural crops and farm goods grown for sale",
+          "Industrial machinery used in food factories",
+          "Financial profits earned at the end of the year",
+          "Legal contracts signed with international buyers"
+        ],
+        answer: "Agricultural crops and farm goods grown for sale",
+        explanationEn: "Pronounced /ˈprɒdjuːs/ (stress on the first syllable), the uncountable noun 'produce' means fresh agricultural products ('produits agricoles / récoltes').",
+        explanationFr: "En tant que nom indénombrable (accentué sur la première syllabe), « produce » désigne les « produits agricoles » ou les « récoltes »."
+      },
+      {
+        skill: "Vocabulary & False Friend",
+        prompt: "In paragraph 4, 'farmers are exploited by powerful corporations'. Watch out for the French false friend 'corporations': what does it mean in English?",
+        options: [
+          "Large commercial companies or multinationals",
+          "Local trade guilds and artisan associations",
+          "Charitable non-profit aid organisations",
+          "Rural village councils run by farmers"
+        ],
+        answer: "Large commercial companies or multinationals",
+        explanationEn: "In French, 'une corporation' means a trade guild or professional body, whereas in English a 'corporation' means a large business company or multinational ('une grande entreprise / une multinationale').",
+        explanationFr: "Attention au faux-ami : en anglais, « corporation » signifie « grande entreprise » ou « multinationale » (et non une « corporation » de métier comme en français)."
+      },
+      {
+        skill: "Comparison Across Texts",
+        prompt: "How does this article's perspective differ from the two preceding articles in the Fairtrade category?",
+        options: [
+          "It presents a positive, supportive view of Fairtrade's benefits, whereas the previous articles focus on economic flaws and contradictions.",
+          "It argues that Fairtrade prices are too high for farmers, whereas the previous articles claim prices are too low.",
+          "It focuses exclusively on chocolate and tea retailers in the UK, whereas the previous articles ignore specific crops.",
+          "It opposes consumer participation in world trade, whereas the previous articles encourage global shopping."
+        ],
+        answer: "It presents a positive, supportive view of Fairtrade's benefits, whereas the previous articles focus on economic flaws and contradictions.",
+        explanationEn: "Unlike Articles 1–3 (which critique oversupply, certification costs, and supermarket greenwashing), Article 4 advocates for Fairtrade as an effective tool against poverty and corporate exploitation.",
+        explanationFr: "Contrairement aux articles précédents qui critiquent les contradictions économiques et les coûts de certification, cet article défend le commerce équitable comme un levier positif contre la pauvreté."
+      }
+    ]
+  },
+{
+    id: 5,
+    category: "Sustainability",
+    level: "A2 / B1 / B2 • Interactive Gap-Fill + Quiz (Sustainability)",
+    title: "What is Sustainable Living? 14 Easy Ways to Reduce Your Footprint",
+    subtitle: "Match the 14 action headings (a–n) directly inside the guide, hover over any A2–C2 word for French help, and test your comprehension",
+    byline: "Adapted Eco-Living Guide • Sustainability Basics",
+    blankChoices: [
+      "a. Walk, bike, car pool or use public transport",
+      "b. Change the lights in your house",
+      "c. Become a member of a community garden",
+      "d. Choose renewable energy",
+      "e. Change your washing habits",
+      "f. Start using natural cleaners",
+      "g. Practice minimalism",
+      "h. Unplug devices when not in use",
+      "i. Spend more time reading and playing games",
+      "j. Have a more natural sleep schedule",
+      "k. Ditch the plastic",
+      "l. Reduce, Reuse and Recycle",
+      "m. Buy products with less packaging",
+      "n. Buy sustainable products"
+    ],
+    blanks: {
+      "1": "c",
+      "2": "g",
+      "3": "b",
+      "4": "f",
+      "5": "a",
+      "6": "i",
+      "7": "j",
+      "8": "l",
+      "9": "h",
+      "10": "e",
+      "11": "d",
+      "12": "m",
+      "13": "k",
+      "14": "n"
+    },
+    paragraphs: [
+      "We all know that climate change, global warming, and resource depletion are real. Their impact on human and animal lives is terrible. Sustainable living helps to reduce our carbon footprint or environmental impact by changing our lifestyle. Sustainable living is reducing your demand on natural resources. Simple changes help make this planet a cleaner and safer place. Here are 14 quick and easy suggestions to live a sustainable life.",
+      "1. [BLANK_1] : Have fun and grow your own food! Gardens create green spaces and the garden waste can be composted. Green spaces are good for your state of mind. In cities they can help offset carbon emissions.",
+      "2. [BLANK_2] : Make sure that everything you own is used to its maximum effect, even waste materials. With a minimalist lifestyle, you will recycle more, and think about what you buy. Ask yourself: Do I really need this?",
+      "3. [BLANK_3] : Change from traditional light bulbs and buy longer lasting, energy efficient light bulbs. This reduces the amount of waste going into landfills. Use more natural light to reduce your demand on energy resources.",
+      "4. [BLANK_4] : Research some home-made options for natural cleaners. Vinegar and water can clean most surfaces. Natural cleaners reduce the amount of plastic packaging, and the amount of chemicals that are introduced to the water system.",
+      "5. [BLANK_5] : Use your car less often to reduce your reliance on fossil fuels. Use public transportation more often and reduce pollution. Walking or biking to work will also improve your health. Even car-pooling assists sustainability.",
+      "6. [BLANK_6] : Reduce your dependence on entertainment forms that require electricity and you can help to reduce the demand on natural resources.",
+      "7. [BLANK_7] : A natural sleep schedule means you use more natural light in the day. This is better for your health, and will lessen the amount of electricity that you use. Sunlight doesn't cost anything.",
+      "8. [BLANK_8] : Don't buy as many new products. Learn to reuse items. Keep a recycling bin at your home.",
+      "9. [BLANK_9] : Most of the electronic devices draw electricity even when they're off. To reduce energy usage, simply pull the plug when not in use.",
+      "10. [BLANK_10] : We wash everything too much. Science has discovered that our emphasis on being clean has reduced our natural immune resistance to diseases. We waste massive amounts of water when we bathe, wash dishes or do laundry. Take short showers, and save water when you can.",
+      "11. [BLANK_11] : Choosing renewable energy over fossil fuels is a great way to stop climate change and install solar panels for solar water heating.",
+      "12. [BLANK_12] : Always buy products with less packaging. Excess packaging goes in your dustbin and from there it goes to landfills. It contaminates the environment and poses serious health effects to humans and animals.",
+      "13. [BLANK_13] : Plastic takes millions of years to decompose. It badly affects the oceans and a large number of mammals, seals, sea birds. Switch to reusable bags when we shop and ditch one-time use plastic water bottles.",
+      "14. [BLANK_14] : Think about where the products at the supermarket come from. Choose fairtrade coffee and chocolate to make life fairer for farmers. Buy local, organic fruit and vegetables to reduce carbon emissions and the use of toxic chemicals in farming."
+    ],
+    glossary: {
+      "Sustainable": "durable / écologique (adj.)",
+      "Living": "mode de vie (n.)",
+      "Easy": "faciles (adj.)",
+      "Ways": "façons / moyens (n.)",
+      "Reduce": "réduire (v.)",
+      "Footprint": "empreinte (n.)",
+      "climate change": "changement climatique (n.)",
+      "global warming": "réchauffement climatique (n.)",
+      "resource": "ressource (n.)",
+      "depletion": "épuisement / raréfaction (n.)",
+      "real": "réels (adj.)",
+      "impact": "impact / effet (n.)",
+      "human": "humaines (adj.)",
+      "lives": "vies (n.)",
+      "terrible": "terrible / désastreux (adj.)",
+      "helps": "aide à (v.)",
+      "reduce": "réduire (v.)",
+      "carbon footprint": "empreinte carbone (n.)",
+      "environmental": "environnemental (adj.)",
+      "changing": "changeant (v.)",
+      "lifestyle": "mode de vie (n.)",
+      "reducing": "réduire (v.)",
+      "demand": "demande / consommation (n.)",
+      "natural": "naturelles (adj.)",
+      "resources": "ressources (n.)",
+      "Simple": "simples (adj.)",
+      "changes": "changements (n.)",
+      "planet": "planète (n.)",
+      "cleaner": "plus propre (adj.)",
+      "safer": "plus sûr (adj.)",
+      "quick": "rapides (adj.)",
+      "suggestions": "suggestions / conseils (n.)",
+      "sustainable": "durable (adj.)",
+      "grow": "cultiver / faire pousser (v.)",
+      "own": "propre (adj.)",
+      "Gardens": "jardins (n.)",
+      "create": "créent (v.)",
+      "green spaces": "espaces verts (n.)",
+      "waste": "déchets (n.)",
+      "composted": "compostés (v.)",
+      "state of mind": "état d'esprit / bien-être mental (n.)",
+      "cities": "villes (n.)",
+      "offset": "compenser (v.)",
+      "carbon emissions": "émissions de carbone (n.)",
+      "everything": "tout (pron.)",
+      "used": "utilisé (v.)",
+      "maximum": "maximum (adj.)",
+      "effect": "effet / efficacité (n.)",
+      "even": "même (adv.)",
+      "materials": "matériaux (n.)",
+      "minimalist": "minimaliste (adj.)",
+      "recycle": "recycler (v.)",
+      "yourself": "toi-même / vous-même (pron.)",
+      "really": "vraiment (adv.)",
+      "traditional": "traditionnelles (adj.)",
+      "light bulbs": "ampoules électriques (n.)",
+      "longer lasting": "plus durables / à plus longue durée de vie (adj.)",
+      "energy efficient": "économes en énergie (adj.)",
+      "reduces": "réduit (v.)",
+      "amount": "quantité (n.)",
+      "landfills": "décharges (n.)",
+      "light": "lumière (n.)",
+      "energy": "énergie (n.)",
+      "Research": "recherchez (v.)",
+      "home-made": "faits maison (adj.)",
+      "options": "options / solutions (n.)",
+      "cleaners": "produits nettoyants (n.)",
+      "Vinegar": "vinaigre (n.)",
+      "clean": "nettoyer (v.)",
+      "surfaces": "surfaces (n.)",
+      "plastic": "plastique (n./adj.)",
+      "packaging": "emballage (n.)",
+      "chemicals": "produits chimiques (n.)",
+      "introduced": "introduits / rejetés (v.)",
+      "system": "réseau / système (n.)",
+      "less": "moins (adv.)",
+      "often": "souvent (adv.)",
+      "reliance": "dépendance (n.)",
+      "fossil fuels": "combustibles fossiles (n.)",
+      "public transportation": "transports en commun (n.)",
+      "pollution": "pollution (n.)",
+      "Walking": "marcher (v.)",
+      "biking": "faire du vélo (v.)",
+      "improve": "améliorer (v.)",
+      "health": "santé (n.)",
+      "car-pooling": "covoiturage (n.)",
+      "assists": "favorise / aide (v.)",
+      "sustainability": "durabilité (n.)",
+      "dependence": "dépendance (n.)",
+      "entertainment": "divertissement (n.)",
+      "forms": "formes (n.)",
+      "require": "nécessitent / demandent (v.)",
+      "electricity": "électricité (n.)",
+      "schedule": "rythme / horaire (n.)",
+      "means": "signifie (v.)",
+      "lessen": "diminuer / réduire (v.)",
+      "Sunlight": "lumière du soleil (n.)",
+      "cost": "coûter (v.)",
+      "anything": "rien (pron.)",
+      "reuse": "réutiliser (v.)",
+      "items": "objets / articles (n.)",
+      "recycling bin": "poubelle de recyclage (n.)",
+      "electronic": "électroniques (adj.)",
+      "devices": "appareils (n.)",
+      "draw": "consomment / tirent (v.)",
+      "off": "éteints (adj.)",
+      "usage": "consommation / utilisation (n.)",
+      "simply": "simplement (adv.)",
+      "pull the plug": "débrancher la prise (loc.)",
+      "in use": "utilisés / en marche (loc.)",
+      "Science": "science (n.)",
+      "discovered": "découvert (v.)",
+      "emphasis": "importance accordée / accent mis (n.)",
+      "immune": "immunitaire (adj.)",
+      "resistance": "résistance (n.)",
+      "diseases": "maladies (n.)",
+      "massive": "énormes / massives (adj.)",
+      "amounts": "quantités (n.)",
+      "bathe": "prendre un bain (v.)",
+      "dishes": "vaisselle (n.)",
+      "laundry": "lessive / linge (n.)",
+      "showers": "douches (n.)",
+      "save": "économiser (v.)",
+      "Choosing": "choisir (v.)",
+      "renewable": "renouvelable (adj.)",
+      "over": "plutôt que (prép.)",
+      "great": "excellente (adj.)",
+      "install": "installer (v.)",
+      "solar panels": "panneaux solaires (n.)",
+      "heating": "chauffage (n.)",
+      "Always": "toujours (adv.)",
+      "Excess": "excès de / superflu (n./adj.)",
+      "dustbin": "poubelle (n.)",
+      "contaminates": "contamine / pollue (v.)",
+      "environment": "environnement (n.)",
+      "poses": "présente / pose (v.)",
+      "serious": "graves / sérieux (adj.)",
+      "effects": "effets (n.)",
+      "millions": "millions (n.)",
+      "decompose": "se décomposer (v.)",
+      "badly": "gravement (adv.)",
+      "affects": "affecte / nuit à (v.)",
+      "oceans": "océans (n.)",
+      "mammals": "mammifères (n.)",
+      "seals": "phoques (n.)",
+      "sea birds": "oiseaux marins (n.)",
+      "Switch": "passer à / changer pour (v.)",
+      "reusable": "réutilisables (adj.)",
+      "bags": "sacs (n.)",
+      "ditch": "abandonner / supprimer (v.)",
+      "one-time use": "à usage unique (adj.)",
+      "fairtrade": "équitable (adj.)",
+      "fairer": "plus juste (adj.)",
+      "farmers": "agriculteurs (n.)",
+      "local": "locaux (adj.)",
+      "organic": "biologiques (adj.)",
+      "toxic": "toxiques (adj.)",
+      "farming": "agriculture (n.)"
+    },
+    questions: [
+      {
+        skill: "A2 • Basic Detail",
+        prompt: "[A2] According to the introduction, what is sustainable living?",
+        options: [
+          "Reducing your demand on natural resources by changing your lifestyle",
+          "Buying more electronic devices to save time at home",
+          "Moving away from cities to live on a farm",
+          "Using more fossil fuels to heat your house in winter"
+        ],
+        answer: "Reducing your demand on natural resources by changing your lifestyle",
+        explanationEn: "The first paragraph clearly states: 'Sustainable living helps to reduce our carbon footprint ... by changing our lifestyle. Sustainable living is reducing your demand on natural resources.'",
+        explanationFr: "Le premier paragraphe indique clairement : « Vivre de façon durable consiste à réduire votre demande en ressources naturelles en changeant votre mode de vie. »"
+      },
+      {
+        skill: "A2 • Everyday Habits",
+        prompt: "[A2] In tip 4, which two simple ingredients can clean most surfaces at home?",
+        options: [
+          "Vinegar and water",
+          "Soap and plastic",
+          "Lemon juice and oil",
+          "Compost and soil"
+        ],
+        answer: "Vinegar and water",
+        explanationEn: "Tip 4 says: 'Vinegar and water can clean most surfaces.'",
+        explanationFr: "Le conseil n° 4 précise : « Le vinaigre et l'eau peuvent nettoyer la plupart des surfaces. »"
+      },
+      {
+        skill: "A2 • Transport & Health",
+        prompt: "[A2] According to tip 5, what are two benefits of walking or biking to work?",
+        options: [
+          "It reduces pollution and improves your health.",
+          "It increases your electricity bill and saves water.",
+          "It creates green spaces and produces compost.",
+          "It helps plastic decompose faster in the ocean."
+        ],
+        answer: "It reduces pollution and improves your health.",
+        explanationEn: "Tip 5 explains that using your car less reduces pollution and 'Walking or biking to work will also improve your health.'",
+        explanationFr: "Le conseil n° 5 explique que marcher ou faire du vélo pour aller travailler réduit la pollution et améliore la santé."
+      },
+      {
+        skill: "A2 • Energy Saving",
+        prompt: "[A2] Why should you unplug electronic devices when you are not using them (tip 9)?",
+        options: [
+          "Because most electronic devices still use electricity even when they are turned off",
+          "Because unplugging them makes them last ten years longer",
+          "Because devices contaminate the water system when left plugged in",
+          "Because solar panels only work when devices are unplugged"
+        ],
+        answer: "Because most electronic devices still use electricity even when they are turned off",
+        explanationEn: "Tip 9 states: 'Most of the electronic devices draw electricity even when they're off.'",
+        explanationFr: "Le conseil n° 9 explique que la plupart des appareils électroniques consomment de l'électricité même lorsqu'ils sont éteints."
+      },
+      {
+        skill: "B1 • Urban Ecology",
+        prompt: "[B1] How do community gardens help people living in cities (tip 1)?",
+        options: [
+          "They create green spaces that improve mental well-being and help offset carbon emissions.",
+          "They replace all local supermarkets and eliminate the need for organic farming.",
+          "They generate solar electricity for nearby apartment buildings.",
+          "They prevent rainwater from entering the municipal water system."
+        ],
+        answer: "They create green spaces that improve mental well-being and help offset carbon emissions.",
+        explanationEn: "Tip 1 notes that gardens create green spaces that 'are good for your state of mind' and 'In cities they can help offset carbon emissions.'",
+        explanationFr: "Le conseil n° 1 souligne que les jardins créent des espaces verts bénéfiques pour le moral (« state of mind ») et aident à compenser les émissions de carbone en ville."
+      },
+      {
+        skill: "B1 • Health & Hygiene",
+        prompt: "[B1] What surprising scientific finding is mentioned in tip 10 about washing too much?",
+        options: [
+          "Over-washing has lowered our natural immune resistance to diseases while wasting huge amounts of water.",
+          "Taking short showers increases the amount of toxic chemicals in household laundry.",
+          "Washing dishes by hand uses more electricity than running an electric heater.",
+          "Cleanliness has completely eliminated infectious diseases in developed countries."
+        ],
+        answer: "Over-washing has lowered our natural immune resistance to diseases while wasting huge amounts of water.",
+        explanationEn: "Tip 10 explains: 'Science has discovered that our emphasis on being clean has reduced our natural immune resistance to diseases. We waste massive amounts of water...'",
+        explanationFr: "Le conseil n° 10 indique que l'obsession de la propreté a réduit notre résistance immunitaire naturelle aux maladies tout en gaspillant d'énormes quantités d'eau."
+      },
+      {
+        skill: "B1 • Vocabulary in Context",
+        prompt: "[B1] In tip 13, what does the verb 'ditch' mean in 'ditch one-time use plastic water bottles'?",
+        options: [
+          "Give up, stop using, or get rid of",
+          "Wash and refill every single morning",
+          "Bury underground in local landfills",
+          "Melt down to make solar panels"
+        ],
+        answer: "Give up, stop using, or get rid of",
+        explanationEn: "Informally, 'to ditch' ('abandonner / se débarrasser de') means to stop using or throw away something unwanted.",
+        explanationFr: "Dans un registre courant, le verbe « ditch » signifie « abandonner », « laisser tomber » ou « se débarrasser de »."
+      },
+      {
+        skill: "B2 • Environmental Impact",
+        prompt: "[B2] Why does excess packaging pose a double threat according to tip 12?",
+        options: [
+          "It ends up in landfills where it contaminates the environment and harms both human and animal health.",
+          "It forces supermarkets to raise the price of fairtrade coffee and organic vegetables.",
+          "It blocks sunlight from reaching solar panels and increases household electricity usage.",
+          "It prevents garden waste from decomposing into usable compost."
+        ],
+        answer: "It ends up in landfills where it contaminates the environment and harms both human and animal health.",
+        explanationEn: "Tip 12 states that excess packaging goes to landfills, where 'It contaminates the environment and poses serious health effects to humans and animals.'",
+        explanationFr: "Le conseil n° 12 précise que les emballages superflus finissent dans les décharges, contaminent l'environnement et nuisent gravement à la santé des humains et des animaux."
+      },
+      {
+        skill: "B2 • Synthesis & Mindset",
+        prompt: "[B2] How does adopting a 'minimalist lifestyle' (tip 2) change a consumer's relationship with shopping?",
+        options: [
+          "It encourages questioning whether a purchase is truly necessary and maximising the lifespan of existing possessions.",
+          "It requires throwing away all traditional household items and replacing them with new eco-friendly brands.",
+          "It focuses solely on buying imported fairtrade goods rather than local produce.",
+          "It discourages recycling so that fewer materials enter industrial facilities."
+        ],
+        answer: "It encourages questioning whether a purchase is truly necessary and maximising the lifespan of existing possessions.",
+        explanationEn: "Tip 2 advises making sure everything you own 'is used to its maximum effect' and asking yourself 'Do I really need this?' before buying.",
+        explanationFr: "Le conseil n° 2 recommande d'utiliser au maximum ce que l'on possède déjà et de se demander « En ai-je vraiment besoin ? » avant tout achat."
+      },
+      {
+        skill: "B2 • Connecting Themes",
+        prompt: "[B2] In tip 14, how does sustainable shopping connect environmental protection with social justice?",
+        options: [
+          "Buying local organic produce cuts transport emissions and toxic pesticides, while fairtrade goods ensure fairer conditions for farmers.",
+          "Buying imported supermarket products lowers transport costs and increases fossil fuel efficiency.",
+          "Choosing plastic-wrapped vegetables protects farm workers from immune diseases.",
+          "Avoiding coffee and chocolate completely eliminates carbon emissions in developing countries."
+        ],
+        answer: "Buying local organic produce cuts transport emissions and toxic pesticides, while fairtrade goods ensure fairer conditions for farmers.",
+        explanationEn: "Tip 14 combines social fairness ('fairtrade coffee and chocolate to make life fairer for farmers') with ecological care ('local, organic fruit and vegetables to reduce carbon emissions and the use of toxic chemicals').",
+        explanationFr: "Le conseil n° 14 relie justice sociale (produits équitables pour les agriculteurs) et écologie (fruits et légumes locaux et bio pour réduire les émissions et les pesticides)."
+      }
+    ]
+  },
+  {
+    id: 6,
+    category: "Sustainability",
+    level: "A2 / B1 / B2 • Conceptual Overview (Sustainability)",
+    title: "Defining Sustainable Living: Humanity's Symbiotic Relationship with Earth",
+    subtitle: "From personal lifestyle changes to ecological philosophy: how individuals and societies can live in natural balance",
+    byline: "Adapted Reference Article • Environmental Philosophy",
+    paragraphs: [
+      "Sustainable living is reducing your demand on natural resources by making sure that you replace what you use to the best of your ability. Sometimes that can mean not choosing to consume a product that is made using practices that don't promote sustainability; and sometimes it means changing how you do things so that you start becoming more of an active part of the cycle of life.",
+      "We all know that climate change, global warming, depletion of ozone layer and resource depletion are real and their impact on human and animal lives can be devastating. It is an opportunity for people to adopt actions for sustainable living that can help them to reduce their carbon footprint or environmental impact by altering their lifestyle. Simple measures like using public transportation more often, reducing energy consumption, becoming more eco-friendly can go a long way in reducing your environmental impact and making this planet a clean and safe place.",
+      "Wikipedia defines 'Sustainable Living' as: \"Sustainable living is a lifestyle that attempts to reduce an individual's or society's use of the Earth's natural resources and personal resources. Practitioners of sustainable living often attempt to reduce their carbon footprint by altering methods of transportation, energy consumption, and diet. Proponents of sustainable living aim to conduct their lives in ways that are consistent with sustainability, in natural balance and respectful of humanity's symbiotic relationship with the Earth's natural ecology and cycles. The practice and general philosophy of ecological living is highly interrelated with the overall principles of sustainable development.\""
+    ],
+    glossary: {
+      "Defining": "définir (v.)",
+      "Sustainable": "durable (adj.)",
+      "Living": "mode de vie (n.)",
+      "Humanity's": "de l'humanité (n.)",
+      "Symbiotic": "symbiotique / mutuellement bénéfique (adj.)",
+      "Relationship": "relation (n.)",
+      "Earth": "Terre (n.)",
+      "personal": "personnels (adj.)",
+      "lifestyle": "mode de vie (n.)",
+      "changes": "changements (n.)",
+      "ecological": "écologique (adj.)",
+      "philosophy": "philosophie (n.)",
+      "individuals": "individus (n.)",
+      "societies": "sociétés (n.)",
+      "natural": "naturel / naturel(le)s (adj.)",
+      "balance": "équilibre (n.)",
+      "reducing": "réduire (v.)",
+      "demand": "demande (n.)",
+      "resources": "ressources (n.)",
+      "making sure": "s'assurer (v.)",
+      "replace": "remplacer / renouveler (v.)",
+      "best": "meilleur / mieux (adj.)",
+      "ability": "capacité (n.)",
+      "Sometimes": "parfois (adv.)",
+      "mean": "signifier (v.)",
+      "choosing": "choisir (v.)",
+      "consume": "consommer (v.)",
+      "product": "produit (n.)",
+      "practices": "pratiques / méthodes (n.)",
+      "promote": "favorisent / encouragent (v.)",
+      "sustainability": "durabilité (n.)",
+      "changing": "changer (v.)",
+      "becoming": "devenir (v.)",
+      "active": "active (adj.)",
+      "part": "partie (n.)",
+      "cycle": "cycle (n.)",
+      "life": "vie (n.)",
+      "climate change": "changement climatique (n.)",
+      "global warming": "réchauffement climatique (n.)",
+      "depletion": "appauvrissement / épuisement (n.)",
+      "ozone layer": "couche d'ozone (n.)",
+      "real": "réels (adj.)",
+      "impact": "impact / conséquence (n.)",
+      "human": "humaines (adj.)",
+      "lives": "vies (n.)",
+      "devastating": "dévastateur / catastrophique (adj.)",
+      "opportunity": "occasion / opportunité (n.)",
+      "adopt": "adopter (v.)",
+      "actions": "actions / gestes (n.)",
+      "reduce": "réduire (v.)",
+      "carbon footprint": "empreinte carbone (n.)",
+      "environmental": "environnemental (adj.)",
+      "altering": "modifiant / changeant (v.)",
+      "Simple": "simples (adj.)",
+      "measures": "mesures (n.)",
+      "public transportation": "transports en commun (n.)",
+      "often": "souvent (adv.)",
+      "energy": "énergie (n.)",
+      "consumption": "consommation (n.)",
+      "eco-friendly": "respectueux de l'environnement / écolo (adj.)",
+      "go a long way": "contribuer grandement / faire beaucoup (loc.)",
+      "planet": "planète (n.)",
+      "clean": "propre (adj.)",
+      "safe": "sûr (adj.)",
+      "defines": "définit (v.)",
+      "attempts": "tente / s'efforce (v.)",
+      "individual's": "d'un individu (n.)",
+      "society's": "d'une société (n.)",
+      "Earth's": "de la Terre (n.)",
+      "Practitioners": "adeptes / personnes qui pratiquent (n.)",
+      "attempt": "tentent / essaient (v.)",
+      "methods": "méthodes / modes (n.)",
+      "transportation": "transport (n.)",
+      "diet": "régime alimentaire / alimentation (n.)",
+      "Proponents": "partisans / défenseurs (n.)",
+      "aim": "visent à (v.)",
+      "conduct": "mener / conduire (v.)",
+      "ways": "manières / façons (n.)",
+      "consistent with": "en accord avec / cohérentes avec (adj.)",
+      "respectful": "respectueuses (adj.)",
+      "symbiotic": "symbiotique (adj.)",
+      "relationship": "relation (n.)",
+      "ecology": "écologie (n.)",
+      "cycles": "cycles (n.)",
+      "practice": "pratique (n.)",
+      "general": "générale (adj.)",
+      "highly": "étroitement / fortement (adv.)",
+      "interrelated": "interreliée / étroitement liée (adj.)",
+      "overall": "globaux / généraux (adj.)",
+      "principles": "principes (n.)",
+      "sustainable development": "développement durable (n.)"
+    },
+    questions: [
+      {
+        skill: "A2 • Basic Definition",
+        prompt: "[A2] According to paragraph 1, what should you try to do with the natural resources you use?",
+        options: [
+          "Replace what you use to the best of your ability",
+          "Use them as quickly as possible before they disappear",
+          "Sell them to other countries for a higher profit",
+          "Keep them locked away in private reserves"
+        ],
+        answer: "Replace what you use to the best of your ability",
+        explanationEn: "Paragraph 1 defines sustainable living as 'reducing your demand on natural resources by making sure that you replace what you use to the best of your ability.'",
+        explanationFr: "Le paragraphe 1 définit un mode de vie durable comme le fait de réduire sa demande en ressources naturelles tout en remplaçant ce que l'on utilise du mieux possible."
+      },
+      {
+        skill: "A2 • Environmental Threats",
+        prompt: "[A2] Which environmental problem is mentioned in paragraph 2 alongside climate change and global warming?",
+        options: [
+          "Depletion of the ozone layer",
+          "Noise pollution in big airports",
+          "Overcrowding in national museums",
+          "Lack of space for new shopping centres"
+        ],
+        answer: "Depletion of the ozone layer",
+        explanationEn: "Paragraph 2 lists: 'climate change, global warming, depletion of ozone layer and resource depletion'.",
+        explanationFr: "Le paragraphe 2 mentionne le changement climatique, le réchauffement climatique, l'appauvrissement de la couche d'ozone (« depletion of ozone layer ») et l'épuisement des ressources."
+      },
+      {
+        skill: "A2 • Everyday Actions",
+        prompt: "[A2] Which of these is given in paragraph 2 as a simple measure to reduce your environmental impact?",
+        options: [
+          "Using public transportation more often",
+          "Buying a second car for weekend trips",
+          "Increasing your daily energy consumption",
+          "Ignoring how products are manufactured"
+        ],
+        answer: "Using public transportation more often",
+        explanationEn: "Paragraph 2 gives three simple examples: 'using public transportation more often, reducing energy consumption, becoming more eco-friendly'.",
+        explanationFr: "Le paragraphe 2 cite l'utilisation plus fréquente des transports en commun (« using public transportation more often ») comme mesure simple."
+      },
+      {
+        skill: "A2 • Main Areas of Change",
+        prompt: "[A2] According to the Wikipedia definition in paragraph 3, what three areas do practitioners often change to reduce their carbon footprint?",
+        options: [
+          "Transportation, energy consumption, and diet",
+          "Fashion, television, and air travel",
+          "Sports, music, and reading habits",
+          "Banking, housing, and office work"
+        ],
+        answer: "Transportation, energy consumption, and diet",
+        explanationEn: "Paragraph 3 states that practitioners reduce their carbon footprint 'by altering methods of transportation, energy consumption, and diet.'",
+        explanationFr: "Le paragraphe 3 précise qu'ils modifient leurs modes de transport (« transportation »), leur consommation d'énergie (« energy consumption ») et leur alimentation (« diet »)."
+      },
+      {
+        skill: "B1 • Consumer Choice",
+        prompt: "[B1] How does paragraph 1 suggest consumers can act through their shopping decisions?",
+        options: [
+          "By refusing to buy products made with unsustainable practices",
+          "By purchasing only imported goods from industrialised nations",
+          "By replacing all natural products with synthetic alternatives",
+          "By buying larger quantities of disposable items at lower prices"
+        ],
+        answer: "By refusing to buy products made with unsustainable practices",
+        explanationEn: "Paragraph 1 notes that sustainable living can mean 'not choosing to consume a product that is made using practices that don't promote sustainability'.",
+        explanationFr: "Le paragraphe 1 explique que cela peut signifier choisir de ne pas consommer un produit fabriqué selon des pratiques non durables."
+      },
+      {
+        skill: "B1 • Vocabulary in Context",
+        prompt: "[B1] In paragraph 2, what does the idiom 'go a long way in reducing your environmental impact' mean?",
+        options: [
+          "Make a significant, valuable contribution toward achieving a goal",
+          "Require travelling long distances across the countryside",
+          "Take several centuries before showing any visible result",
+          "Cost a large amount of money for ordinary families"
+        ],
+        answer: "Make a significant, valuable contribution toward achieving a goal",
+        explanationEn: "In English, 'to go a long way in doing something' ('contribuer grandement / faire beaucoup pour') means to be very helpful or effective.",
+        explanationFr: "L'expression idiomatique « go a long way in » signifie « contribuer grandement à » ou « être d'une grande efficacité pour »."
+      },
+      {
+        skill: "B1 • Vocabulary & False Friend",
+        prompt: "[B1] In paragraph 3, 'Proponents of sustainable living aim to conduct their lives...' Watch out for the French false friend 'proponents': what does it mean?",
+        options: [
+          "Supporters or advocates who argue in favour of an idea",
+          "Critics or opponents who try to stop a movement",
+          "Scientists who invent renewable energy machines",
+          "Politicians who write international tax laws"
+        ],
+        answer: "Supporters or advocates who argue in favour of an idea",
+        explanationEn: "Don't confuse 'proponents' with 'opponents'! 'Proponents' ('partisans / défenseurs') are people who support and promote a cause.",
+        explanationFr: "Attention à ne pas confondre « proponents » avec « opponents » ! Les « proponents » sont les « partisans » ou « défenseurs » d'une idée."
+      },
+      {
+        skill: "B2 • Ecological Philosophy",
+        prompt: "[B2] What does the phrase 'humanity's symbiotic relationship with the Earth's natural ecology' imply in paragraph 3?",
+        options: [
+          "Humans and nature depend on each other in a mutually beneficial, interconnected balance.",
+          "Human technology must completely dominate and replace natural ecological cycles.",
+          "Earth's ecosystems can only survive if human populations disappear entirely.",
+          "Economic growth is completely independent of natural resources and climate stability."
+        ],
+        answer: "Humans and nature depend on each other in a mutually beneficial, interconnected balance.",
+        explanationEn: "In biology and ecology, a 'symbiotic relationship' ('relation symbiotique') is a close interdependence where both partners rely on one another to thrive.",
+        explanationFr: "Une « relation symbiotique » (« symbiotic relationship ») désigne une interdépendance étroite et mutuellement bénéfique entre l'humanité et les écosystèmes terrestres."
+      },
+      {
+        skill: "B2 • Scope of Sustainability",
+        prompt: "[B2] How does the Wikipedia definition broaden the concept of sustainable living beyond just individual actions?",
+        options: [
+          "It includes both individual and societal resource use, connecting personal habits to the broader principles of sustainable development.",
+          "It argues that individual lifestyle changes are useless unless governments ban private property.",
+          "It restricts sustainability strictly to agricultural reforms in developing nations.",
+          "It claims that personal resources like time and money are unrelated to ecological living."
+        ],
+        answer: "It includes both individual and societal resource use, connecting personal habits to the broader principles of sustainable development.",
+        explanationEn: "Paragraph 3 mentions reducing 'an individual's or society's use of the Earth's natural resources and personal resources' and links ecological living to 'the overall principles of sustainable development.'",
+        explanationFr: "Le paragraphe 3 englobe l'échelle individuelle et collective (« individual's or society's use ») et relie l'écologie quotidienne aux principes globaux du développement durable."
+      },
+      {
+        skill: "B2 • Vocabulary in Context",
+        prompt: "[B2] In paragraph 2, 'their impact on human and animal lives can be devastating.' Which synonym best replaces 'devastating'?",
+        options: [
+          "Catastrophic and severely destructive",
+          "Temporary and easily reversible",
+          "Gradual and barely noticeable",
+          "Beneficial and stimulating"
+        ],
+        answer: "Catastrophic and severely destructive",
+        explanationEn: "'Devastating' ('dévastateur / catastrophique') describes damage that is overwhelming and highly destructive.",
+        explanationFr: "L'adjectif « devastating » signifie « dévastateur » ou « catastrophique »."
+      }
+    ]
+  },
+  {
+    id: 7,
+    category: "Sustainability",
+    level: "A2 / B1 / B2 • Economics & Pop Culture (Sustainability)",
+    title: "What Disney's Moana Teaches Us About Sustainability and the Tragedy of the Commons",
+    subtitle: "How a Polynesian animated adventure illustrates communal resource management, ecological blight, and self-interest",
+    byline: "Nairobi County: Hawkers • 22 November 2023",
+    paragraphs: [
+      "Moana is an animated musical fantasy film produced by Walt Disney Animation Studios. The film is set in Polynesia and tells the story of Moana who is a strong-willed daughter of a chief. The inhabitants worship the goddess of nature called Te Fiti. The island promises its inhabitants a flourishing steady state through an adequate supply of coconuts, fish, fruits and resources for shelter for everyone. So no one leaves the island because of the rich source of happy subsistence where the basics of life are all available.",
+      "As a social acknowledgement of the island's abundance, the inhabitants have communal ownership of the island's resources and hence no one has private property titles. Several years go by and a blight strikes the island killing the vegetation and shrinking the fish catch. The abundance starts running out. The islanders start to panic, and demand answers from their chief.",
+      "Growing up, Moana learns everything she needs to know about life on her island. She finds herself continuously drawn to the ocean but is forbidden to venture beyond the island by her parents who keep reminding her that her duties and her people are where she belongs because she will ascend to being the chief after her father. Eventually, her obstinacy saves her people when she ventures out into the ocean to reclaim the heart of Te Fiti that was stolen by the demigod Maui causing her to become a destructive lava demon.",
+      "One of the key takeaways from this film is the economic theory of the Tragedy of the Commons. When no one owns a shared resource such as grazing land, a water source, or public pavements, it gets overused and ultimately depleted. This is because individuals make decisions based on their own self-interests regardless of the negative impact they may have on others. In such situations, the benefits of exploiting the resource are immediate and personal, while the costs of overuse are shared by everyone. Resultantly, each individual has an incentive to consume as much as possible, leading to the depletion of the resource. This perpetuates the cycle of poverty and scarcity."
+    ],
+    glossary: {
+      "Teaches": "enseigne / apprend (v.)",
+      "Sustainability": "durabilité (n.)",
+      "Tragedy of the Commons": "la tragédie des biens communs — théorie économique selon laquelle une ressource partagée en libre accès (sans propriétaire privé ni régulation) finit par être surexploitée et épuisée, car chaque individu cherche son intérêt immédiat tandis que le coût de la dégradation est partagé par tous (n.)",
+      "Polynesian": "polynésienne (adj.)",
+      "animated": "d'animation (adj.)",
+      "adventure": "aventure (n.)",
+      "illustrates": "illustre (v.)",
+      "communal": "communautaire / collective (adj.)",
+      "resource": "ressource (n.)",
+      "management": "gestion (n.)",
+      "ecological": "écologique (adj.)",
+      "blight": "fléau / maladie des plantes (n.)",
+      "self-interest": "intérêt personnel / égoïsme (n.)",
+      "musical": "musical (adj.)",
+      "fantasy": "fantastique (adj.)",
+      "produced": "produit (v.)",
+      "set": "situé / se déroulant (v.)",
+      "strong-willed": "déterminée / au caractère bien trempé (adj.)",
+      "daughter": "fille (n.)",
+      "chief": "chef (n.)",
+      "inhabitants": "habitants (n.)",
+      "worship": "vénèrent / adorent (v.)",
+      "goddess": "déesse (n.)",
+      "nature": "nature (n.)",
+      "promises": "promet (v.)",
+      "flourishing": "florissant / prospère (adj.)",
+      "steady state": "état d'équilibre stable (n.)",
+      "through": "grâce à (prép.)",
+      "adequate": "suffisant / adéquat (adj.)",
+      "supply": "approvisionnement / réserve (n.)",
+      "coconuts": "noix de coco (n.)",
+      "resources": "ressources (n.)",
+      "shelter": "abri / logement (n.)",
+      "everyone": "tout le monde (pron.)",
+      "leaves": "quitte (v.)",
+      "source": "source (n.)",
+      "subsistence": "subsistance (n.)",
+      "basics": "besoins essentiels / bases (n.)",
+      "available": "disponibles (adj.)",
+      "social": "sociale (adj.)",
+      "acknowledgement": "reconnaissance (n.)",
+      "abundance": "abondance (n.)",
+      "ownership": "propriété (n.)",
+      "hence": "par conséquent / d'où (adv.)",
+      "private": "privée (adj.)",
+      "property": "propriété (n.)",
+      "titles": "titres (n.)",
+      "Several": "plusieurs (dét.)",
+      "go by": "s'écoulent / passent (v.)",
+      "strikes": "frappe (v.)",
+      "killing": "tuant (v.)",
+      "vegetation": "végétation (n.)",
+      "shrinking": "réduisant / faisant diminuer (v.)",
+      "catch": "prise / pêche (n.)",
+      "running out": "s'épuiser / venir à manquer (v.)",
+      "islanders": "insulaires / habitants de l'île (n.)",
+      "panic": "paniquer (v.)",
+      "demand": "exigent (v.)",
+      "answers": "réponses (n.)",
+      "Growing up": "en grandissant (v.)",
+      "learns": "apprend (v.)",
+      "everything": "tout (pron.)",
+      "continuously": "continuellement / sans cesse (adv.)",
+      "drawn": "attirée (v.)",
+      "ocean": "océan (n.)",
+      "forbidden": "interdite (v.)",
+      "venture": "s'aventurer (v.)",
+      "beyond": "au-delà de (prép.)",
+      "reminding": "rappelant (v.)",
+      "duties": "devoirs / responsabilités (n.)",
+      "belongs": "est à sa place (v.)",
+      "ascend": "accéder au rang de / devenir (v.)",
+      "Eventually": "finalement / finit par (adv.)",
+      "obstinacy": "obstination / ténacité (n.)",
+      "saves": "sauve (v.)",
+      "reclaim": "récupérer / reprendre (v.)",
+      "heart": "cœur (n.)",
+      "stolen": "volé (v.)",
+      "demigod": "demi-dieu (n.)",
+      "causing": "provoquant / amenant (v.)",
+      "destructive": "destructeur (adj.)",
+      "lava": "lave (n.)",
+      "demon": "démon (n.)",
+      "key": "clés / essentiels (adj.)",
+      "takeaways": "enseignements / leçons à retenir (n.)",
+      "economic": "économique (adj.)",
+      "theory": "théorie (n.)",
+      "owns": "possède (v.)",
+      "shared": "partagée (adj.)",
+      "such as": "tels que (loc.)",
+      "grazing land": "pâturages (n.)",
+      "pavements": "trottoirs / chaussées (n.)",
+      "overused": "surexploitée (v.)",
+      "ultimately": "finalement / à terme (adv.)",
+      "depleted": "épuisée (v.)",
+      "individuals": "individus (n.)",
+      "decisions": "décisions (n.)",
+      "based on": "fondées sur (loc.)",
+      "self-interests": "intérêts personnels (n.)",
+      "regardless of": "sans tenir compte de / indépendamment de (prép.)",
+      "negative": "négatif (adj.)",
+      "impact": "impact (n.)",
+      "situations": "situations (n.)",
+      "benefits": "avantages / bénéfices (n.)",
+      "exploiting": "exploiter (v.)",
+      "immediate": "immédiats (adj.)",
+      "personal": "personnels (adj.)",
+      "while": "tandis que (conj.)",
+      "costs": "coûts (n.)",
+      "overuse": "surexploitation (n.)",
+      "Resultantly": "par conséquent (adv.)",
+      "incentive": "incitation / motivation (n.)",
+      "consume": "consommer (v.)",
+      "leading to": "menant à / entraînant (v.)",
+      "perpetuates": "perpétue (v.)",
+      "cycle": "cycle (n.)",
+      "poverty": "pauvreté (n.)",
+      "scarcity": "pénurie / rareté (n.)"
+    },
+    questions: [
+      {
+        skill: "A2 • Setting & Characters",
+        prompt: "[A2] Where is the film Moana set, and who is the main character?",
+        options: [
+          "It is set in Polynesia, and Moana is the strong-willed daughter of a chief.",
+          "It is set in Kenya, and Moana is a street hawker in Nairobi.",
+          "It is set in Europe, and Moana is a farmer growing coconuts.",
+          "It is set in Australia, and Moana is a scientist studying volcanoes."
+        ],
+        answer: "It is set in Polynesia, and Moana is the strong-willed daughter of a chief.",
+        explanationEn: "Paragraph 1 states: 'The film is set in Polynesia and tells the story of Moana who is a strong-willed daughter of a chief.'",
+        explanationFr: "Le paragraphe 1 indique que le film se déroule en Polynésie et raconte l'histoire de Moana, la fille déterminée d'un chef."
+      },
+      {
+        skill: "A2 • Basic Plot",
+        prompt: "[A2] Why does no one leave the island at the beginning of the story?",
+        options: [
+          "Because the island provides plenty of coconuts, fish, fruits, and shelter for everyone",
+          "Because there are no boats or trees anywhere on the island",
+          "Because the demigod Maui guards the beaches day and night",
+          "Because the ocean water is frozen all year round"
+        ],
+        answer: "Because the island provides plenty of coconuts, fish, fruits, and shelter for everyone",
+        explanationEn: "Paragraph 1 says no one leaves 'because of the rich source of happy subsistence where the basics of life are all available.'",
+        explanationFr: "Le paragraphe 1 précise que personne ne quitte l'île car elle offre en abondance tout le nécessaire pour vivre (noix de coco, poissons, fruits, abris)."
+      },
+      {
+        skill: "A2 • Story Conflict",
+        prompt: "[A2] What problem suddenly hits the island after several years (paragraph 2)?",
+        options: [
+          "A blight kills the vegetation and reduces the number of fish they can catch.",
+          "A massive earthquake destroys all the private houses on the beach.",
+          "Tourists arrive and buy all the coconuts on the island.",
+          "The chief decides to sell the island's water source to Maui."
+        ],
+        answer: "A blight kills the vegetation and reduces the number of fish they can catch.",
+        explanationEn: "Paragraph 2 explains: 'a blight strikes the island killing the vegetation and shrinking the fish catch. The abundance starts running out.'",
+        explanationFr: "Le paragraphe 2 explique qu'un fléau (« blight ») frappe l'île, détruisant la végétation et réduisant les prises de pêche."
+      },
+      {
+        skill: "A2 • Resolution",
+        prompt: "[A2] How does Moana finally save her people (paragraph 3)?",
+        options: [
+          "She sails into the ocean to return the heart of Te Fiti, which Maui had stolen.",
+          "She builds a wall around the island to keep the ocean out.",
+          "She divides the island into private farms for each family.",
+          "She asks her father to step down as chief immediately."
+        ],
+        answer: "She sails into the ocean to return the heart of Te Fiti, which Maui had stolen.",
+        explanationEn: "Paragraph 3 states that 'she ventures out into the ocean to reclaim the heart of Te Fiti that was stolen by the demigod Maui'.",
+        explanationFr: "Le paragraphe 3 raconte qu'elle s'aventure sur l'océan pour récupérer le cœur de Te Fiti volé par le demi-dieu Maui."
+      },
+      {
+        skill: "B1 • Social Organisation",
+        prompt: "[B1] How are land and resources owned on Moana's island according to paragraph 2?",
+        options: [
+          "They are owned collectively by the community, with no private property titles.",
+          "They belong exclusively to the chief's family and are rented to villagers.",
+          "Each family owns a fenced private plot of grazing land and coastline.",
+          "They are managed by foreign traders who export coconuts and fish."
+        ],
+        answer: "They are owned collectively by the community, with no private property titles.",
+        explanationEn: "Paragraph 2 notes that 'the inhabitants have communal ownership of the island's resources and hence no one has private property titles.'",
+        explanationFr: "Le paragraphe 2 souligne que les habitants pratiquent la propriété collective (« communal ownership ») et qu'il n'existe aucun titre de propriété privée."
+      },
+      {
+        skill: "B1 • Character & Theme",
+        prompt: "[B1] Why do Moana's parents forbid her from sailing beyond the island (paragraph 3)?",
+        options: [
+          "They remind her that her responsibilities are to her people because she will succeed her father as chief.",
+          "They believe the goddess Te Fiti lives in the middle of the island's forest.",
+          "They want her to stay home to repair the damaged fishing boats.",
+          "They fear she will steal Maui's magical hook if she reaches the ocean."
+        ],
+        answer: "They remind her that her responsibilities are to her people because she will succeed her father as chief.",
+        explanationEn: "Paragraph 3 says her parents 'keep reminding her that her duties and her people are where she belongs because she will ascend to being the chief after her father.'",
+        explanationFr: "Le paragraphe 3 explique que ses parents lui rappellent ses devoirs envers son peuple car elle doit succéder à son père comme cheffe."
+      },
+      {
+        skill: "B1 • Economic Concept",
+        prompt: "[B1] According to paragraph 4, what happens to a shared resource when no one owns it?",
+        options: [
+          "It tends to be overused and eventually exhausted because people act in their own self-interest.",
+          "It automatically regenerates faster than privately owned land.",
+          "Everyone agrees to consume less so that future generations have extra reserves.",
+          "Local governments immediately turn it into a protected national park."
+        ],
+        answer: "It tends to be overused and eventually exhausted because people act in their own self-interest.",
+        explanationEn: "Paragraph 4 explains that when no one owns a shared resource, 'it gets overused and ultimately depleted. This is because individuals make decisions based on their own self-interests'.",
+        explanationFr: "Le paragraphe 4 explique qu'en l'absence de propriétaire, une ressource partagée finit surexploitée et épuisée car chacun agit selon son propre intérêt."
+      },
+      {
+        skill: "B2 • Mechanism of Overuse",
+        prompt: "[B2] In the 'Tragedy of the Commons' (paragraph 4), why does each individual have an incentive to consume as much as possible?",
+        options: [
+          "Because the person gets 100% of the immediate benefit of exploiting the resource, while the negative cost is split among everyone.",
+          "Because shared resources like public pavements and water sources increase in quality the more they are used.",
+          "Because individuals are legally fined if they fail to use their full share of grazing land.",
+          "Because communal ownership eliminates all scarcity and poverty in rural areas."
+        ],
+        answer: "Because the person gets 100% of the immediate benefit of exploiting the resource, while the negative cost is split among everyone.",
+        explanationEn: "Paragraph 4 states: 'the benefits of exploiting the resource are immediate and personal, while the costs of overuse are shared by everyone. Resultantly, each individual has an incentive to consume as much as possible'.",
+        explanationFr: "Le paragraphe 4 résume l'asymétrie : les bénéfices de l'exploitation sont immédiats et personnels, tandis que les coûts de la surexploitation sont répartis sur toute la collectivité."
+      },
+      {
+        skill: "B2 • Vocabulary in Context",
+        prompt: "[B2] In paragraph 3, 'Eventually, her obstinacy saves her people'. Watch out for the French false friend 'eventually': what does it mean here?",
+        options: [
+          "In the end / finally, after a long struggle",
+          "Possibly / perhaps, if she is lucky",
+          "Accidentally / without meaning to",
+          "Temporarily / for a few days only"
+        ],
+        answer: "In the end / finally, after a long struggle",
+        explanationEn: "Classic French false friend! 'Eventually' does NOT mean 'éventuellement' (possibly); it means 'finalement / à la fin / finit par'.",
+        explanationFr: "Faux-ami classique ! « Eventually » ne signifie pas « éventuellement » (« possibly »), mais « finalement » ou « à la fin »."
+      },
+      {
+        skill: "B2 • Synthesis & Real-World Link",
+        prompt: "[B2] How does the article connect a Disney animated film to real-world urban sustainability (such as Nairobi's public pavements)?",
+        options: [
+          "It uses Moana's ecological crisis to illustrate how unregulated shared spaces—from island fisheries to city pavements—suffer from overuse and scarcity.",
+          "It argues that animated films should replace economics textbooks in university classrooms.",
+          "It claims that Polynesian islands never experienced resource depletion until modern tourism began.",
+          "It proves that private property titles always prevent natural disasters like plant blights."
+        ],
+        answer: "It uses Moana's ecological crisis to illustrate how unregulated shared spaces—from island fisheries to city pavements—suffer from overuse and scarcity.",
+        explanationEn: "By linking Moana's depleted island to 'grazing land, a water source, or public pavements' (echoing the Nairobi County: Hawkers header), the article shows how the Tragedy of the Commons applies to both ecosystems and shared urban spaces.",
+        explanationFr: "En reliant la crise écologique de Moana aux pâturages, points d'eau et trottoirs publics (« public pavements », écho au titre sur les vendeurs ambulants de Nairobi), l'article illustre la portée universelle de la tragédie des biens communs."
+      }
+    ]
+  },
+
+
+
+];
+let currentReadingIndex = 0;
+let currentReadingCategory = "ALL";
+let readingAnswersState = {};
+
+function initReadingLab() {
+  populateReadingArticleDropdown("ALL");
+}
+
+function filterReadingCategory(category) {
+  currentReadingCategory = category;
+  populateReadingArticleDropdown(category);
+}
+
+function populateReadingArticleDropdown(category) {
+  const select = document.getElementById("reading-article-select");
+  if (!select) return;
+
+  select.innerHTML = "";
+  let firstMatchIndex = -1;
+
+  readingArticles.forEach((art, idx) => {
+    if (category === "ALL" || art.category === category) {
+      if (firstMatchIndex === -1) firstMatchIndex = idx;
+      const opt = document.createElement("option");
+      opt.value = idx;
+      opt.textContent = "[" + art.category + "] " + art.title.slice(0, 42) + (art.title.length > 42 ? "..." : "");
+      select.appendChild(opt);
+    }
+  });
+
+  if (firstMatchIndex !== -1) {
+    select.value = firstMatchIndex;
+    selectReadingArticle(firstMatchIndex);
+  }
+}
+
+function selectReadingArticle(index) {
+  currentReadingIndex = index;
+  readingAnswersState = {};
+  renderReadingView();
+}
+
+function resetCurrentReading() {
+  readingAnswersState = {};
+  renderReadingView();
+}
+
+function annotateTextWithGlossary(text, glossary) {
+  if (!glossary) return text;
+  const keys = Object.keys(glossary).sort((a, b) => b.length - a.length);
+  const escaped = keys.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const regex = new RegExp("\\b(" + escaped.join("|") + ")\\b", "g");
+
+  return text.replace(regex, (matched) => {
+    const fr = glossary[matched];
+    if (!fr) return matched;
+    const safeFr = fr.split('"').join("'");
+    return '<span class="gloss" tabindex="0" data-fr="' + safeFr + '">' + matched + '</span>';
+  });
+}
+
+function renderReadingView() {
+  const article = readingArticles[currentReadingIndex];
+  if (!article) return;
+
+  document.getElementById("ra-level").textContent = article.level;
+  document.getElementById("ra-title").innerHTML = annotateTextWithGlossary(article.title, article.glossary);
+  document.getElementById("ra-subtitle").innerHTML = annotateTextWithGlossary(article.subtitle, article.glossary);
+  document.getElementById("ra-byline").textContent = article.byline;
+
+  const bodyEl = document.getElementById("ra-body");
+  let html = article.paragraphs
+    .map(p => "<p>" + annotateTextWithGlossary(p, article.glossary) + "</p>")
+    .join("");
+
+  if (article.blanks && article.blankChoices) {
+    Object.keys(article.blanks).forEach(num => {
+      let opts = '<option value="">-- Choose heading ' + num + ' --</option>';
+      article.blankChoices.forEach(choice => {
+        const letter = choice.slice(0, 1);
+        const safeChoice = choice.split('"').join("'");
+        opts += '<option value="' + letter + '">' + safeChoice + '</option>';
+      });
+      const selectTag = '<select class="blank-select" id="blank-input-' + num + '">' + opts + '</select>';
+      html = html.split("[BLANK_" + num + "]").join(selectTag);
+    });
+
+    html +=
+      '<div class="blanks-toolbar">' +
+      '<button class="btn btn-primary btn-sm" onclick="checkArticleBlanks()">Check Headings (14)</button>' +
+      '<button class="btn btn-outline btn-sm" onclick="revealArticleBlanks()">Show Key</button>' +
+      '<span id="blanks-result-msg" style="font-size:0.88rem;font-weight:700;"></span>' +
+      '</div>';
+  }
+
+  bodyEl.innerHTML = html;
+
+  updateReadingScorePill();
+  renderReadingQuestions();
+}
+
+function checkArticleBlanks() {
+  const article = readingArticles[currentReadingIndex];
+  if (!article || !article.blanks) return;
+  let score = 0;
+  const keys = Object.keys(article.blanks);
+  keys.forEach(num => {
+    const el = document.getElementById("blank-input-" + num);
+    if (!el) return;
+    el.classList.remove("blank-correct", "blank-incorrect");
+    if (el.value === article.blanks[num]) {
+      el.classList.add("blank-correct");
+      score++;
+    } else {
+      el.classList.add("blank-incorrect");
+    }
+  });
+  const msg = document.getElementById("blanks-result-msg");
+  if (msg) {
+    msg.textContent = "Headings Score: " + score + " / " + keys.length;
+    msg.style.color = score === keys.length ? "var(--success)" : "var(--primary)";
+  }
+}
+
+function revealArticleBlanks() {
+  const article = readingArticles[currentReadingIndex];
+  if (!article || !article.blanks) return;
+  Object.keys(article.blanks).forEach(num => {
+    const el = document.getElementById("blank-input-" + num);
+    if (el) {
+      el.value = article.blanks[num];
+      el.classList.remove("blank-incorrect");
+      el.classList.add("blank-correct");
+    }
+  });
+  const msg = document.getElementById("blanks-result-msg");
+  if (msg) {
+    msg.textContent = "All 14 headings filled in!";
+    msg.style.color = "var(--success)";
+  }
+}
+
+function updateReadingScorePill() {
+  const article = readingArticles[currentReadingIndex];
+  const total = article.questions.length;
+  let correct = 0;
+
+  article.questions.forEach((q, idx) => {
+    if (readingAnswersState[idx] === q.answer) correct++;
+  });
+
+  document.getElementById("reading-score-pill").textContent = "Score: " + correct + " / " + total;
+}
+
+function renderReadingQuestions() {
+  const article = readingArticles[currentReadingIndex];
+  const container = document.getElementById("reading-quiz-pane");
+  container.innerHTML = "";
+  const letters = ["A", "B", "C", "D"];
+
+  article.questions.forEach((q, qIdx) => {
+    const card = document.createElement("div");
+    card.className = "rq-card";
+
+    const chosen = readingAnswersState[qIdx];
+    const isAnswered = chosen !== undefined;
+    const isCorrect = chosen === q.answer;
+
+    let optionsHtml = q.options
+      .map((opt, oIdx) => {
+        let extraClass = "";
+        if (isAnswered) {
+          if (opt === q.answer) extraClass = "correct";
+          else if (opt === chosen) extraClass = "incorrect";
+        }
+        return (
+          '<button class="rq-option-btn ' + extraClass + '" ' +
+          (isAnswered ? "disabled " : "") +
+          'onclick="submitReadingAnswer(' + qIdx + ', ' + oIdx + ')">' +
+          '<span class="option-letter">' + letters[oIdx] + '</span>' +
+          '<span>' + opt + '</span>' +
+          '</button>'
+        );
+      })
+      .join("");
+
+    let feedbackHtml = "";
+    if (isAnswered) {
+      feedbackHtml =
+        '<div class="rq-feedback show ' + (isCorrect ? "correct" : "incorrect") + '">' +
+        '<strong>' + (isCorrect ? "✓ Correct!" : "✗ Incorrect") + '</strong> — ' + q.explanationEn +
+        '<div class="rq-fb-fr"><strong>Explication (FR) :</strong> ' + q.explanationFr + '</div>' +
+        '</div>';
+    }
+
+    card.innerHTML =
+      '<div class="rq-header">' +
+      '<span class="rq-skill">' + q.skill + '</span>' +
+      '<span class="rq-num">Question ' + (qIdx + 1) + ' of ' + article.questions.length + '</span>' +
+      '</div>' +
+      '<div class="rq-prompt">' + q.prompt + '</div>' +
+      '<div class="rq-options">' + optionsHtml + '</div>' +
+      feedbackHtml;
+
+    container.appendChild(card);
+  });
+}
+
+function submitReadingAnswer(qIdx, optionIdx) {
+  const article = readingArticles[currentReadingIndex];
+  const q = article.questions[qIdx];
+  readingAnswersState[qIdx] = q.options[optionIdx];
+  updateReadingScorePill();
+  renderReadingQuestions();
+}
+
+window.addEventListener("load", function() {
+  initReadingLab();
+  const navReading = document.getElementById("nav-reading");
+  if (navReading) {
+    navReading.addEventListener("click", function() {
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+      navReading.classList.add("active");
+    });
+  }
+});
 </script>
 </body>
 </html>
