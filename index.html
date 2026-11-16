@@ -1386,6 +1386,14 @@
           <span class="q-tag-type" id="q-type-tag">Multiple Choice</span>
         </div>
 
+<!-- Collapsible French Grammar Rule Guide (Shown for Grammar Questions) -->
+        <details id="grammar-rule-drawer" style="display: none; background: #FAF7F0; border: 1px solid #D8E2DC; border-left: 4px solid #2D6A4F; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+          <summary style="cursor: pointer; font-weight: 700; color: #1B4332; font-size: 0.92rem; user-select: none;">
+            📖 Rappel de grammaire (Explication en français + schéma)
+          </summary>
+          <div id="grammar-rule-content" style="margin-top: 0.75rem; font-size: 0.9rem; line-height: 1.55; color: #1f2937;"></div>
+        </details>
+
         <!-- Reading Passage Box (Shown automatically during Reading Comprehension questions in Mock Exams) -->
         <div id="quiz-reading-passage" style="display: none; background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 10px; padding: 1rem 1.15rem; margin-bottom: 1.1rem; max-height: 290px; overflow-y: auto; font-size: 0.94rem; line-height: 1.65;">
           <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--primary); margin-bottom: 0.35rem;" id="qrp-meta">Reading Passage • Hover bold words for French</div>
@@ -10006,6 +10014,224 @@ function getQuestionsByTopic(topicName) {
   return questionBank.filter(q => (q.topic || "General Grammar").trim() === topicName);
 }
 
+// --- PASTE YOUR ENTIRE grammarRulesFr BLOCK RIGHT HERE ---
+
+const grammarRulesFr = {
+  1: {
+    titleFr: "1. Le Présent Simple (Simple Present)",
+    formula: "Sujet + Base Verbale (+ -s / -es / -ies à la 3e pers. sing.) | Auxiliaire : DO / DOES",
+    svg: `<svg viewBox="0 0 360 115" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <line x1="25" y1="35" x2="335" y2="35" stroke="#1B4332" stroke-width="2"/>
+      <line x1="180" y1="15" x2="180" y2="50" stroke="#2D6A4F" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="180" y="12" font-size="9" font-weight="bold" fill="#1B4332" text-anchor="middle">MAINTENANT</text>
+      <circle cx="70" cy="35" r="3.5" fill="#2D6A4F"/><circle cx="115" cy="35" r="3.5" fill="#2D6A4F"/>
+      <circle cx="160" cy="35" r="3.5" fill="#2D6A4F"/><circle cx="205" cy="35" r="3.5" fill="#2D6A4F"/>
+      <circle cx="250" cy="35" r="3.5" fill="#2D6A4F"/><circle cx="295" cy="35" r="3.5" fill="#2D6A4F"/>
+      <rect x="14" y="60" width="332" height="44" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="180" y="77" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">3e pers. sing. (He / She / It) :</text>
+      <text x="180" y="94" font-size="10" fill="#333" text-anchor="middle">+ -s (works) | -s/-sh/-ch/-x/-o → + -es (goes) | cons.+y → -ies (studies)</text>
+    </svg>`,
+    rules: [
+      "<strong>Habitudes & vérités générales :</strong> Actions répétées (<em>always, usually, often, every day</em>) et faits permanents (<em>Water boils at 100°C</em>).",
+      "<strong>Orthographe à la 3e personne (He / She / It) :</strong><br>• Règle générale : <strong>+ -s</strong> (<em>work → works, play → plays</em>)<br>• Terminaisons <em>-s, -sh, -ch, -x, -o</em> : <strong>+ -es</strong> (<em>watch → watches, go → goes, do → does</em>)<br>• Consonne + <em>-y</em> : <strong>-ies</strong> (<em>study → studies, try → tries</em>)<br>• Irrégulier : <em>have → <strong>has</strong></em>",
+      "<strong>Verbes d'état (Stative verbs) :</strong> Pas de forme en <em>-ing</em> pour les verbes de pensée, sentiment ou possession (<em>know, like, want, believe, own</em>).",
+      "<strong>Négations & Questions :</strong> On utilise <strong>do / does</strong> + base verbale <strong>sans -s</strong> (<em>Does she live here? / He doesn't work</em>)."
+    ],
+    examples: [
+      { en: "She usually studies at the library and goes home at 6.", fr: "Elle étudie généralement à la bibliothèque et rentre chez elle à 18h." },
+      { en: "He doesn't have class on Fridays.", fr: "Il n'a pas cours le vendredi. (base verbale après doesn't)" }
+    ]
+  },
+
+  2: {
+    titleFr: "2. Orthographe à la 3e personne (He / She / It)",
+    formula: "Règle générale : + -s | Chuintantes & -o : + -es | Consonne + y : -ies",
+    svg: `<svg viewBox="0 0 360 95" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <rect x="12" y="14" width="105" height="66" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="64" y="34" font-size="11" font-weight="bold" fill="#1B4332" text-anchor="middle">-s, -sh, -ch, -x, -o</text>
+      <text x="64" y="52" font-size="13" font-weight="bold" fill="#2D6A4F" text-anchor="middle">+ -es</text>
+      <text x="64" y="70" font-size="10" fill="#333" text-anchor="middle">watches / goes</text>
+
+      <rect x="127" y="14" width="105" height="66" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="179" y="34" font-size="11" font-weight="bold" fill="#1B4332" text-anchor="middle">Consonne + y</text>
+      <text x="179" y="52" font-size="13" font-weight="bold" fill="#2D6A4F" text-anchor="middle">-y → -ies</text>
+      <text x="179" y="70" font-size="10" fill="#333" text-anchor="middle">study → studies</text>
+
+      <rect x="242" y="14" width="105" height="66" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="294" y="34" font-size="11" font-weight="bold" fill="#1B4332" text-anchor="middle">Voyelle + y</text>
+      <text x="294" y="52" font-size="13" font-weight="bold" fill="#2D6A4F" text-anchor="middle">+ -s</text>
+      <text x="294" y="70" font-size="10" fill="#333" text-anchor="middle">play → plays</text>
+    </svg>`,
+    rules: [
+      "<strong>Terminaisons -s, -sh, -ch, -x, -o :</strong> On ajoute <strong>-es</strong> (<em>watch → watches, fix → fixes, go → goes, do → does</em>).",
+      "<strong>Consonne + -y :</strong> Le <em>-y</em> disparaît et devient <strong>-ies</strong> (<em>try → tries, study → studies</em>).",
+      "<strong>Voyelle + -y :</strong> On garde le <em>-y</em> et on ajoute simplement <strong>-s</strong> (<em>enjoy → enjoys, stay → stays</em>).",
+      "<strong>Irrégulier clé :</strong> <em>have → <strong>has</strong></em>."
+    ],
+    examples: [
+      { en: "He studies law and teaches English.", fr: "Il étudie le droit et enseigne l'anglais." },
+      { en: "She always has coffee before class.", fr: "Elle prend toujours un café avant les cours." }
+    ]
+  },
+
+  3: {
+    titleFr: "3. Le Présent Continu (Present Continuous)",
+    formula: "Sujet + BE (am / is / are) + Verbe-ING",
+    svg: `<svg viewBox="0 0 360 85" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <line x1="25" y1="48" x2="335" y2="48" stroke="#1B4332" stroke-width="2"/>
+      <rect x="125" y="32" width="110" height="24" rx="12" fill="#2D6A4F" opacity="0.2" stroke="#2D6A4F" stroke-width="1.5"/>
+      <line x1="180" y1="18" x2="180" y2="66" stroke="#1B4332" stroke-width="2"/>
+      <text x="180" y="13" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">EN CE MOMENT</text>
+      <text x="180" y="78" font-size="11" fill="#1B4332" text-anchor="middle">Action en cours, temporaire ou futur planifié</text>
+    </svg>`,
+    rules: [
+      "<strong>Action en cours :</strong> Ce qui se passe au moment où l'on parle (<em>Look! It's raining</em>).",
+      "<strong>Situation temporaire :</strong> Période limitée autour du présent (<em>I'm living in Mulhouse this semester</em>).",
+      "<strong>Futur proche planifié :</strong> Rendez-vous ou programme déjà fixé (<em>We are meeting at 6 pm tomorrow</em>).",
+      "<strong>Orthographe en -ing :</strong> <em>-e</em> muet tombe (<em>make → making</em>) ; consonne finale doublée après voyelle courte accentuée (<em>run → running, begin → beginning</em>)."
+    ],
+    examples: [
+      { en: "Quiet please, I'm revising for my exam.", fr: "Silence s'il vous plaît, je révise pour mon examen." },
+      { en: "They're flying to Dublin next Monday.", fr: "Ils prennent l'avion pour Dublin lundi prochain." }
+    ]
+  },
+
+  4: {
+    titleFr: "4. Le Conditionnel Zéro (Zero Conditional)",
+    formula: "If / When + Présent Simple, Présent Simple",
+    svg: `<svg viewBox="0 0 360 80" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <rect x="15" y="20" width="135" height="40" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="82" y="37" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">IF + Présent Simple</text>
+      <text x="82" y="51" font-size="10" fill="#333" text-anchor="middle">(Condition toujours vraie)</text>
+      <text x="180" y="45" font-size="16" font-weight="bold" fill="#1B4332" text-anchor="middle">→ 100%</text>
+      <rect x="210" y="20" width="135" height="40" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="277" y="37" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">Présent Simple</text>
+      <text x="277" y="51" font-size="10" fill="#333" text-anchor="middle">(Résultat automatique)</text>
+    </svg>`,
+    rules: [
+      "<strong>Vérités scientifiques & règles :</strong> S'utilise quand le résultat est automatique et toujours vrai.",
+      "<strong>If = When :</strong> On peut remplacer <em>If</em> par <em>When</em> ou <em>Whenever</em> sans changer le sens.",
+      "<strong>Ponctuation :</strong> Si la phrase commence par <em>If</em>, on met une virgule entre les deux propositions (pas de virgule si <em>if</em> est au milieu)."
+    ],
+    examples: [
+      { en: "If you heat ice, it melts.", fr: "Si on chauffe de la glace, elle fond." },
+      { en: "Plants die if they don't get enough water.", fr: "Les plantes meurent si elles n'ont pas assez d'eau." }
+    ]
+  },
+
+  5: {
+    titleFr: "5. Le Premier Conditionnel (First Conditional)",
+    formula: "If + Présent Simple, WILL / CAN / MAY + Base Verbale",
+    svg: `<svg viewBox="0 0 360 80" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <rect x="15" y="20" width="135" height="40" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="82" y="37" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">IF + Présent Simple</text>
+      <text x="82" y="51" font-size="10" fill="#B00020" text-anchor="middle">(Jamais de WILL après IF !)</text>
+      <text x="180" y="45" font-size="15" font-weight="bold" fill="#1B4332" text-anchor="middle">→ Réel</text>
+      <rect x="210" y="20" width="135" height="40" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="277" y="37" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">WILL / CAN + BV</text>
+      <text x="277" y="51" font-size="10" fill="#333" text-anchor="middle">(Conséquence future probable)</text>
+    </svg>`,
+    rules: [
+      "<strong>Hypothèse réelle dans le futur :</strong> La condition a de vraies chances de se réaliser.",
+      "<strong>Piège majeur :</strong> On n'utilise <strong>JAMAIS <em>will</em></strong> dans la proposition introduite par <em>if</em> (même si on utilise le futur en français).",
+      "<strong>Nuances :</strong> <em>will</em> = certitude ; <em>can</em> = capacité/possibilité ; <em>may / might</em> = probabilité plus faible."
+    ],
+    examples: [
+      { en: "If you revise regularly, you will pass.", fr: "Si tu révises régulièrement, tu réussiras." },
+      { en: "We can leave early if the teacher finishes on time.", fr: "Nous pourrons partir tôt si le prof finit à l'heure." }
+    ]
+  },
+
+  6: {
+    titleFr: "6. Le Deuxième Conditionnel (Second Conditional)",
+    formula: "If + Prétérit (Past Simple), WOULD / COULD / MIGHT + Base Verbale",
+    svg: `<svg viewBox="0 0 360 80" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <rect x="15" y="20" width="135" height="40" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="82" y="37" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">IF + Prétérit Modal</text>
+      <text x="82" y="51" font-size="10" fill="#333" text-anchor="middle">(Imaginaire / Irréel)</text>
+      <text x="180" y="45" font-size="14" font-weight="bold" fill="#1B4332" text-anchor="middle">→ Rêve</text>
+      <rect x="210" y="20" width="135" height="40" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="277" y="37" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">WOULD / COULD + BV</text>
+      <text x="277" y="51" font-size="10" fill="#333" text-anchor="middle">(Conséquence hypothétique)</text>
+    </svg>`,
+    rules: [
+      "<strong>Irréel du présent / hypothèse peu probable :</strong> On imagine une situation contraire à la réalité actuelle.",
+      "<strong>Le prétérit modal :</strong> Le verbe après <em>if</em> est au Past Simple, mais il exprime l'imaginaire (pas le passé).",
+      "<strong>If I were you :</strong> Avec <em>be</em>, on préfère <strong>were</strong> à toutes les personnes dans un registre soigné (<em>If I were rich...</em>).",
+      "<strong>Piège :</strong> Jamais de <em>would</em> juste après <em>if</em>."
+    ],
+    examples: [
+      { en: "If I had more free time, I would learn German.", fr: "Si j'avais plus de temps libre, j'apprendrais l'allemand." },
+      { en: "If I were you, I wouldn't worry.", fr: "À ta place (si j'étais toi), je ne m'inquiéterais pas." }
+    ]
+  },
+
+  7: {
+    titleFr: "7. Le Futur Simple : WILL vs. BE GOING TO",
+    formula: "WILL + Base Verbale  |  AM / IS / ARE GOING TO + Base Verbale",
+    svg: `<svg viewBox="0 0 360 85" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <rect x="15" y="14" width="155" height="58" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="92" y="32" font-size="11" font-weight="bold" fill="#1B4332" text-anchor="middle">WILL</text>
+      <text x="92" y="48" font-size="10" fill="#333" text-anchor="middle">• Décision sur le vif</text>
+      <text x="92" y="62" font-size="10" fill="#333" text-anchor="middle">• Promesse / Opinion</text>
+
+      <rect x="190" y="14" width="155" height="58" rx="6" fill="#E8F0EB" stroke="#2D6A4F"/>
+      <text x="267" y="32" font-size="11" font-weight="bold" fill="#1B4332" text-anchor="middle">BE GOING TO</text>
+      <text x="267" y="48" font-size="10" fill="#333" text-anchor="middle">• Intention déjà décidée</text>
+      <text x="267" y="62" font-size="10" fill="#333" text-anchor="middle">• Preuve visible</text>
+    </svg>`,
+    rules: [
+      "<strong>WILL (spontané & subjectif) :</strong> Décision prise au moment où l'on parle (<em>The phone is ringing — I'll answer it</em>), promesse, offre ou prédiction personnelle (<em>I think it will rain</em>).",
+      "<strong>BE GOING TO (projet & indice) :</strong> Intention réfléchie avant de parler (<em>I'm going to study medicine</em>) ou prédiction basée sur un indice visible (<em>Look at those dark clouds! It's going to rain</em>)."
+    ],
+    examples: [
+      { en: "Don't carry that heavy box, I'll help you!", fr: "Ne porte pas ce carton lourd, je vais t'aider ! (décision spontanée)" },
+      { en: "Watch out! You're going to drop your coffee.", fr: "Attention ! Tu vas renverser ton café. (preuve visible)" }
+    ]
+  },
+
+  8: {
+    titleFr: "8. Questions Directes vs. Indirectes",
+    formula: "Formule polie + Mot interrogatif (ou IF/WHETHER) + Sujet + Verbe (ordre affirmatif !)",
+    svg: `<svg viewBox="0 0 360 85" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <text x="180" y="24" font-size="11" fill="#555" text-anchor="middle">Directe : Where <tspan font-weight="bold" fill="#B00020">does</tspan> she <tspan font-weight="bold" fill="#B00020">live</tspan>?</text>
+      <text x="180" y="44" font-size="13" font-weight="bold" fill="#1B4332" text-anchor="middle">↓ Supprimer do/does/did + Remettre Sujet + Verbe</text>
+      <text x="180" y="66" font-size="11" fill="#1B4332" text-anchor="middle">Indirecte : Could you tell me where <tspan font-weight="bold" fill="#2D6A4F">she lives</tspan>?</text>
+    </svg>`,
+    rules: [
+      "<strong>Ordre des mots affirmatif :</strong> Après <em>Could you tell me... / Do you know... / I wonder...</em>, il n'y a <strong>plus d'inversion</strong> sujet-verbe.",
+      "<strong>Suppression de DO / DOES / DID :</strong> On enlève l'auxiliaire et on conjugue directement le verbe (<em>Where did he go? → Do you know where <strong>he went</strong>?</em>).",
+      "<strong>Questions fermées (Oui/Non) :</strong> S'il n'y a pas de mot en <em>Wh-</em>, on utilise <strong>if</strong> ou <strong>whether</strong> (<em>Is the library open? → Do you know <strong>if</strong> the library is open?</em>)."
+    ],
+    examples: [
+      { en: "Could you tell me what time the train leaves?", fr: "Pourriez-vous me dire à quelle heure part le train ?" },
+      { en: "Do you know whether she passed the test?", fr: "Sais-tu si elle a réussi le test ?" }
+    ]
+  },
+
+  9: {
+    titleFr: "9. Les Verbes Modaux (Modal Verbs)",
+    formula: "Sujet + Modal + Base Verbale (sans TO, sans -S, sans DO)",
+    svg: `<svg viewBox="0 0 360 85" width="100%" style="max-width:360px; display:block; margin:12px auto; background:#FAF7F0; border:1px solid #D8E2DC; border-radius:8px; font-family:sans-serif;">
+      <line x1="25" y1="45" x2="335" y2="45" stroke="#2D6A4F" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="40" cy="45" r="6" fill="#1B4332"/><text x="40" y="25" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">0% Impossible</text><text x="40" y="68" font-size="10" fill="#333" text-anchor="middle">can't</text>
+      <circle cx="145" cy="45" r="6" fill="#2D6A4F"/><text x="145" y="25" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">50% Incertain</text><text x="145" y="68" font-size="10" fill="#333" text-anchor="middle">may / might / could</text>
+      <circle cx="245" cy="45" r="6" fill="#2D6A4F"/><text x="245" y="25" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">Conseil</text><text x="245" y="68" font-size="10" fill="#333" text-anchor="middle">should</text>
+      <circle cx="325" cy="45" r="6" fill="#1B4332"/><text x="325" y="25" font-size="10" font-weight="bold" fill="#1B4332" text-anchor="middle">95% Sûr</text><text x="325" y="68" font-size="10" fill="#333" text-anchor="middle">must</text>
+    </svg>`,
+    rules: [
+      "<strong>Règles d'or :</strong> Les modaux sont invariables (jamais de <em>-s</em>), suivis de la base verbale sans <em>to</em>, et forment leurs questions/négations seuls.",
+      "<strong>Obligation vs. Absence d'obligation :</strong> <em>must</em> = obligation forte ; <em>mustn't</em> = <strong>interdiction</strong> ; <em>don't have to</em> = pas obligatoire (pas besoin).",
+      "<strong>Déduction logique :</strong> <em>must</em> = quasi-certitude (<em>He must be tired</em>) ; <em>can't</em> = impossibilité (<em>She can't be at home</em>) ; <em>may / might / could</em> = possibilité.",
+      "<strong>Conseil & Politesse :</strong> <em>should</em> = conseil ; <em>Could / May / Would</em> = demandes polies."
+    ],
+    examples: [
+      { en: "You mustn't use your phone during the exam.", fr: "Vous ne devez pas utiliser votre téléphone pendant l'examen. (interdiction)" },
+      { en: "You don't have to print the ticket.", fr: "Tu n'es pas obligé d'imprimer le billet. (absence d'obligation)" }
+    ]
+  }
+};
+
 // Initialize Dashboard on Page Load
 document.addEventListener("DOMContentLoaded", () => {
   renderDashboard();
@@ -10394,6 +10620,55 @@ function getVocabByCategory(category) {
 }
 	/* -------------------- QUIZ ENGINE -------------------- */
 
+function getGrammarRuleForTopic(topicStr) {
+  if (!topicStr) return null;
+  const t = topicStr.toLowerCase();
+  if (t.includes("spelling") || t.includes("3rd") || t.includes("third")) return grammarRulesFr[2];
+  if (t.includes("simple present") || t.includes("present simple")) return grammarRulesFr[1];
+  if (t.includes("present continuous") || t.includes("progressive")) return grammarRulesFr[3];
+  if (t.includes("zero conditional")) return grammarRulesFr[4];
+  if (t.includes("first conditional")) return grammarRulesFr[5];
+  if (t.includes("second conditional")) return grammarRulesFr[6];
+  if (t.includes("future") || t.includes("will") || t.includes("going to")) return grammarRulesFr[7];
+  if (t.includes("indirect") || t.includes("question")) return grammarRulesFr[8];
+  if (t.includes("modal")) return grammarRulesFr[9];
+  return null;
+}
+
+function updateGrammarRuleDrawer(q) {
+  const drawer = document.getElementById("grammar-rule-drawer");
+  const content = document.getElementById("grammar-rule-content");
+  if (!drawer || !content) return;
+
+  const ruleObj = getGrammarRuleForTopic(q.topic);
+  if (!ruleObj) {
+    drawer.style.display = "none";
+    drawer.open = false;
+    return;
+  }
+
+  drawer.style.display = "block";
+  drawer.open = false; // Collapsed by default so students try the question first
+
+  const rulesHtml = ruleObj.rules.map(r => `<li style="margin-bottom:0.35rem;">${r}</li>`).join("");
+  const examplesHtml = ruleObj.examples
+    .map(ex => `<div style="margin-top:0.3rem;"><strong>EN:</strong> <em>${ex.en}</em><br><span style="color:#4b5563;"><strong>FR:</strong> ${ex.fr}</span></div>`)
+    .join("");
+
+  content.innerHTML = `
+    <div style="font-weight:700; font-size:1rem; color:#1B4332; margin-bottom:0.35rem;">${ruleObj.titleFr}</div>
+    <div style="background:#E8F0EB; color:#1B4332; padding:0.45rem 0.65rem; border-radius:6px; font-weight:600; font-size:0.85rem;">
+      ${ruleObj.formula}
+    </div>
+    ${ruleObj.svg}
+    <ul style="padding-left:1.2rem; margin:0.6rem 0;">${rulesHtml}</ul>
+    <div style="background:#ffffff; border:1px solid #D8E2DC; border-radius:6px; padding:0.55rem 0.75rem; margin-top:0.5rem;">
+      <div style="font-weight:700; font-size:0.82rem; text-transform:uppercase; color:#2D6A4F; margin-bottom:0.2rem;">Exemples</div>
+      ${examplesHtml}
+    </div>
+  `;
+}
+
 function launchQuizUI() {
   switchView("quiz");
   renderCurrentQuestion();
@@ -10421,9 +10696,11 @@ function renderCurrentQuestion() {
   document.getElementById("quiz-progress-text").textContent = "Question " + (idx + 1) + " of " + total;
   document.getElementById("quiz-score-pill").textContent = "Score: " + currentSession.score + " / " + currentSession.answeredCount;
   document.getElementById("quiz-progress-fill").style.width = ((idx / total) * 100) + "%";
+
   // Tags & Prompt
   document.getElementById("q-topic-tag").textContent = q.topic || "General Grammar";
   document.getElementById("q-type-tag").textContent = q.type === "mcq" ? "Multiple Choice" : "Fill in the Blank";
+  updateGrammarRuleDrawer(q);
   document.getElementById("q-prompt").textContent = q.prompt;
 
   const hintEl = document.getElementById("q-hint");
