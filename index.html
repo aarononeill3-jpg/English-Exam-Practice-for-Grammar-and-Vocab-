@@ -1618,10 +1618,10 @@
 
 <!-- Listening Comprehension Lab -->
   <section id="view-listening" class="view">
-    <style>
+   <style>
       .listening-split {
         display: grid;
-        grid-template-columns: 1.05fr 0.95fr; /* Left: Questions | Right: Sticky Video */
+        grid-template-columns: 1.05fr 0.95fr; /* Left: Questions | Right: Locked Video */
         gap: 1.5rem;
         max-width: 1240px;
         margin: 0 auto;
@@ -1633,11 +1633,14 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+        max-height: calc(100vh - 110px); /* Fits neatly below your top navbar */
+        overflow-y: auto;                /* Questions scroll independently */
+        padding-right: 0.4rem;
       }
 
       .listening-video-col {
         position: sticky;
-        top: 1.25rem;
+        top: 5.5rem; /* Clears a sticky navbar if the outer page scrolls */
         background: #FAF7F0;
         border: 1px solid #D8E2DC;
         border-top: 4px solid #2D6A4F;
@@ -1713,9 +1716,16 @@
         .listening-split {
           grid-template-columns: 1fr;
         }
+        .listening-questions-col {
+          max-height: none;
+          overflow-y: visible;
+          padding-right: 0;
+        }
         .listening-video-col {
-          position: static;
-          order: -1; /* Video sits on top on mobile/tablets */
+          position: sticky;
+          top: 0;
+          z-index: 20;
+          order: -1; /* Video stays pinned at top on mobile/tablets too */
         }
       }
     </style>
