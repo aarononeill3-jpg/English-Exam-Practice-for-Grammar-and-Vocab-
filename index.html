@@ -1321,6 +1321,7 @@
       <button class="nav-btn" id="nav-mock" onclick="startMockExam()">Full Mock Exam</button>
       <button class="nav-btn" id="nav-vocab" onclick="switchView('vocab')">Vocabulary Lab</button>
       <button class="nav-btn" id="nav-reading" onclick="switchView('reading')">Reading Lab</button>
+      <button class="nav-btn" onclick="switchView('grammar-guide')">📖 Fiches de Grammaire</button>
     </nav>
   </div>
 </header>
@@ -1362,12 +1363,29 @@
       <span class="badge" id="total-q-badge">90 Questions Available</span>
     </div>
 
-    <div class="topic-grid" id="topic-grid">
+   <div class="topic-grid" id="topic-grid">
       <!-- Populated dynamically via JS from questionBank -->
     </div>
   </section>
 
-    <section id="view-quiz" class="view">
+  <!-- Dedicated Grammar Guide View (must sit OUTSIDE #view-dashboard and #view-quiz) -->
+  <section id="view-grammar-guide" class="view">
+    <div style="max-width: 860px; margin: 0 auto; padding: 1rem;">
+      <div style="margin-bottom: 1.25rem;">
+        <h2 style="color: #1B4332; margin-bottom: 0.35rem;">📖 Fiches de Grammaire (Explications & Schémas)</h2>
+        <p style="color: #4b5563; font-size: 0.95rem;">
+          Consultez toutes les règles essentielles en français avec leurs formules, schémas visuels et exemples avant de vous entraîner.
+        </p>
+        <!-- Quick Jump Pills -->
+        <div id="grammar-guide-nav" style="display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.85rem;"></div>
+      </div>
+
+      <!-- All 9 Grammar Cards Render Here -->
+      <div id="grammar-guide-list" style="display: flex; flex-direction: column; gap: 1.25rem;"></div>
+    </div>
+  </section>
+
+  <section id="view-quiz" class="view">
     <div class="quiz-wrapper">
       <div class="quiz-topbar">
         <div class="quiz-meta">
@@ -1385,6 +1403,15 @@
           <span class="q-tag-topic" id="q-topic-tag">Topic</span>
           <span class="q-tag-type" id="q-type-tag">Multiple Choice</span>
         </div>
+
+        <!-- Collapsible French Grammar Rule Guide (Shown for Grammar Questions) -->
+        <details id="grammar-rule-drawer" style="display: none; background: #FAF7F0; border: 1px solid #D8E2DC; border-left: 4px solid #2D6A4F; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+          <summary style="cursor: pointer; font-weight: 700; color: #1B4332; font-size: 0.92rem; user-select: none;">
+            📖 Rappel de grammaire (Explication en français + schéma)
+          </summary>
+          <div id="grammar-rule-content" style="margin-top: 0.75rem; font-size: 0.9rem; line-height: 1.55; color: #1f2937;"></div>
+        </details>
+
 
 <!-- Collapsible French Grammar Rule Guide (Shown for Grammar Questions) -->
         <details id="grammar-rule-drawer" style="display: none; background: #FAF7F0; border: 1px solid #D8E2DC; border-left: 4px solid #2D6A4F; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
@@ -10232,9 +10259,67 @@ const grammarRulesFr = {
   }
 };
 
+// --- 1. PASTE THE ENTIRE FUNCTION RIGHT HERE ---
+function renderGrammarGuide() {
+  const navContainer = document.getElementById("grammar-guide-nav");
+  const listContainer = document.getElementById("grammar-guide-list");
+  if (!navContainer || !listContainer || typeof grammarRulesFr === "undefined") return;
+
+  navContainer.innerHTML = "";
+  listContainer.innerHTML = "";
+
+  Object.keys(grammarRulesFr).forEach(key => {
+    const ruleObj = grammarRulesFr[key];
+
+    // 1. Quick-jump pill button at the top
+    const pill = document.createElement("button");
+    pill.textContent = ruleObj.titleFr;
+    pill.style.cssText =
+      "background:#E8F0EB; color:#1B4332; border:1px solid #2D6A4F; border-radius:999px; padding:0.35rem 0.75rem; font-size:0.82rem; font-weight:600; cursor:pointer;";
+    pill.onclick = () => {
+      const target = document.getElementById("grammar-card-" + key);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    navContainer.appendChild(pill);
+
+    // 2. Full rule sheet card
+    const rulesHtml = ruleObj.rules
+      .map(r => `<li style="margin-bottom:0.4rem;">${r}</li>`)
+      .join("");
+    const examplesHtml = ruleObj.examples
+      .map(
+        ex =>
+          `<div style="margin-top:0.35rem;"><strong>EN:</strong> <em>${ex.en}</em><br><span style="color:#4b5563;"><strong>FR:</strong> ${ex.fr}</span></div>`
+      )
+      .join("");
+
+    const card = document.createElement("article");
+    card.id = "grammar-card-" + key;
+    card.style.cssText =
+      "background:#FAF7F0; border:1px solid #D8E2DC; border-left:5px solid #2D6A4F; border-radius:10px; padding:1.25rem; box-shadow:0 2px 6px rgba(0,0,0,0.04);";
+
+    card.innerHTML = `
+      <h3 style="color:#1B4332; font-size:1.15rem; margin-top:0; margin-bottom:0.5rem;">${ruleObj.titleFr}</h3>
+      <div style="background:#E8F0EB; color:#1B4332; padding:0.55rem 0.75rem; border-radius:6px; font-weight:600; font-size:0.9rem;">
+        ${ruleObj.formula}
+      </div>
+      ${ruleObj.svg}
+      <ul style="padding-left:1.25rem; margin:0.75rem 0; line-height:1.55; color:#1f2937;">${rulesHtml}</ul>
+      <div style="background:#ffffff; border:1px solid #D8E2DC; border-radius:6px; padding:0.65rem 0.85rem; margin-top:0.6rem;">
+        <div style="font-weight:700; font-size:0.82rem; text-transform:uppercase; color:#2D6A4F; margin-bottom:0.25rem;">Exemples</div>
+        ${examplesHtml}
+      </div>
+    `;
+    listContainer.appendChild(card);
+  });
+}
+
+
+
 // Initialize Dashboard on Page Load
 document.addEventListener("DOMContentLoaded", () => {
   renderDashboard();
+  renderGrammarGuide();
   renderVocabList();
   updateFlashcard();
   initReadingLab();
@@ -10254,7 +10339,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* -------------------- NAVIGATION -------------------- */
-	
 function switchView(viewName) {
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
@@ -10264,6 +10348,8 @@ function switchView(viewName) {
 
   if (viewName === "dashboard") {
     document.getElementById("nav-dashboard").classList.add("active");
+  } else if (viewName === "grammar-guide") {
+    document.getElementById("nav-grammar-guide").classList.add("active");
   } else if (viewName === "vocab") {
     document.getElementById("nav-vocab").classList.add("active");
   } else if (viewName === "reading") {
@@ -10273,7 +10359,6 @@ function switchView(viewName) {
   }
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
-
 /* -------------------- DASHBOARD RENDERING -------------------- */
 
 function renderDashboard() {
@@ -10618,6 +10703,34 @@ function getVocabByCategory(category) {
   if (!category || category === "all") return [...vocabList];
   return vocabList.filter(v => (v.topic || "").toLowerCase() === category.toLowerCase());
 }
+function getVocabByCategory(category) {
+  if (!category || category === "all") return [...vocabList];
+  return vocabList.filter(v => (v.topic || "").toLowerCase() === category.toLowerCase());
+}
+
+function startVocabQuiz(category = "all") {
+  const pool = getVocabByCategory(category);
+  const prepared = buildVocabQuestionsFromList(shuffleArray(pool), "vocab");
+  const titleLabel =
+    category === "all"
+      ? "Complete Vocabulary Test (" + prepared.length + " Words)"
+      : "Vocabulary Test: " + category + " (" + prepared.length + " Words)";
+
+  currentSession = {
+    mode: "vocab",
+    topicName: category,
+    title: titleLabel,
+    questions: prepared,
+    currentIndex: 0,
+    score: 0,
+    answeredCount: 0,
+    userHistory: []
+  };
+
+  launchQuizUI();
+}
+
+/* -------------------- QUIZ ENGINE -------------------- */
 	/* -------------------- QUIZ ENGINE -------------------- */
 
 function getGrammarRuleForTopic(topicStr) {
@@ -10639,6 +10752,7 @@ function updateGrammarRuleDrawer(q) {
   const drawer = document.getElementById("grammar-rule-drawer");
   const content = document.getElementById("grammar-rule-content");
   if (!drawer || !content) return;
+
 
   const ruleObj = getGrammarRuleForTopic(q.topic);
   if (!ruleObj) {
