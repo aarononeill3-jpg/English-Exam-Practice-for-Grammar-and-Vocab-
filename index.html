@@ -1318,10 +1318,11 @@
 
     <nav class="nav-tabs" aria-label="Main navigation">
       <button class="nav-btn active" id="nav-dashboard" onclick="switchView('dashboard')">Grammar Topics</button>
+      <button class="nav-btn" id="nav-grammar-guide" onclick="switchView('grammar-guide')">📖 Grammar Guide (FR)</button>
       <button class="nav-btn" id="nav-mock" onclick="startMockExam()">Full Mock Exam</button>
       <button class="nav-btn" id="nav-vocab" onclick="switchView('vocab')">Vocabulary Lab</button>
       <button class="nav-btn" id="nav-reading" onclick="switchView('reading')">Reading Lab</button>
-      <button class="nav-btn" onclick="switchView('grammar-guide')">📖 Fiches de Grammaire</button>
+      <button class="nav-btn" id="nav-listening" onclick="switchView('listening')">Listening Lab</button>
     </nav>
   </div>
 </header>
@@ -1612,6 +1613,163 @@
 
       <!-- Right Column: 7 Comprehension Questions -->
       <div class="reading-quiz-col" id="reading-quiz-pane"></div>
+    </div>
+  </section>
+
+<!-- Listening Comprehension Lab -->
+  <section id="view-listening" class="view">
+    <style>
+      .listening-split {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr; /* Left: Questions | Right: Sticky Video */
+        gap: 1.5rem;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 1rem;
+        align-items: start;
+      }
+
+      .listening-questions-col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .listening-video-col {
+        position: sticky;
+        top: 1.25rem;
+        background: #FAF7F0;
+        border: 1px solid #D8E2DC;
+        border-top: 4px solid #2D6A4F;
+        border-radius: 10px;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .yt-responsive-box {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: 8px;
+        background: #000;
+      }
+
+      .yt-responsive-box iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .listening-q-card {
+        background: #ffffff;
+        border: 1px solid #D8E2DC;
+        border-left: 4px solid #2D6A4F;
+        border-radius: 10px;
+        padding: 1rem 1.15rem;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+      }
+
+      .timestamp-btn {
+        background: #E8F0EB;
+        color: #1B4332;
+        border: 1px solid #2D6A4F;
+        border-radius: 999px;
+        padding: 0.2rem 0.65rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .timestamp-btn:hover {
+        background: #2D6A4F;
+        color: #ffffff;
+      }
+
+      .listening-opt-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.55rem;
+        padding: 0.5rem 0.65rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 7px;
+        margin-top: 0.45rem;
+        cursor: pointer;
+        font-size: 0.92rem;
+        transition: background 0.15s, border-color 0.15s;
+      }
+
+      .listening-opt-label:hover {
+        background: #FAF7F0;
+        border-color: #2D6A4F;
+      }
+
+      @media (max-width: 900px) {
+        .listening-split {
+          grid-template-columns: 1fr;
+        }
+        .listening-video-col {
+          position: static;
+          order: -1; /* Video sits on top on mobile/tablets */
+        }
+      }
+    </style>
+
+    <div class="listening-split">
+      <!-- LEFT COLUMN: Scrollable Comprehension Questions -->
+      <div class="listening-questions-col">
+        <div style="background:#FAF7F0; border:1px solid #D8E2DC; border-left:5px solid #2D6A4F; border-radius:10px; padding:1.1rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
+            <h2 style="color:#1B4332; margin:0; font-size:1.25rem;">🎧 Listening Comprehension Lab</h2>
+            <span id="listening-score-badge" style="background:#E8F0EB; color:#1B4332; font-weight:700; font-size:0.84rem; padding:0.25rem 0.7rem; border-radius:999px; border:1px solid #2D6A4F;">
+              Not graded yet
+            </span>
+          </div>
+
+          <label for="listening-video-select" style="display:block; font-size:0.84rem; font-weight:700; color:#1B4332; margin-bottom:0.3rem;">
+            Choose a Video Lesson:
+          </label>
+          <select id="listening-video-select" onchange="loadListeningLesson(this.value)" style="width:100%; padding:0.5rem 0.65rem; border:1px solid #2D6A4F; border-radius:7px; background:#ffffff; font-size:0.92rem; color:#1f2937; font-weight:600;">
+            <!-- Populated via JS -->
+          </select>
+
+          <p id="listening-lesson-desc" style="color:#4b5563; font-size:0.88rem; margin:0.65rem 0 0 0; line-height:1.45;"></p>
+        </div>
+
+        <!-- Questions Render Here -->
+        <div id="listening-questions-list" style="display:flex; flex-direction:column; gap:1rem;"></div>
+
+        <!-- Bottom Action Bar -->
+        <div style="display:flex; gap:0.75rem; justify-content:flex-end; padding-bottom:1.5rem;">
+          <button class="btn btn-sm" style="background:#e5e7eb; color:#1f2937;" onclick="resetListeningLesson()">Reset Answers</button>
+          <button class="btn btn-primary btn-sm" onclick="checkListeningAnswers()">Check All Answers</button>
+        </div>
+      </div>
+
+     <!-- RIGHT COLUMN: Pinned Sticky YouTube Player -->
+      <aside class="listening-video-col">
+        <div class="yt-responsive-box">
+          <iframe
+            id="yt-listening-iframe"
+            src=""
+            title="Listening Comprehension Video"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div style="margin-top:0.75rem; font-size:0.84rem; color:#4b5563; line-height:1.45;">
+          <strong>💡 Listening Strategy:</strong><br>
+          1. Watch once without subtitles to get the main idea.<br>
+          2. Click any <strong>⏱ timestamp badge</strong> on the left to replay the exact passage for each question.
+        </div>
+      </aside>
     </div>
   </section>
 </main>
@@ -10314,7 +10472,1653 @@ function renderGrammarGuide() {
   });
 }
 
+/* -------------------- LISTENING LAB ENGINE -------------------- */
 
+const listeningLessons = [
+ {
+    id: "lesson-1",
+    title: "1. What really happens to the plastic you throw away? (TED-Ed)",
+    youtubeId: "_6xlNyWPpB8",
+    level: "B1 / B2 • Environment & Sustainability",
+    description: "Follow the life cycle of three different plastic bottles from manufacturing to disposal and answer all 12 chronological comprehension questions.",
+    questions: [
+      {
+        timestampLabel: "0:12",
+        timestampSec: 12,
+        prompt: "What happens immediately after the three plastic bottles are emptied and discarded?",
+        options: [
+          "They are all sent to the same recycling plant.",
+          "Their paths diverge as each bottle faces a very different fate.",
+          "They are immediately melted down for fuel."
+        ],
+        answerIndex: 1,
+        explanationEn: "Once discarded, the three identical bottles take completely different journeys.",
+        explanationFr: "Une fois jetées, les trois bouteilles identiques suivent des parcours très différents."
+      },
+      {
+        timestampLabel: "0:28",
+        timestampSec: 28,
+        prompt: "How are the raw plastic pellets for these bottles originally created?",
+        options: [
+          "By chemically bonding oil and gas molecules together to make monomers",
+          "By compressing recycled wood fiber and natural plant oils",
+          "By heating sand and limestone at high temperatures"
+        ],
+        answerIndex: 0,
+        explanationEn: "Oil and gas are refined and chemically bonded into monomers, which link into long polymer chains to form plastic pellets.",
+        explanationFr: "Le pétrole et le gaz sont raffinés et liés chimiquement pour former des monomères, puis des polymères sous forme de granulés."
+      },
+      {
+        timestampLabel: "0:50",
+        timestampSec: 50,
+        prompt: "How are the tiny plastic pellets turned into actual bottles at the manufacturing plant?",
+        options: [
+          "They are dissolved in acid and poured into glass jars.",
+          "They are melted down and reshaped in molds into resilient plastic bottles.",
+          "They are 3D-printed layer by layer."
+        ],
+        answerIndex: 1,
+        explanationEn: "The pellets are melted and molded into the clear, resilient bottles filled with sweet bubbly liquid.",
+        explanationFr: "Les granulés sont fondus et moulés pour devenir des bouteilles en plastique résistantes."
+      },
+      {
+        timestampLabel: "1:12",
+        timestampSec: 72,
+        prompt: "Where does Bottle One end up after being thrown in the trash?",
+        options: [
+          "In a towering landfill compressed under layers of other junk",
+          "In a municipal composting facility",
+          "In a coastal river basin"
+        ],
+        answerIndex: 0,
+        explanationEn: "Bottle One is hauled to a landfill, where mountains of trash are piled on top of it.",
+        explanationFr: "La bouteille numéro un finit dans une décharge, écrasée sous d'autres couches de déchets."
+      },
+      {
+        timestampLabel: "1:24",
+        timestampSec: 84,
+        prompt: "What is 'leachate' and how is it formed in the landfill?",
+        options: [
+          "A helpful fertilizer produced when plastic decomposes naturally",
+          "A toxic soup created when rainwater flows through waste and absorbs water-soluble compounds",
+          "A gas captured by trucks to power recycling centers"
+        ],
+        answerIndex: 1,
+        explanationEn: "As rainwater trickles through the trash, it absorbs toxic compounds from plastics and other waste, forming leachate.",
+        explanationFr: "En s'infiltrant dans les déchets, l'eau de pluie absorbe des composés toxiques et forme un liquide polluant appelé lixiviat."
+      },
+      {
+        timestampLabel: "1:40",
+        timestampSec: 100,
+        prompt: "Why is leachate dangerous to the surrounding environment, and how long can Bottle One take to decompose?",
+        options: [
+          "It causes acid rain, and the bottle takes 10 years to decompose.",
+          "It can poison groundwater, soil, and streams, and the bottle can take up to 1,000 years to decompose.",
+          "It attracts predatory birds, and the bottle decomposes in 50 years."
+        ],
+        answerIndex: 1,
+        explanationEn: "Leachate can contaminate groundwater and ecosystems, while Bottle One can sit in the landfill for up to 1,000 years.",
+        explanationFr: "Le lixiviat peut contaminer les nappes phréatiques et les sols, tandis que la bouteille met jusqu'à 1 000 ans à se décomposer."
+      },
+      {
+        timestampLabel: "1:58",
+        timestampSec: 118,
+        prompt: "How does Bottle Two make its way from the street into the ocean?",
+        options: [
+          "It floats into a trickle of rainwater, then a stream, a river, and finally out to sea.",
+          "It is dumped directly from a cargo ship.",
+          "It is carried by high winds across the desert."
+        ],
+        answerIndex: 0,
+        explanationEn: "Dropped on the ground, Bottle Two washes into a stream, flows into a river, and reaches the open ocean.",
+        explanationFr: "Jetée par terre, la bouteille deux est entraînée par l'eau de pluie vers un ruisseau, un fleuve, puis l'océan."
+      },
+      {
+        timestampLabel: "2:12",
+        timestampSec: 132,
+        prompt: "What happens to Bottle Two after months at sea?",
+        options: [
+          "It sinks cleanly to the ocean floor and turns into coral.",
+          "It is drawn into a massive vortex of trash called the Great Pacific Garbage Patch.",
+          "It washes back onto the beach where it was bought."
+        ],
+        answerIndex: 1,
+        explanationEn: "Ocean currents trap it in the Great Pacific Garbage Patch, where millions of pieces of plastic debris accumulate.",
+        explanationFr: "Les courants marins l'entraînent dans le vortex de déchets du Pacifique nord, où s'accumulent des millions de débris plastiques."
+      },
+      {
+        timestampLabel: "2:28",
+        timestampSec: 148,
+        prompt: "How many major plastic-filled ocean gyres exist around the world?",
+        options: [
+          "Two",
+          "Five",
+          "Twelve"
+        ],
+        answerIndex: 1,
+        explanationEn: "The Great Pacific Garbage Patch is one of five massive plastic-filled gyres in the world's oceans.",
+        explanationFr: "Le vortex du Pacifique nord est l'un des cinq grands gyres océaniques remplis de plastique dans le monde."
+      },
+      {
+        timestampLabel: "2:45",
+        timestampSec: 165,
+        prompt: "Why do marine animals and seabirds eat microplastics, and how does this affect humans?",
+        options: [
+          "The bright pieces look like food; the toxins move up the food chain when larger fish—and eventually humans—eat them.",
+          "Plastics taste like salt; however, the toxins disappear before reaching larger fish.",
+          "Animals use plastic to build nests, so it never enters the food chain."
+        ],
+        answerIndex: 0,
+        explanationEn: "Animals mistake colorful microplastics for food, passing plastic toxins up the food chain to larger predators and people.",
+        explanationFr: "Les animaux confondent les microplastiques colorés avec de la nourriture, transmettant les toxines tout au long de la chaîne alimentaire jusqu'à l'homme."
+      },
+      {
+        timestampLabel: "3:22",
+        timestampSec: 202,
+        prompt: "What happens to Bottle Three at the recycling facility?",
+        options: [
+          "It is washed and refilled immediately with soda.",
+          "It is flattened into a cube, shredded into tiny pieces, washed, and melted into raw material.",
+          "It is burned to heat the factory."
+        ],
+        answerIndex: 1,
+        explanationEn: "Bottle Three is compressed into a bale, shredded into flakes, washed, and melted into reusable plastic raw material.",
+        explanationFr: "La bouteille trois est compactée en bloc, broyée en paillettes, lavée puis fondue pour redevenir une matière première."
+      },
+      {
+        timestampLabel: "3:45",
+        timestampSec: 225,
+        prompt: "What can Bottle Three become in its 'next life' after being recycled?",
+        options: [
+          "Only another identical soda bottle",
+          "A completely new product, such as a pair of shoes, clothing, or another bottle",
+          "Organic garden compost"
+        ],
+        answerIndex: 1,
+        explanationEn: "Unlike the other two bottles, Bottle Three is reborn as a new item—like textiles, shoes, or a fresh bottle.",
+        explanationFr: "Contrairement aux deux autres, la bouteille trois renaît sous forme d'un nouvel objet : vêtements, chaussures ou nouvelle bouteille."
+      }
+    ]
+  },
+  {
+    id: "lesson-2",
+    title: "2. The life cycle of a t-shirt (TED-Ed)",
+    youtubeId: "BiSYoeqb_VY",
+    level: "B1 / B2 • Fairtrade & Global Supply Chains",
+    description: "Follow the global journey of a simple cotton t-shirt from farming to manufacturing, retail, and washing, and answer all 12 chronological comprehension questions.",
+    questions: [
+      {
+        timestampLabel: "0:18",
+        timestampSec: 18,
+        prompt: "Where does the journey of a typical cotton t-shirt begin?",
+        options: [
+          "In a textile weaving factory in Europe",
+          "On cotton farms in countries like the United States, China, or India",
+          "In a chemical laboratory that produces synthetic fibers"
+        ],
+        answerIndex: 1,
+        explanationEn: "The t-shirt's life cycle starts with planting, irrigating, and harvesting cotton crops in major producing countries such as the US, China, and India.",
+        explanationFr: "Le cycle de vie du t-shirt commence par la culture et la récolte du coton dans de grands pays producteurs comme les États-Unis, la Chine ou l'Inde."
+      },
+      {
+        timestampLabel: "0:40",
+        timestampSec: 40,
+        prompt: "Approximately how much water is needed to grow the cotton for just one t-shirt?",
+        options: [
+          "270 liters",
+          "2,700 liters",
+          "27,000 liters"
+        ],
+        answerIndex: 1,
+        explanationEn: "It takes roughly 2,700 liters of water—enough to fill more than 30 bathtubs—to produce the cotton for a single t-shirt.",
+        explanationFr: "Il faut environ 2 700 litres d'eau — de quoi remplir plus de 30 baignoires — pour produire le coton d'un seul t-shirt."
+      },
+      {
+        timestampLabel: "0:55",
+        timestampSec: 55,
+        prompt: "What is a major environmental concern associated with conventional cotton farming?",
+        options: [
+          "Cotton plants release large amounts of methane gas.",
+          "Cotton uses more insecticides and pesticides than almost any other single crop.",
+          "Cotton harvesting permanently destroys mountain bedrock."
+        ],
+        answerIndex: 1,
+        explanationEn: "Conventional cotton farming relies heavily on pesticides and insecticides, which can harm local ecosystems and soil health.",
+        explanationFr: "La culture conventionnelle du coton utilise d'énormes quantités de pesticides et d'insecticides, ce qui nuit aux écosystèmes et aux sols."
+      },
+      {
+        timestampLabel: "1:15",
+        timestampSec: 75,
+        prompt: "What happens to the raw cotton immediately after it is harvested?",
+        options: [
+          "It is dyed bright colors on the farm.",
+          "A machine called a cotton gin separates the fluffy fibers from the seeds and compresses them into bales.",
+          "It is soaked in saltwater for three weeks."
+        ],
+        answerIndex: 1,
+        explanationEn: "The cotton gin removes seeds and debris, pressing the clean cotton lint into heavy bales ready for shipping.",
+        explanationFr: "L'égreneuse sépare les fibres de coton des graines et les compresse en balles prêtes pour le transport."
+      },
+      {
+        timestampLabel: "1:35",
+        timestampSec: 95,
+        prompt: "Where are most cotton bales shipped to be spun into yarn and woven into fabric?",
+        options: [
+          "To automated spinning facilities primarily in Asia (such as China and India)",
+          "To small family workshops in Scandinavia",
+          "To underground facilities in South America"
+        ],
+        answerIndex: 0,
+        explanationEn: "Bales are shipped to major textile mills—mostly in China and India—where machines card, comb, spin, and knit the cotton into raw fabric.",
+        explanationFr: "Les balles sont expédiées vers de grandes filatures, principalement en Chine et en Inde, pour être filées et tricotées en tissu."
+      },
+      {
+        timestampLabel: "1:58",
+        timestampSec: 118,
+        prompt: "What happens to the raw fabric during the 'wet processing' stage?",
+        options: [
+          "It is frozen to lock in the cotton fibers.",
+          "It is treated with heat and chemicals to bleach and dye it, often creating polluted wastewater.",
+          "It is coated in natural beeswax to make it waterproof."
+        ],
+        answerIndex: 1,
+        explanationEn: "The fabric is bleached and dyed using commercial chemicals and heavy metals that can pollute rivers if wastewater is not properly treated.",
+        explanationFr: "Le tissu est blanchi et teint à l'aide de produits chimiques et de métaux lourds qui peuvent polluer les cours d'eau si les eaux usées ne sont pas traitées."
+      },
+      {
+        timestampLabel: "2:25",
+        timestampSec: 145,
+        prompt: "Why is the sewing stage of t-shirt production still difficult to automate completely?",
+        options: [
+          "Because fabric is flexible and curved seams require delicate human guidance",
+          "Because sewing machines are illegal in export zones",
+          "Because cotton thread snaps inside robotic arms"
+        ],
+        answerIndex: 0,
+        explanationEn: "Because soft fabric shifts easily, guiding pieces through sewing machines still relies heavily on skilled human hands.",
+        explanationFr: "Comme le tissu souple se déforme facilement, l'assemblage à la machine à coudre dépend encore largement du travail manuel."
+      },
+      {
+        timestampLabel: "2:45",
+        timestampSec: 165,
+        prompt: "Why do clothing companies frequently outsource sewing to countries like Bangladesh?",
+        options: [
+          "Because cotton only grows in tropical coastal regions",
+          "Because lower labor costs keep retail prices low, though workers often face low wages and poor conditions",
+          "Because shipping from Bangladesh to Europe takes less than two hours"
+        ],
+        answerIndex: 1,
+        explanationEn: "Brands outsource labor-intensive sewing to countries with low wages so they can keep prices cheap and profit margins high.",
+        explanationFr: "Les marques sous-traitent la couture dans des pays à bas coûts salariaux afin de maintenir des prix bas et des marges élevées."
+      },
+      {
+        timestampLabel: "3:10",
+        timestampSec: 190,
+        prompt: "How do finished t-shirts travel to stores in high-income consumer countries, and what is the climate impact?",
+        options: [
+          "By electric cargo trains with zero emissions",
+          "By container ships, trains, and trucks, generating a massive carbon footprint",
+          "By hot-air balloons across the Pacific"
+        ],
+        answerIndex: 1,
+        explanationEn: "Global transport by cargo ship, rail, and truck gives the apparel industry a huge carbon footprint—accounting for roughly 10% of global carbon emissions.",
+        explanationFr: "Le transport mondial par porte-conteneurs, train et camion donne à l'industrie textile une énorme empreinte carbone (environ 10 % des émissions mondiales)."
+      },
+      {
+        timestampLabel: "3:35",
+        timestampSec: 215,
+        prompt: "Once a consumer buys the t-shirt, where does a surprising portion of its lifetime energy and water use occur?",
+        options: [
+          "In the store's air-conditioned fitting rooms",
+          "At home through repeated washing and tumble-drying",
+          "During the five-minute drive home from the mall"
+        ],
+        answerIndex: 1,
+        explanationEn: "Washing and especially tumble-drying clothes at home consumes large amounts of electricity and water over the garment's lifespan.",
+        explanationFr: "Laver et surtout passer le t-shirt au sèche-linge à la maison consomme une grande partie de l'eau et de l'énergie totales de son cycle de vie."
+      },
+      {
+        timestampLabel: "4:02",
+        timestampSec: 242,
+        prompt: "How has the rise of 'fast fashion' changed clothing consumption over the last two decades?",
+        options: [
+          "People buy twice as many clothes as they did 15 years ago, keep them half as long, and send most to landfills or incinerators.",
+          "People buy fewer garments and repair them for twenty years.",
+          "All fast-fashion brands now use 100% recycled organic hemp."
+        ],
+        answerIndex: 0,
+        explanationEn: "Fast fashion encourages rapid turnover: consumers buy far more garments, wear them fewer times, and discard the majority into landfills.",
+        explanationFr: "La fast fashion pousse à acheter deux fois plus de vêtements, à les garder deux fois moins longtemps et à en jeter la majorité à la décharge."
+      },
+      {
+        timestampLabel: "4:25",
+        timestampSec: 265,
+        prompt: "What practical steps does the video suggest consumers can take to reduce a t-shirt's footprint?",
+        options: [
+          "Wash clothes only in boiling water and buy a new wardrobe every month",
+          "Look for organic/recycled fabrics, wash in cold water, line-dry instead of using a dryer, and repair or donate old clothes",
+          "Throw cotton shirts directly into ocean currents to dissolve"
+        ],
+        answerIndex: 1,
+        explanationEn: "Choosing sustainable materials, washing cold, line-drying, and repairing, reusing, or donating garments dramatically cuts environmental impact.",
+        explanationFr: "Choisir des matières durables, laver à froid, sécher à l'air libre et réparer ou donner ses vêtements réduit fortement leur impact environnemental."
+      }
+    ]
+  },
+  {
+    id: "lesson-3",
+    title: "3. Nespresso – The Choices We Make (Fairtrade & Coffee)",
+    youtubeId: "defDvr7ZeHU",
+    level: "B1 • Fairtrade & Ethical Consumption",
+    description: "Watch the Nespresso advertisement narrated by George Clooney and answer the 7 multiple-choice questions. There is only one correct answer per question.",
+    type: "mcq",
+    questions: [
+      {
+        timestampLabel: "0:01",
+        timestampSec: 1,
+        prompt: "1. What type of document is it?",
+        options: [
+          "an advertisement",
+          "a documentary",
+          "a video campaign"
+        ],
+        answerIndex: 0,
+        explanationEn: "It is a Nespresso television/online advertisement ('Nespresso presents: A true story narrated by George Clooney').",
+        explanationFr: "Il s'agit d'une publicité Nespresso (« Nespresso presents: A true story narrated by George Clooney »)."
+      },
+      {
+        timestampLabel: "0:37",
+        timestampSec: 37,
+        prompt: "2. What country is mentioned?",
+        options: [
+          "Colombia",
+          "Cuba",
+          "Costa Rica"
+        ],
+        answerIndex: 0,
+        explanationEn: "The narrator specifically mentions Jardín, Colombia.",
+        explanationFr: "Le narrateur mentionne précisément Jardín, en Colombie."
+      },
+      {
+        timestampLabel: "0:37",
+        timestampSec: 37,
+        prompt: "3. What did Nespresso build there?",
+        options: [
+          "a community mill",
+          "a coffee shop",
+          "a roasting factory"
+        ],
+        answerIndex: 0,
+        explanationEn: "Nespresso chose to build a community mill in Jardín, Colombia, to process and enhance the quality of the coffee beans.",
+        explanationFr: "Nespresso a choisi de construire un moulin communautaire (« a community mill ») à Jardín, en Colombie."
+      },
+      {
+        timestampLabel: "0:16",
+        timestampSec: 16,
+        prompt: "4. Who benefits from this project?",
+        options: [
+          "coffee growers and their families",
+          "coffee growers",
+          "immigrants"
+        ],
+        answerIndex: 0,
+        explanationEn: "Both the farmers (like Humberto) and their families (like his daughter Andrea, who was able to go to university) benefit.",
+        explanationFr: "Les producteurs de café (comme Humberto) ainsi que leurs familles (comme sa fille Andrea, qui a pu aller à l'université) en bénéficient."
+      },
+      {
+        timestampLabel: "0:16",
+        timestampSec: 16,
+        prompt: "5. What do farmers get from this project?",
+        options: [
+          "more money",
+          "more coffee beans",
+          "better productivity"
+        ],
+        answerIndex: 0,
+        explanationEn: "The narrator states that the choice helped farmers like Humberto earn more money and gave him more free time.",
+        explanationFr: "Le narrateur explique que ce choix a permis aux fermiers comme Humberto de gagner plus d'argent (« earn more money »)."
+      },
+      {
+        timestampLabel: "0:43",
+        timestampSec: 43,
+        prompt: "6. What do Nespresso’s customers get out of it?",
+        options: [
+          "better quality coffee",
+          "cheaper coffee",
+          "local coffee"
+        ],
+        answerIndex: 0,
+        explanationEn: "The community mill was built to enhance the quality of their Arabica beans and of the customer's coffee.",
+        explanationFr: "Le moulin améliore la qualité des grains d'Arabica et donc celle du café des clients (« better quality coffee »)."
+      },
+      {
+        timestampLabel: "0:37",
+        timestampSec: 37,
+        prompt: "7. What kind of project is it?",
+        options: [
+          "a fair trade initiative",
+          "a photography school",
+          "an educational project"
+        ],
+        answerIndex: 0,
+        explanationEn: "It is presented as a fair trade / sustainable sourcing initiative supporting local coffee-growing communities.",
+        explanationFr: "Il s'agit d'une initiative de commerce équitable (« a fair trade initiative ») soutenant les communautés de producteurs."
+      }
+    ]
+  },
+  {
+    id: "lesson-4",
+    title: "4. What is Sustainable Development? (Fill in the Gaps)",
+    youtubeId: "7V8oFI4GYMY",
+    level: "B1 • Sustainable Development & Environment",
+    description: "Watch the UN Association video and fill in the 20 missing words in the summary text below. Click 'Check All Answers' when finished.",
+    type: "fill-text",
+    paragraphs: [
+      {
+        timestampLabel: "0:13",
+        timestampSec: 13,
+        segments: [
+          "Do you ever stop and think if what you do is ",
+          { answer: "sustainable", hint: "adj." },
+          "? And do you know what sustainable ",
+          { answer: "development", hint: "noun" },
+          " means?"
+        ]
+      },
+      {
+        timestampLabel: "0:20",
+        timestampSec: 20,
+        segments: [
+          "Sustainable development is to make the world a better place for everyone now, without ",
+          { answer: "destroying", hint: "-ing verb" },
+          " the possibilities for the next ",
+          { answer: "generations", hint: "plural noun" },
+          ". If you wonder if something is sustainable, you can ask yourself: “Can we do this ",
+          { answer: "over and over", hint: "3 words" },
+          " again forever?”"
+        ]
+      },
+      {
+        timestampLabel: "0:34",
+        timestampSec: 34,
+        segments: [
+          "Sustainable development means that we need to keep three things in mind at once: social ",
+          { answer: "progress", hint: "noun" },
+          ", economic development, and ",
+          { answer: "climate", hint: "noun" },
+          " and ",
+          { answer: "environment", hint: "noun" },
+          "."
+        ]
+      },
+      {
+        timestampLabel: "0:46",
+        timestampSec: 46,
+        segments: [
+          "→ First of all, we have to take care of our ",
+          { answer: "planet", hint: "noun" },
+          ". We have many natural ",
+          { answer: "ecosystems", hint: "plural noun" },
+          " that must be in balance in order for us to live here…"
+        ]
+      },
+      {
+        timestampLabel: "1:38",
+        timestampSec: 98,
+        segments: [
+          "→ Economics: almost everything we develop, buy, and ",
+          { answer: "trade", hint: "verb" },
+          " starts with nature. The smarter we use our natural ",
+          { answer: "resources", hint: "plural noun" },
+          " (and the better systems we create for a ",
+          { answer: "fair distribution", hint: "2 words" },
+          "), the more sustainable we are. One way... is to be more aware of what we ",
+          { answer: "buy", hint: "verb" },
+          " and how it is ",
+          { answer: "produced", hint: "past participle" },
+          "…"
+        ]
+      },
+      {
+        timestampLabel: "2:38",
+        timestampSec: 158,
+        segments: [
+          "→ ",
+          { answer: "Social", hint: "adj." },
+          " progress: we humans are part of nature. We're also important resources for the ",
+          { answer: "world", hint: "noun" },
+          "... But for us to be the best versions of ourselves, there are certain things that must be in order, like having ",
+          { answer: "equal opportunities", hint: "2 words" },
+          " to education, safety, food, and medicine…"
+        ]
+      },
+      {
+        timestampLabel: "3:14",
+        timestampSec: 194,
+        segments: [
+          "All the countries of the ",
+          { answer: "United Nations", hint: "2 words (UN)" },
+          " have agreed on a joint plan for sustainable development."
+        ]
+      }
+    ]
+ },
+  {
+    id: "lesson-5",
+    title: "5. Dangerous Mexican/US Border – Omar's Story (Borders Vocab)",
+    youtubeId: "1eMq-MTw2wA",
+    level: "B1 / B2 • Borders & Migration Vocabulary",
+    description: "Watch the Al Jazeera report about 13-year-old Omar's journey from Guatemala to the US-Mexico border, then complete the 8 multiple-choice questions and 4 vocabulary gap-fills.",
+    type: "mixed",
+    questions: [
+      {
+        kind: "mcq",
+        timestampLabel: "0:10",
+        timestampSec: 10,
+        prompt: "1. Where did Omar grow up, and how close was it to the Mexican border?",
+        options: [
+          "In a poverty-stricken coffee-farming area of Guatemala, about an hour south of the Mexican border",
+          "In a wealthy coastal port in northern Mexico, right on the US border",
+          "In an industrial suburb of Phoenix, Arizona"
+        ],
+        answerIndex: 0,
+        explanationEn: "Omar grew up amid coffee farms in El Porvenir, Guatemala, a poverty-stricken area roughly an hour south of the Mexican border.",
+        explanationFr: "Omar a grandi dans une région pauvre de plantations de café au Guatemala (El Porvenir), à environ une heure au sud de la frontière mexicaine."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "0:17",
+        timestampSec: 17,
+        prompt: "2. What economic 'push factor' drove Omar's mother, Fermina, to leave Guatemala in 2006?",
+        options: [
+          "Seasonal work was labor-intensive with very low pay (about 8 cents a pound for picking coffee beans)",
+          "Coffee farms were completely destroyed by an earthquake",
+          "She was offered a university scholarship in Arizona"
+        ],
+        answerIndex: 0,
+        explanationEn: "Low-paid, labor-intensive seasonal agricultural work pushed her to search for higher-paying employment in the US.",
+        explanationFr: "Le travail saisonnier pénible et très mal payé (8 cents la livre de café) l'a poussée à chercher un emploi mieux rémunéré."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "0:25",
+        timestampSec: 25,
+        prompt: "3. In migration vocabulary, what does the phrasal verb 'settle in' mean when the narrator says Fermina was 'crossing illegally into the United States and settling in Phoenix, Arizona'?",
+        options: [
+          "Moving to a new place and making it her permanent home",
+          "Paying a fine to border patrol agents",
+          "Returning immediately to her home country"
+        ],
+        answerIndex: 0,
+        explanationEn: "'To settle in [a city/country]' means to establish a new home and live there permanently.",
+        explanationFr: "« To settle in » signifie s'installer durablement dans un nouveau lieu ou pays."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "0:40",
+        timestampSec: 40,
+        prompt: "4. In US-Mexico border terminology, what is a 'coyote' (whom Fermina paid $800)?",
+        options: [
+          "A human smuggler paid to guide migrants secretly across the border",
+          "An official border patrol officer who inspects passports",
+          "A charitable organization that provides free bus tickets"
+        ],
+        answerIndex: 0,
+        explanationEn: "Along the US-Mexico border, a 'coyote' is a colloquial term for a people smuggler who guides undocumented migrants across the border for money.",
+        explanationFr: "À la frontière américano-mexicaine, un « coyote » désigne un passeur rémunéré pour faire traverser clandestinement les migrants."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "1:09",
+        timestampSec: 69,
+        prompt: "5. Why was the group's crossing on July 6 especially dangerous?",
+        options: [
+          "They were crossing the Arizona desert on foot at the peak of the summer heat",
+          "Heavy winter snowstorms had blocked all mountain highways",
+          "They were attempting to swim across a frozen river"
+        ],
+        answerIndex: 0,
+        explanationEn: "Crossing the harsh Arizona desert in July exposed them to extreme, life-threatening summer heat.",
+        explanationFr: "Traverser le désert de l'Arizona au mois de juillet les exposait à une chaleur estivale extrême et mortelle."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "1:33",
+        timestampSec: 93,
+        prompt: "6. What tragic discovery happened nearly two years later in Southern Arizona?",
+        options: [
+          "The partial skeletal remains of an older woman (Doña Teresa) and a young boy (Omar) were found",
+          "Omar and Doña Teresa were found working on a ranch in Texas",
+          "The coyote returned the $800 to Fermina in person"
+        ],
+        answerIndex: 0,
+        explanationEn: "Nearly two years after they disappeared in the desert, their partial skeletal remains were discovered in Southern Arizona.",
+        explanationFr: "Près de deux ans après leur disparition, leurs restes humains partiels ont été retrouvés dans le sud de l'Arizona."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "1:47",
+        timestampSec: 107,
+        prompt: "7. In the sentence 'In 2013, authorities apprehended nearly 14,000 minors', what does 'apprehended' mean?",
+        options: [
+          "Caught and arrested / detained by border authorities",
+          "Granted immediate citizenship",
+          "Helped across the desert by volunteers"
+        ],
+        answerIndex: 0,
+        explanationEn: "'To apprehend' is a formal/legal verb meaning to catch, arrest, or take someone into custody.",
+        explanationFr: "« To apprehend » est un verbe soutenu/juridique signifiant interpeller, arrêter ou appréhender."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "1:47",
+        timestampSec: 107,
+        prompt: "8. In that same sentence ('nearly 14,000 minors'), who are 'minors'?",
+        options: [
+          "Children and teenagers under the legal age of adulthood (under 18)",
+          "Workers who dig for gold and copper underground",
+          "Elderly migrants over the age of 75"
+        ],
+        answerIndex: 0,
+        explanationEn: "A 'minor' (spelled with an -o-, unlike 'miner') is a young person below the age of full legal responsibility.",
+        explanationFr: "Un « minor » (avec un -o-, à ne pas confondre avec « miner », mineur de fond) désigne une personne mineure (de moins de 18 ans)."
+      },
+      {
+        kind: "gap",
+        timestampLabel: "0:10",
+        timestampSec: 10,
+        beforeText: "9. [Gap 1 – Borders Vocab] Omar grew up in a poverty-stricken area located about an hour south of the Mexican ",
+        answer: "border",
+        afterText: ".",
+        explanationEn: "A 'border' is the official line separating two countries or regions.",
+        explanationFr: "« Border » = la frontière."
+      },
+      {
+        kind: "gap",
+        timestampLabel: "0:30",
+        timestampSec: 30,
+        beforeText: "10. [Gap 2 – Borders Vocab] In search of higher-paying work, his mother left her family behind in 2006, ",
+        answer: "crossing illegally",
+        afterText: " into the United States.",
+        explanationEn: "'Crossing illegally' refers to entering a country without official authorization or visas.",
+        explanationFr: "« Crossing illegally » = traverser clandestinement / illégalement."
+      },
+      {
+        kind: "gap",
+        timestampLabel: "0:40",
+        timestampSec: 40,
+        beforeText: "11. [Gap 3 – Borders Vocab] Crushed by their separation, Omar convinced his mother in 2010 to pay a ",
+        answer: "coyote",
+        afterText: " to lead him through the Arizona desert.",
+        explanationEn: "A 'coyote' is a smuggler paid to guide migrants across the US-Mexico border.",
+        explanationFr: "« Coyote » = passeur (terme utilisé à la frontière États-Unis / Mexique)."
+      },
+      {
+        kind: "gap",
+        timestampLabel: "1:47",
+        timestampSec: 107,
+        beforeText: "12. [Gap 4 – Borders Vocab] Omar's story is representative of a new trend on the border: in 2013, authorities ",
+        answer: "apprehended",
+        afterText: " nearly 14,000 minors.",
+        explanationEn: "'Apprehended' means detained or arrested by border enforcement officials.",
+        explanationFr: "« Apprehended » = interpellés / arrêtés par les autorités frontalières."
+      }
+    ]
+  },
+  {
+    id: "lesson-6",
+    title: "6. Day of the Dead on the US-Mexico Border – DW News (Borders Vocab)",
+    youtubeId: "clo0R8h7iZg",
+    level: "B1 / B2 • Borders & Migration Vocabulary",
+    description: "Watch the DW News report from Ciudad Juárez and Tijuana, then complete the 8 multiple-choice questions and 4 vocabulary gap-fills focusing on border terminology.",
+    type: "mixed",
+    questions: [
+      {
+        kind: "mcq",
+        timestampLabel: "0:00",
+        timestampSec: 0,
+        prompt: "1. Where did priests and parishioners from both countries hold the Day of the Dead mass?",
+        options: [
+          "In Ciudad Juárez, the sprawling Mexican city directly across the border from El Paso, Texas",
+          "Inside an airport terminal in Mexico City",
+          "On a naval ship off the coast of Florida"
+        ],
+        answerIndex: 0,
+        explanationEn: "The binational mass took place in Ciudad Juárez, just across the border from El Paso, Texas.",
+        explanationFr: "La messe binationale a eu lieu à Ciudad Juárez, juste de l'autre côté de la frontière face à El Paso, au Texas."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "0:07",
+        timestampSec: 7,
+        prompt: "2. Who are the 'asylum seekers hoping for hearings in the US' who attended the service?",
+        options: [
+          "People who have fled danger or persecution in their home country and are asking another country for legal protection",
+          "Tourists waiting in line to buy concert tickets",
+          "US border guards retiring after 30 years of service"
+        ],
+        answerIndex: 0,
+        explanationEn: "An 'asylum seeker' is someone seeking international protection whose legal claim ('hearing') has not yet been decided.",
+        explanationFr: "Un « asylum seeker » est un demandeur d'asile en attente d'une audience officielle (« hearing »)."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "0:14",
+        timestampSec: 14,
+        prompt: "3. What message was written on the signs held by some worshipers at the service?",
+        options: [
+          "\"We are all migrants\"",
+          "\"Close every crossing\"",
+          "\"No entry without a passport\""
+        ],
+        answerIndex: 0,
+        explanationEn: "Some worshipers held signs reading 'We are all migrants' to express solidarity.",
+        explanationFr: "Certains fidèles portaient des pancartes indiquant « We are all migrants » (Nous sommes tous des migrants)."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "0:20",
+        timestampSec: 20,
+        prompt: "4. Why does the report describe the churches organizing the November 2nd event as 'binational'?",
+        options: [
+          "Because religious communities from two nations (Mexico and the United States) came together across the border",
+          "Because the church building sits inside a national park",
+          "Because the ceremony is held twice every week"
+        ],
+        answerIndex: 0,
+        explanationEn: "'Binational' means involving or uniting two nations—here, parishioners and priests from both sides of the US-Mexico border.",
+        explanationFr: "« Binational » signifie qui réunit deux nations (ici les communautés des deux côtés de la frontière)."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "0:42",
+        timestampSec: 42,
+        prompt: "5. What did activists set up 1,000 kilometers to the west in Tijuana (south of San Diego)?",
+        options: [
+          "Day of the Dead skulls along the border fence as a tribute to those who died on the path of migration",
+          "A chain of fast-food restaurants for tourists",
+          "Solar panels to power streetlamps in California"
+        ],
+        answerIndex: 0,
+        explanationEn: "Activists placed Day of the Dead skulls along the border fence in Tijuana to honor migrants who lost their lives.",
+        explanationFr: "Des militants ont disposé des crânes du Jour des Morts le long de la barrière frontalière à Tijuana en hommage aux migrants décédés."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "1:00",
+        timestampSec: 60,
+        prompt: "6. How are populated border areas like Juárez and Tijuana secured, according to the report?",
+        options: [
+          "They are heavily defended with tall fences, ditches, and patrols",
+          "They are completely open with no physical barriers or guards",
+          "They are separated only by a small wooden garden gate"
+        ],
+        answerIndex: 0,
+        explanationEn: "Urban border zones like Juárez and Tijuana are heavily fortified with tall fences, ditches, and border patrols.",
+        explanationFr: "Les zones frontalières peuplées comme Juárez et Tijuana sont fortement défendues par de hautes clôtures, des fossés et des patrouilles."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "1:05",
+        timestampSec: 65,
+        prompt: "7. In border security vocabulary, what are 'patrols'?",
+        options: [
+          "Officers or vehicles regularly monitoring an area to guard and control the border",
+          "Bridges built for high-speed passenger trains",
+          "Identity documents stamped at an embassy"
+        ],
+        answerIndex: 0,
+        explanationEn: "'Patrols' (or Border Patrol) are security forces that continuously monitor a border zone to prevent unauthorized crossings.",
+        explanationFr: "« Patrols » désigne les patrouilles de surveillance chargées de contrôler la frontière."
+      },
+      {
+        kind: "mcq",
+        timestampLabel: "1:10",
+        timestampSec: 70,
+        prompt: "8. What forms a 'natural barrier' between the two countries where an unknown number of migrants die every year?",
+        options: [
+          "The harsh and empty desert",
+          "A dense tropical rainforest",
+          "A chain of active volcanoes"
+        ],
+        answerIndex: 0,
+        explanationEn: "Away from fenced cities, the harsh, empty desert acts as a deadly natural barrier between Mexico and the US.",
+        explanationFr: "En dehors des villes clôturées, le désert aride et isolé constitue une barrière naturelle (« natural barrier ») mortelle."
+      },
+      {
+        kind: "gap",
+        timestampLabel: "0:07",
+        timestampSec: 7,
+        beforeText: "9. [Gap 1 – Borders Vocab] ",
+        answer: "Asylum seekers",
+        afterText: " hoping for hearings in the US also attended the service.",
+        explanationEn: "'Asylum seekers' are migrants requesting legal protection and refugee status in another country.",
+        explanationFr: "« Asylum seekers » = les demandeurs d'asile."
+      },
+      {
+        kind: "gap",
+        timestampLabel: "0:42",
+        timestampSec: 42,
+        beforeText: "10. [Gap 2 – Borders Vocab] 1,000 kilometers to the west, activists set up Day of the Dead skulls along the ",
+        answer: "border fence",
+        afterText: " in Tijuana.",
+        explanationEn: "A 'border fence' is a physical barrier erected along an international boundary.",
+        explanationFr: "« Border fence » = la clôture / barrière frontalière."
+      },
+      {
+        kind: "gap",
+        timestampLabel: "1:05",
+        timestampSec: 65,
+        beforeText: "11. [Gap 3 – Borders Vocab] In populated areas like Juárez and Tijuana, border areas are heavily defended with tall fences, ditches, and ",
+        answer: "patrols",
+        afterText: ".",
+        explanationEn: "'Patrols' are security units that guard and monitor the frontier.",
+        explanationFr: "« Patrols » = les patrouilles."
+      },
+      {
+        kind: "gap",
+        timestampLabel: "1:10",
+        timestampSec: 70,
+        beforeText: "12. [Gap 4 – Borders Vocab] An unknown number of people die every year attempting to cross the harsh and empty desert that forms a ",
+        answer: "natural barrier",
+        afterText: " between the two countries.",
+        explanationEn: "A 'natural barrier' is a geographical feature (like a desert, river, or mountain range) that separates territories and makes crossing difficult.",
+        explanationFr: "« Natural barrier » = une barrière naturelle."
+      }
+    ]
+  },
+  {
+    id: "lesson-7",
+    title: "7. Is a Wall Along the US-Mexico Border Realistic? – CNN (Borders Vocab)",
+    youtubeId: "dlm5kxVGYsw",
+    level: "B1 / B2 • Borders & US-Mexico Wall Debate",
+    description: "Watch the CNN report and complete all 3 sections: Part 1 (5 Multiple-Choice Questions), Part 2 (Speaker Quotes – Fill in the Gaps), and Part 3 (Mexican Perspectives – Cloze Passage with Word Bank).",
+    type: "cnn-wall",
+    mcqQuestions: [
+      {
+        timestampLabel: "0:03",
+        timestampSec: 3,
+        prompt: "1. What name does Trump suggest for his wall?",
+        options: [
+          "the Trump wall",
+          "the dumb wall",
+          "the great wall"
+        ],
+        answerIndex: 0,
+        explanationEn: "Trump says: 'Maybe someday they're gonna call it the Trump wall.'",
+        explanationFr: "Trump déclare : « Maybe someday they're gonna call it the Trump wall » (le mur Trump)."
+      },
+      {
+        timestampLabel: "0:06",
+        timestampSec: 6,
+        prompt: "2. How long is the border between the US and Mexico?",
+        options: [
+          "nearly 2,000 miles",
+          "nearly 200 miles",
+          "nearly 700 miles"
+        ],
+        answerIndex: 0,
+        explanationEn: "The border between the United States and Mexico stretches nearly 2,000 miles (1,954 miles).",
+        explanationFr: "La frontière entre les États-Unis et le Mexique s'étend sur près de 2 000 miles (1 954 miles)."
+      },
+      {
+        timestampLabel: "0:09",
+        timestampSec: 9,
+        prompt: "3. How are parts of the border protected now?",
+        options: [
+          "border walls and steel fencing",
+          "border patrols",
+          "no protection"
+        ],
+        answerIndex: 0,
+        explanationEn: "Nearly 700 miles of the border is already covered with some form of border wall or steel fencing.",
+        explanationFr: "Près de 700 miles sont déjà équipés d'une forme de mur frontalier ou de clôtures en acier (« border wall or steel fencing »)."
+      },
+      {
+        timestampLabel: "0:37",
+        timestampSec: 37,
+        prompt: "4. Professor Michael Dear says Trump’s wall will be...",
+        options: [
+          "intensive in terms of resources",
+          "a large, ugly structure",
+          "walls don’t work"
+        ],
+        answerIndex: 0,
+        explanationEn: "Professor Michael Dear describes it as a large concrete structure that would be 'very intensive in terms of resources and money.'",
+        explanationFr: "Le professeur Michael Dear indique qu'il serait très gourmand en ressources et en argent (« very intensive in terms of resources and money »)."
+      },
+      {
+        timestampLabel: "1:08",
+        timestampSec: 108,
+        prompt: "5. Engineers and architects say the estimated cost is...",
+        options: [
+          "10.5 billion dollars",
+          "5 billion pounds",
+          "339 cubic feet"
+        ],
+        answerIndex: 0,
+        explanationEn: "Civil engineers and architects estimate a cost of at least 10.5 billion dollars ($10,560,000,000).",
+        explanationFr: "Les ingénieurs et architectes estiment le coût à au moins 10,5 milliards de dollars (« 10.5 billion dollars »)."
+      }
+    ],
+    quoteParagraphs: [
+      {
+        timestampLabel: "1:15",
+        timestampSec: 75,
+        segments: [
+          "Trump supporters say they can’t wait to see the beginning of the ",
+          { answer: "border wall construction" },
+          "."
+        ]
+      },
+      {
+        timestampLabel: "1:19",
+        timestampSec: 79,
+        segments: [
+          "“That wall will get built, and Mexico’s going to ",
+          { answer: "pay" },
+          " for that wall.”"
+        ]
+      },
+      {
+        timestampLabel: "1:22",
+        timestampSec: 82,
+        segments: [
+          "“I think he’ll try to ",
+          { answer: "build" },
+          " a wall and I ",
+          { answer: "think" },
+          " he’ll try to ",
+          { answer: "secure" },
+          " our borders.”"
+        ]
+      },
+      {
+        timestampLabel: "1:27",
+        timestampSec: 87,
+        segments: [
+          "“If people want to ",
+          { answer: "come" },
+          " into the ",
+          { answer: "country" },
+          ", they should do it ",
+          { answer: "legally" },
+          ".”"
+        ]
+      }
+    ],
+    clozeWordBank: [
+      "economy",
+      "crossing over",
+      "road",
+      "hurt",
+      "fruits and vegetables",
+      "illegally",
+      "keeping",
+      "bump",
+      "feed their families",
+      "immigrants"
+    ],
+    clozeParagraph: {
+      timestampLabel: "1:32",
+      timestampSec: 92,
+      segments: [
+        "But in Mexico, the idea of a wall is often shrugged off as a ",
+        { answer: "bump" },
+        " in the ",
+        { answer: "road" },
+        " North. Jose Torres Hernandez says he’s ",
+        { answer: "illegally" },
+        " crossed into the US many times, to find work picking ",
+        { answer: "fruits and vegetables" },
+        ". He says a wall might make ",
+        { answer: "crossing over" },
+        " a little harder, but immigrants like him would always find a way to find work to ",
+        { answer: "feed their families" },
+        ". Armando Flores Gutierrez says ",
+        { answer: "keeping" },
+        " people like him out of the country will only ",
+        { answer: "hurt" },
+        " the US… Donald Trump will realise what a huge mistake that is and how much the US ",
+        { answer: "economy" },
+        " depends on Mexican ",
+        { answer: "immigrants" },
+        "."
+      ]
+    }
+  }
+];
+
+let currentListeningLesson = listeningLessons[0];
+
+function initListeningLab() {
+  const select = document.getElementById("listening-video-select");
+  if (!select) return;
+
+  select.innerHTML = "";
+  listeningLessons.forEach(lesson => {
+    const opt = document.createElement("option");
+    opt.value = lesson.id;
+    opt.textContent = lesson.title;
+    select.appendChild(opt);
+  });
+
+  loadListeningLesson(listeningLessons[0].id);
+}
+
+function loadListeningLesson(lessonId) {
+  const lesson = listeningLessons.find(l => l.id === lessonId) || listeningLessons[0];
+  currentListeningLesson = lesson;
+
+  // Load YouTube video (cc_load_policy=0 keeps subtitles off initially)
+  const iframe = document.getElementById("yt-listening-iframe");
+  if (iframe) {
+    iframe.src = `https://www.youtube-nocookie.com/embed/${lesson.youtubeId}?rel=0&cc_load_policy=0`;
+  }
+
+  const descEl = document.getElementById("listening-lesson-desc");
+  if (descEl) {
+    descEl.innerHTML = `<strong>${lesson.level}</strong> — ${lesson.description}`;
+  }
+
+  let totalItems = 0;
+  if (lesson.type === "fill-text") {
+    totalItems = lesson.paragraphs.reduce(
+      (sum, p) => sum + p.segments.filter(s => typeof s === "object").length,
+      0
+    );
+  } else if (lesson.type === "cnn-wall") {
+    const qGaps = lesson.quoteParagraphs.reduce(
+      (sum, p) => sum + p.segments.filter(s => typeof s === "object").length,
+      0
+    );
+    const cGaps = lesson.clozeParagraph.segments.filter(s => typeof s === "object").length;
+    totalItems = lesson.mcqQuestions.length + qGaps + cGaps;
+  } else {
+    totalItems = lesson.questions.length;
+  }
+
+  const badge = document.getElementById("listening-score-badge");
+  if (badge) {
+    badge.textContent = `0 / ${totalItems} Items`;
+    badge.style.background = "#E8F0EB";
+    badge.style.color = "#1B4332";
+  }
+
+  const list = document.getElementById("listening-questions-list");
+  if (!list) return;
+  list.innerHTML = "";
+
+  // BRANCH A: Continuous Fill-in-the-blank passage (Lesson 4)
+  if (lesson.type === "fill-text") {
+    let gapCounter = 0;
+
+    lesson.paragraphs.forEach((para, pIdx) => {
+      const card = document.createElement("div");
+      card.className = "listening-q-card";
+      card.style.lineHeight = "2.1";
+      card.style.fontSize = "0.96rem";
+      card.style.color = "#1f2937";
+
+      let paragraphHtml = "";
+      para.segments.forEach(seg => {
+        if (typeof seg === "string") {
+          paragraphHtml += seg;
+        } else {
+          const currentGapId = gapCounter++;
+          const widthPx = Math.max(115, seg.answer.length * 10 + 28);
+          paragraphHtml += `
+            <span style="display:inline-flex; align-items:center; gap:0.25rem; vertical-align:middle;">
+              <input
+                type="text"
+                id="lgap-input-${currentGapId}"
+                data-answer="${seg.answer}"
+                placeholder="(${currentGapId + 1})"
+                autocomplete="off"
+                spellcheck="false"
+                style="width:${widthPx}px; padding:0.15rem 0.45rem; border:none; border-bottom:2px solid #2D6A4F; background:#FAF7F0; border-radius:4px 4px 0 0; font-family:inherit; font-size:0.93rem; font-weight:600; color:#1B4332; text-align:center;"
+              />
+              <span id="lgap-correction-${currentGapId}" style="display:none; font-size:0.82rem; font-weight:700; color:#1B4332; background:#E8F0EB; padding:0.05rem 0.4rem; border-radius:4px;"></span>
+            </span>
+          `;
+        }
+      });
+
+      card.innerHTML = `
+        <div>${paragraphHtml}</div>
+        <div id="lpara-replay-${pIdx}" style="display:none; margin-top:0.55rem;">
+          <button type="button" class="timestamp-btn" onclick="jumpToListeningTime(${para.timestampSec})" title="Replay this passage">
+            ⏱ Listen again from ${para.timestampLabel}
+          </button>
+        </div>
+      `;
+
+      list.appendChild(card);
+    });
+
+    const allInputs = list.querySelectorAll("input[id^='lgap-input-']");
+    allInputs.forEach((inp, idx) => {
+      inp.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (idx + 1 < allInputs.length) {
+            allInputs[idx + 1].focus();
+          } else {
+            checkListeningAnswers();
+          }
+        }
+      });
+    });
+
+    return;
+  }
+
+  // BRANCH B: 3-Part CNN Border Wall Worksheet (Lesson 7)
+  if (lesson.type === "cnn-wall") {
+    // Part 1 Header
+    const h1 = document.createElement("h3");
+    h1.textContent = "Part 1 — Multiple Choice (5 Questions)";
+    h1.style.cssText = "color:#1B4332; margin:0.25rem 0 0 0; font-size:1.05rem;";
+    list.appendChild(h1);
+
+    lesson.mcqQuestions.forEach((q, qIdx) => {
+      const card = document.createElement("div");
+      card.className = "listening-q-card";
+
+      const shuffledOptions = q.options
+        .map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }))
+        .sort(() => Math.random() - 0.5);
+
+      q.shuffledAnswerIndex = shuffledOptions.findIndex(opt => opt.isCorrect);
+
+      const optionsHtml = shuffledOptions
+        .map(
+          (optObj, optIdx) => `
+          <label class="listening-opt-label" id="lcnn-mcq-${qIdx}-opt-${optIdx}">
+            <input type="radio" name="lcnn-radio-${qIdx}" value="${optIdx}" style="margin-top:0.2rem; accent-color:#2D6A4F;">
+            <span>${optObj.text}</span>
+          </label>
+        `
+        )
+        .join("");
+
+      card.innerHTML = `
+        <div style="font-weight:600; color:#1f2937; font-size:0.98rem; margin-bottom:0.45rem;">${q.prompt}</div>
+        <div>${optionsHtml}</div>
+        <div id="lcnn-mcq-fb-${qIdx}" style="display:none; margin-top:0.65rem; padding:0.65rem 0.75rem; border-radius:7px; font-size:0.86rem; line-height:1.45;"></div>
+      `;
+      list.appendChild(card);
+    });
+
+    // Part 2 Header
+    const h2 = document.createElement("h3");
+    h2.textContent = "Part 2 — Fill in the Gaps (Speaker Quotes)";
+    h2.style.cssText = "color:#1B4332; margin:0.75rem 0 0 0; font-size:1.05rem;";
+    list.appendChild(h2);
+
+    let cnnGapIdx = 0;
+
+    lesson.quoteParagraphs.forEach((para, pIdx) => {
+      const card = document.createElement("div");
+      card.className = "listening-q-card";
+      card.style.lineHeight = "2.1";
+      card.style.fontSize = "0.96rem";
+
+      let html = "";
+      para.segments.forEach(seg => {
+        if (typeof seg === "string") {
+          html += seg;
+        } else {
+          const id = cnnGapIdx++;
+          const widthPx = Math.max(105, seg.answer.length * 10 + 26);
+          html += `
+            <span style="display:inline-flex; align-items:center; gap:0.25rem; vertical-align:middle;">
+              <input
+                type="text"
+                id="lcnn-gap-${id}"
+                data-answer="${seg.answer}"
+                placeholder="..."
+                autocomplete="off"
+                spellcheck="false"
+                style="width:${widthPx}px; padding:0.15rem 0.45rem; border:none; border-bottom:2px solid #2D6A4F; background:#FAF7F0; border-radius:4px 4px 0 0; font-family:inherit; font-size:0.93rem; font-weight:600; color:#1B4332; text-align:center;"
+              />
+              <span id="lcnn-corr-${id}" style="display:none; font-size:0.82rem; font-weight:700; color:#1B4332; background:#E8F0EB; padding:0.05rem 0.4rem; border-radius:4px;"></span>
+            </span>
+          `;
+        }
+      });
+
+      card.innerHTML = `
+        <div>${html}</div>
+        <div id="lcnn-qreplay-${pIdx}" style="display:none; margin-top:0.55rem;">
+          <button type="button" class="timestamp-btn" onclick="jumpToListeningTime(${para.timestampSec})">
+            ⏱ Listen again from ${para.timestampLabel}
+          </button>
+        </div>
+      `;
+      list.appendChild(card);
+    });
+
+    // Part 3 Header + Word Bank
+    const h3 = document.createElement("h3");
+    h3.textContent = "Part 3 — Listen for the Right Word (Use the Word Bank)";
+    h3.style.cssText = "color:#1B4332; margin:0.75rem 0 0 0; font-size:1.05rem;";
+    list.appendChild(h3);
+
+    const bankBox = document.createElement("div");
+    bankBox.style.cssText =
+      "background:#FAF7F0; border:1px solid #2D6A4F; border-radius:8px; padding:0.75rem 0.9rem; display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center;";
+    bankBox.innerHTML =
+      `<span style="font-weight:700; font-size:0.84rem; color:#1B4332; margin-right:0.35rem;">Word Bank:</span>` +
+      lesson.clozeWordBank
+        .map(
+          w =>
+            `<span style="background:#E8F0EB; color:#1B4332; border:1px solid #b7d1c2; padding:0.2rem 0.55rem; border-radius:999px; font-size:0.84rem; font-weight:600;">${w}</span>`
+        )
+        .join("");
+    list.appendChild(bankBox);
+
+    const clozeCard = document.createElement("div");
+    clozeCard.className = "listening-q-card";
+    clozeCard.style.lineHeight = "2.15";
+    clozeCard.style.fontSize = "0.96rem";
+
+    let clozeHtml = "";
+    lesson.clozeParagraph.segments.forEach(seg => {
+      if (typeof seg === "string") {
+        clozeHtml += seg;
+      } else {
+        const id = cnnGapIdx++;
+        const widthPx = Math.max(115, seg.answer.length * 10 + 28);
+        clozeHtml += `
+          <span style="display:inline-flex; align-items:center; gap:0.25rem; vertical-align:middle;">
+            <input
+              type="text"
+              id="lcnn-gap-${id}"
+              data-answer="${seg.answer}"
+              placeholder="..."
+              autocomplete="off"
+              spellcheck="false"
+              style="width:${widthPx}px; padding:0.15rem 0.45rem; border:none; border-bottom:2px solid #2D6A4F; background:#FAF7F0; border-radius:4px 4px 0 0; font-family:inherit; font-size:0.93rem; font-weight:600; color:#1B4332; text-align:center;"
+            />
+            <span id="lcnn-corr-${id}" style="display:none; font-size:0.82rem; font-weight:700; color:#1B4332; background:#E8F0EB; padding:0.05rem 0.4rem; border-radius:4px;"></span>
+          </span>
+        `;
+      }
+    });
+
+    clozeCard.innerHTML = `
+      <div>${clozeHtml}</div>
+      <div id="lcnn-cloze-replay" style="display:none; margin-top:0.55rem;">
+        <button type="button" class="timestamp-btn" onclick="jumpToListeningTime(${lesson.clozeParagraph.timestampSec})">
+          ⏱ Listen again from ${lesson.clozeParagraph.timestampLabel}
+        </button>
+      </div>
+    `;
+    list.appendChild(clozeCard);
+
+    // Enter key jumps smoothly through all Part 2 & Part 3 inputs
+    const cnnInputs = list.querySelectorAll("input[id^='lcnn-gap-']");
+    cnnInputs.forEach((inp, idx) => {
+      inp.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (idx + 1 < cnnInputs.length) {
+            cnnInputs[idx + 1].focus();
+          } else {
+            checkListeningAnswers();
+          }
+        }
+      });
+    });
+
+    return;
+  }
+
+  // BRANCH C: MCQ or Mixed (MCQ + Gap-Fill) Question Cards (Lessons 1, 2, 3, 5, 6)
+  lesson.questions.forEach((q, qIdx) => {
+    const card = document.createElement("div");
+    card.className = "listening-q-card";
+    card.id = `lq-card-${qIdx}`;
+
+    if (q.kind === "gap") {
+      const widthPx = Math.max(135, q.answer.length * 10 + 30);
+      card.innerHTML = `
+        <div style="margin-bottom:0.45rem;">
+          <span style="font-size:0.8rem; font-weight:700; text-transform:uppercase; color:#2D6A4F;">Question ${qIdx + 1} of ${lesson.questions.length} • Vocabulary Gap-Fill</span>
+        </div>
+        <div style="font-weight:600; color:#1f2937; font-size:0.96rem; line-height:2;">
+          ${q.beforeText}
+          <input
+            type="text"
+            id="lmixed-gap-${qIdx}"
+            placeholder="type word(s)"
+            autocomplete="off"
+            spellcheck="false"
+            style="width:${widthPx}px; padding:0.15rem 0.45rem; border:none; border-bottom:2px solid #2D6A4F; background:#FAF7F0; border-radius:4px 4px 0 0; font-family:inherit; font-size:0.93rem; font-weight:700; color:#1B4332; text-align:center;"
+          />
+          ${q.afterText}
+        </div>
+        <div id="lq-feedback-${qIdx}" style="display:none; margin-top:0.65rem; padding:0.65rem 0.75rem; border-radius:7px; font-size:0.86rem; line-height:1.45;"></div>
+      `;
+    } else {
+      const shuffledOptions = q.options
+        .map((text, idx) => ({ text, isCorrect: idx === q.answerIndex }))
+        .sort(() => Math.random() - 0.5);
+
+      q.shuffledAnswerIndex = shuffledOptions.findIndex(opt => opt.isCorrect);
+
+      const optionsHtml = shuffledOptions
+        .map(
+          (optObj, optIdx) => `
+          <label class="listening-opt-label" id="lq-${qIdx}-opt-${optIdx}">
+            <input type="radio" name="lq-radio-${qIdx}" value="${optIdx}" style="margin-top:0.2rem; accent-color:#2D6A4F;">
+            <span>${optObj.text}</span>
+          </label>
+        `
+        )
+        .join("");
+
+      card.innerHTML = `
+        <div style="margin-bottom:0.45rem;">
+          <span style="font-size:0.8rem; font-weight:700; text-transform:uppercase; color:#2D6A4F;">Question ${qIdx + 1} of ${lesson.questions.length}</span>
+        </div>
+        <div style="font-weight:600; color:#1f2937; font-size:0.98rem; margin-bottom:0.45rem;">${q.prompt}</div>
+        <div>${optionsHtml}</div>
+        <div id="lq-feedback-${qIdx}" style="display:none; margin-top:0.65rem; padding:0.65rem 0.75rem; border-radius:7px; font-size:0.86rem; line-height:1.45;"></div>
+      `;
+    }
+
+    list.appendChild(card);
+  });
+
+  const mixedInputs = list.querySelectorAll("input[id^='lmixed-gap-']");
+  mixedInputs.forEach((inp, idx) => {
+    inp.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (idx + 1 < mixedInputs.length) {
+          mixedInputs[idx + 1].focus();
+        } else {
+          checkListeningAnswers();
+        }
+      }
+    });
+  });
+}
+
+function checkListeningAnswers() {
+  // BRANCH A: Continuous Fill-in-the-blank passage (Lesson 4)
+  if (currentListeningLesson.type === "fill-text") {
+    let score = 0;
+    let gapCounter = 0;
+
+    currentListeningLesson.paragraphs.forEach((para, pIdx) => {
+      let paragraphHasError = false;
+
+      para.segments.forEach(seg => {
+        if (typeof seg === "object") {
+          const id = gapCounter++;
+          const input = document.getElementById(`lgap-input-${id}`);
+          const corrSpan = document.getElementById(`lgap-correction-${id}`);
+          if (!input) return;
+
+          const userVal = input.value.trim().toLowerCase().replace(/\s+/g, " ");
+          const expectedVal = seg.answer.trim().toLowerCase();
+
+          const isMatch =
+            userVal === expectedVal ||
+            (expectedVal === "over and over" && userVal === "over and over again");
+
+          if (isMatch) {
+            score++;
+            input.style.background = "#E8F0EB";
+            input.style.borderBottomColor = "#2D6A4F";
+            input.style.color = "#1B4332";
+            if (corrSpan) corrSpan.style.display = "none";
+          } else {
+            paragraphHasError = true;
+            input.style.background = "#FEE2E2";
+            input.style.borderBottomColor = "#DC2626";
+            input.style.color = "#991B1B";
+            if (corrSpan) {
+              corrSpan.textContent = `✓ ${seg.answer}`;
+              corrSpan.style.display = "inline-block";
+            }
+          }
+        }
+      });
+
+      const replayDiv = document.getElementById(`lpara-replay-${pIdx}`);
+      if (replayDiv) {
+        replayDiv.style.display = paragraphHasError ? "block" : "none";
+      }
+    });
+
+    const badge = document.getElementById("listening-score-badge");
+    if (badge) {
+      badge.textContent = `Score: ${score} / ${gapCounter} (${Math.round((score / gapCounter) * 100)}%)`;
+      badge.style.background = score === gapCounter ? "#2D6A4F" : "#E8F0EB";
+      badge.style.color = score === gapCounter ? "#ffffff" : "#1B4332";
+    }
+    return;
+  }
+
+  // BRANCH B: Grade 3-Part CNN Border Wall Worksheet (Lesson 7)
+  if (currentListeningLesson.type === "cnn-wall") {
+    let score = 0;
+    let total = 0;
+
+    // Grade Part 1 MCQs
+    currentListeningLesson.mcqQuestions.forEach((q, qIdx) => {
+      total++;
+      const selected = document.querySelector(`input[name="lcnn-radio-${qIdx}"]:checked`);
+      const fbEl = document.getElementById(`lcnn-mcq-fb-${qIdx}`);
+      const chosenIdx = selected ? parseInt(selected.value, 10) : -1;
+      const correctIdx = q.shuffledAnswerIndex !== undefined ? q.shuffledAnswerIndex : q.answerIndex;
+      const isCorrect = chosenIdx === correctIdx;
+
+      if (isCorrect) score++;
+
+      q.options.forEach((_, optIdx) => {
+        const label = document.getElementById(`lcnn-mcq-${qIdx}-opt-${optIdx}`);
+        if (!label) return;
+        label.style.background = "";
+        label.style.borderColor = "#e5e7eb";
+
+        if (optIdx === correctIdx) {
+          label.style.background = "#E8F0EB";
+          label.style.borderColor = "#2D6A4F";
+        } else if (optIdx === chosenIdx && !isCorrect) {
+          label.style.background = "#FEE2E2";
+          label.style.borderColor = "#DC2626";
+        }
+      });
+
+      if (fbEl) {
+        fbEl.style.display = "block";
+        fbEl.style.background = isCorrect ? "#E8F0EB" : "#FEF2F2";
+        fbEl.style.borderLeft = isCorrect ? "4px solid #2D6A4F" : "4px solid #DC2626";
+        fbEl.style.color = "#1f2937";
+        const replayBtn = !isCorrect
+          ? `<div style="margin-top:0.5rem;"><button type="button" class="timestamp-btn" onclick="jumpToListeningTime(${q.timestampSec})">⏱ Listen again from ${q.timestampLabel}</button></div>`
+          : "";
+        fbEl.innerHTML = `
+          <strong>${isCorrect ? "✅ Correct!" : "❌ Incorrect"}</strong><br>
+          ${q.explanationEn}<br>
+          <span style="color:#4b5563;"><em>[FR] ${q.explanationFr}</em></span>
+          ${replayBtn}
+        `;
+      }
+    });
+
+    // Grade Part 2 Quotes
+    let cnnGapIdx = 0;
+    currentListeningLesson.quoteParagraphs.forEach((para, pIdx) => {
+      let hasErr = false;
+      para.segments.forEach(seg => {
+        if (typeof seg === "object") {
+          total++;
+          const id = cnnGapIdx++;
+          const input = document.getElementById(`lcnn-gap-${id}`);
+          const corr = document.getElementById(`lcnn-corr-${id}`);
+          const userVal = input ? input.value.trim().toLowerCase().replace(/\s+/g, " ") : "";
+          const expectedVal = seg.answer.trim().toLowerCase();
+
+          if (userVal === expectedVal) {
+            score++;
+            if (input) {
+              input.style.background = "#E8F0EB";
+              input.style.borderBottomColor = "#2D6A4F";
+              input.style.color = "#1B4332";
+            }
+            if (corr) corr.style.display = "none";
+          } else {
+            hasErr = true;
+            if (input) {
+              input.style.background = "#FEE2E2";
+              input.style.borderBottomColor = "#DC2626";
+              input.style.color = "#991B1B";
+            }
+            if (corr) {
+              corr.textContent = `✓ ${seg.answer}`;
+              corr.style.display = "inline-block";
+            }
+          }
+        }
+      });
+      const rDiv = document.getElementById(`lcnn-qreplay-${pIdx}`);
+      if (rDiv) rDiv.style.display = hasErr ? "block" : "none";
+    });
+
+    // Grade Part 3 Cloze Passage
+    let clozeErr = false;
+    currentListeningLesson.clozeParagraph.segments.forEach(seg => {
+      if (typeof seg === "object") {
+        total++;
+        const id = cnnGapIdx++;
+        const input = document.getElementById(`lcnn-gap-${id}`);
+        const corr = document.getElementById(`lcnn-corr-${id}`);
+        const userVal = input ? input.value.trim().toLowerCase().replace(/\s+/g, " ") : "";
+        const expectedVal = seg.answer.trim().toLowerCase();
+
+        if (userVal === expectedVal) {
+          score++;
+          if (input) {
+            input.style.background = "#E8F0EB";
+            input.style.borderBottomColor = "#2D6A4F";
+            input.style.color = "#1B4332";
+          }
+          if (corr) corr.style.display = "none";
+        } else {
+          clozeErr = true;
+          if (input) {
+            input.style.background = "#FEE2E2";
+            input.style.borderBottomColor = "#DC2626";
+            input.style.color = "#991B1B";
+          }
+          if (corr) {
+            corr.textContent = `✓ ${seg.answer}`;
+            corr.style.display = "inline-block";
+          }
+        }
+      }
+    });
+    const cReplay = document.getElementById("lcnn-cloze-replay");
+    if (cReplay) cReplay.style.display = clozeErr ? "block" : "none";
+
+    const badge = document.getElementById("listening-score-badge");
+    if (badge) {
+      badge.textContent = `Score: ${score} / ${total} (${Math.round((score / total) * 100)}%)`;
+      badge.style.background = score === total ? "#2D6A4F" : "#E8F0EB";
+      badge.style.color = score === total ? "#ffffff" : "#1B4332";
+    }
+    return;
+  }
+
+  // BRANCH C: Grade MCQ and Mixed (MCQ + Gap-Fill) Questions (Lessons 1, 2, 3, 5, 6)
+  let score = 0;
+  const total = currentListeningLesson.questions.length;
+
+  currentListeningLesson.questions.forEach((q, qIdx) => {
+    const fbEl = document.getElementById(`lq-feedback-${qIdx}`);
+    let isCorrect = false;
+
+    if (q.kind === "gap") {
+      const input = document.getElementById(`lmixed-gap-${qIdx}`);
+      const userVal = input ? input.value.trim().toLowerCase().replace(/\s+/g, " ") : "";
+      const expectedVal = q.answer.trim().toLowerCase();
+      isCorrect = userVal === expectedVal;
+
+      if (input) {
+        input.style.background = isCorrect ? "#E8F0EB" : "#FEE2E2";
+        input.style.borderBottomColor = isCorrect ? "#2D6A4F" : "#DC2626";
+        input.style.color = isCorrect ? "#1B4332" : "#991B1B";
+      }
+    } else {
+      const selected = document.querySelector(`input[name="lq-radio-${qIdx}"]:checked`);
+      const chosenIdx = selected ? parseInt(selected.value, 10) : -1;
+      const correctIdx = q.shuffledAnswerIndex !== undefined ? q.shuffledAnswerIndex : q.answerIndex;
+      isCorrect = chosenIdx === correctIdx;
+
+      q.options.forEach((_, optIdx) => {
+        const label = document.getElementById(`lq-${qIdx}-opt-${optIdx}`);
+        if (!label) return;
+        label.style.background = "";
+        label.style.borderColor = "#e5e7eb";
+
+        if (optIdx === correctIdx) {
+          label.style.background = "#E8F0EB";
+          label.style.borderColor = "#2D6A4F";
+        } else if (optIdx === chosenIdx && !isCorrect) {
+          label.style.background = "#FEE2E2";
+          label.style.borderColor = "#DC2626";
+        }
+      });
+    }
+
+    if (isCorrect) score++;
+
+    if (fbEl) {
+      fbEl.style.display = "block";
+      fbEl.style.background = isCorrect ? "#E8F0EB" : "#FEF2F2";
+      fbEl.style.borderLeft = isCorrect ? "4px solid #2D6A4F" : "4px solid #DC2626";
+      fbEl.style.color = "#1f2937";
+
+      const expectedAnswerBanner =
+        q.kind === "gap" && !isCorrect
+          ? `<div style="margin-top:0.25rem;"><strong>Expected answer:</strong> <span style="color:#1B4332; font-weight:700;">${q.answer}</span></div>`
+          : "";
+
+      const replayButtonHtml = !isCorrect
+        ? `<div style="margin-top:0.55rem;">
+             <button type="button" class="timestamp-btn" onclick="jumpToListeningTime(${q.timestampSec})" title="Replay this passage in the video">
+               ⏱ Listen again from ${q.timestampLabel}
+             </button>
+           </div>`
+        : "";
+
+      fbEl.innerHTML = `
+        <strong>${isCorrect ? "✅ Correct!" : "❌ Incorrect"}</strong>
+        ${expectedAnswerBanner}<br>
+        ${q.explanationEn}<br>
+        <span style="color:#4b5563;"><em>[FR] ${q.explanationFr}</em></span>
+        ${replayButtonHtml}
+      `;
+    }
+  });
+
+  const badge = document.getElementById("listening-score-badge");
+  if (badge) {
+    badge.textContent = `Score: ${score} / ${total} (${Math.round((score / total) * 100)}%)`;
+    badge.style.background = score === total ? "#2D6A4F" : "#E8F0EB";
+    badge.style.color = score === total ? "#ffffff" : "#1B4332";
+  }
+}
+
+function resetListeningLesson() {
+  loadListeningLesson(currentListeningLesson.id);
+}
 
 // Initialize Dashboard on Page Load
 document.addEventListener("DOMContentLoaded", () => {
@@ -10323,6 +12127,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderVocabList();
   updateFlashcard();
   initReadingLab();
+  initListeningLab();
 
   // Allow pressing Enter to submit fill-in-the-blank or move to next question
   document.getElementById("fill-input").addEventListener("keydown", (e) => {
@@ -10339,7 +12144,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* -------------------- NAVIGATION -------------------- */
-function switchView(viewName) {
+  
+  
+function switchView(viewName) {	
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
 
@@ -10354,6 +12161,8 @@ function switchView(viewName) {
     document.getElementById("nav-vocab").classList.add("active");
   } else if (viewName === "reading") {
     document.getElementById("nav-reading").classList.add("active");
+  } else if (viewName === "listening") {
+    document.getElementById("nav-listening").classList.add("active");
   } else if (viewName === "quiz" && currentSession.mode === "mock") {
     document.getElementById("nav-mock").classList.add("active");
   }
