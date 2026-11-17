@@ -990,7 +990,7 @@
       gap: 1rem;
     }
 
-    .reading-split {
+.reading-split {
       display: grid;
       grid-template-columns: 1.15fr 1fr;
       gap: 1.5rem;
@@ -1008,9 +1008,11 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.75rem;
+      padding-bottom: 3rem;
       box-shadow: var(--shadow);
-      position: sticky;
-      top: 5.25rem;
+      max-height: calc(100vh - 13.5rem);
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
     @media (max-width: 920px) {
@@ -1138,11 +1140,26 @@
       opacity: 1;
     }
 
-    /* Reading Quiz Panel */
+ /* Reading Quiz Panel */
     .reading-quiz-col {
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      max-height: calc(100vh - 13.5rem);
+      overflow-y: auto;
+      padding-right: 0.35rem;
+      padding-bottom: 3rem;
+      overscroll-behavior: contain;
+    }
+
+    @media (max-width: 920px) {
+      .article-card,
+      .reading-quiz-col {
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+      }
     }
 
     .rq-card {
@@ -1327,7 +1344,7 @@
   </div>
 </header>
 
-<main>
+<main>""""""
   <!-- ==================== VIEW 1: DASHBOARD ==================== -->
  <section id="view-dashboard" class="view active">
     <div class="hero-card">
@@ -1587,7 +1604,7 @@
       </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.65rem;">
         <select id="reading-category-select" class="control-select" aria-label="Filter by category" onchange="filterReadingCategory(this.value)">
-          <option value="ALL">All Categories (10)</option>
+          <option value="ALL">All Categories (12)</option>
           <option value="Fairtrade">Fairtrade</option>
           <option value="Sustainability">Sustainability</option>
           <option value="Borders">Borders</option>
@@ -15495,9 +15512,1055 @@ const readingArticles = [
         explanationFr: "Alors que Ken McNiel (article 8) présente les murs comme garants de la sécurité, l'exemple nord-irlandais montre à l'inverse qu'une frontière invisible a été indispensable pour instaurer et préserver la paix."
       }
     ]
+  },
+{
+    id: 11,
+    category: "Borders",
+    level: "B1 / B2 • Geopolitics & Border Diplomacy",
+    title: "Ceuta-Melilla: Spain PM Backs Morocco Ties but Still Appeals to Domestic Pressure",
+    subtitle: "Why Pedro Sanchez defended cooperation with Rabat while drawing firm red lines over the two North African enclaves",
+    byline: "Safaa Kasraoui • Nov 09, 2026",
+    paragraphs: [
+      "Rabat – Spain’s Prime Minister Pedro Sanchez has reiterated the importance of Morocco as a key ally, describing bilateral relations between the two countries as essential at different levels.",
+      "Sanchez made his remarks in an interview with the Spanish podcast Memorias de Pez, where he emphasized that ties with Morocco are essential to maintaining security, controlling irregular migration, and ensuring stability along the shared Rabat-Madrid border.",
+      "Throughout the podcast, the interviewer sought to frame Spain’s ties with Morocco through allegations of political pressure, migration blackmail, and hybrid warfare, echoing rhetoric frequently used by politicians and far-right political figures in Spain to portray Rabat as a threat to Spanish interests.",
+      "Notably, Borja Fernández Zurron also brought up unverified claims and allegations of Morocco’s alleged involvement in espionage against Spanish officials, which the Spanish government has long denied, emphasizing the absence of evidence of Morocco’s involvement.",
+      "The interviewer also brought up allegations that Morocco was using migration as a political instrument against Spain, including during the 2021 border crisis and the recent mass crossings of July 2026.",
+      "He went as far as characterizing Sanchez’s policy toward Rabat as “one of appeasement.”",
+      "Sanchez, however, rejected the claims, stating that his government’s approach is based on good-neighborly relations, constructive cooperation, and clearly defined red lines.",
+      "Regarding the red lines, Sanchez was particularly referring to Spain’s occupation of Ceuta and Melilla, claiming that they are part of Spain’s national sovereignty and territorial integrity.",
+      "With his remarks, Sanchez continued to ignore the geographical positioning of the two occupied cities and Morocco’s longstanding claims over them, insisting that their status has never been discussed bilaterally.",
+      "His remarks come amid renewed calls among Moroccans for the government to put the question of Ceuta and Melilla on the negotiating table with Spain.",
+      "Morocco’s Justice Minister Abdellatif Ouahbi has repeatedly stressed that Ceuta and Melilla are Moroccan cities, while maintaining that discussions on them are effectively on hold but that the topic remains on the table.",
+      "His remarks sparked frustration among Spaniards amid an already flaring and fierce campaign by the Spanish far right and other politicians, who used the mass crossing into Ceuta in July to advance their electoral campaigns and agendas and secure votes through their radical anti-migration policies."
+    ],
+    glossary: {
+      "Backs": "soutient / appuie (v.)",
+      "Ties": "liens / relations (n.)",
+      "Appeals": "fait appel à / cède à (v.)",
+      "Domestic": "intérieure / nationale (adj.)",
+      "Pressure": "pression (n.)",
+      "defended": "a défendu (v.)",
+      "cooperation": "coopération (n.)",
+      "while": "tout en / tandis que (conj.)",
+      "drawing": "traçant / fixant (v.)",
+      "firm": "fermes (adj.)",
+      "red lines": "lignes rouges (n.)",
+      "enclaves": "enclaves (n.)",
+      "Prime Minister": "Premier ministre (n.)",
+      "reiterated": "a réitéré / répété (v.)",
+      "importance": "importance (n.)",
+      "key": "clé / essentiel (adj.)",
+      "ally": "allié (n.)",
+      "describing": "décrivant (v.)",
+      "bilateral": "bilatérales (adj.)",
+      "relations": "relations (n.)",
+      "between": "entre (prép.)",
+      "countries": "pays (n.)",
+      "essential": "essentielles / indispensables (adj.)",
+      "different": "différents (adj.)",
+      "levels": "niveaux (n.)",
+      "remarks": "remarques / déclarations (n.)",
+      "interview": "entretien / interview (n.)",
+      "emphasized": "a souligné (v.)",
+      "ties": "liens (n.)",
+      "maintaining": "maintenir (v.)",
+      "security": "sécurité (n.)",
+      "controlling": "contrôler (v.)",
+      "irregular": "irrégulière / clandestine (adj.)",
+      "migration": "migration (n.)",
+      "ensuring": "garantir / assurer (v.)",
+      "stability": "stabilité (n.)",
+      "along": "le long de (prép.)",
+      "shared": "partagée / commune (adj.)",
+      "border": "frontière (n.)",
+      "Throughout": "tout au long de (prép.)",
+      "interviewer": "intervieweur / journaliste (n.)",
+      "sought": "a cherché à (v.)",
+      "frame": "cadrer / présenter (v.)",
+      "through": "à travers / par (prép.)",
+      "allegations": "allégations / accusations (n.)",
+      "political": "politique (adj.)",
+      "pressure": "pression (n.)",
+      "blackmail": "chantage (n.)",
+      "hybrid warfare": "guerre hybride (n.)",
+      "echoing": "faisant écho à (v.)",
+      "rhetoric": "rhétorique / discours (n.)",
+      "frequently": "fréquemment (adv.)",
+      "politicians": "hommes politiques (n.)",
+      "far-right": "d'extrême droite (adj.)",
+      "political figures": "personnalités politiques (n.)",
+      "portray": "dépeindre / présenter (v.)",
+      "threat": "menace (n.)",
+      "interests": "intérêts (n.)",
+      "Notably": "notamment (adv.)",
+      "brought up": "a soulevé / mentionné (v.)",
+      "unverified": "non vérifiées (adj.)",
+      "claims": "affirmations / revendications (n.)",
+      "alleged": "présumée (adj.)",
+      "involvement": "implication (n.)",
+      "espionage": "espionnage (n.)",
+      "against": "contre (prép.)",
+      "officials": "responsables / hauts fonctionnaires (n.)",
+      "government": "gouvernement (n.)",
+      "denied": "a nié / démenti (v.)",
+      "emphasizing": "soulignant (v.)",
+      "absence": "absence (n.)",
+      "evidence": "preuves (n.)",
+      "instrument": "instrument / outil (n.)",
+      "including": "y compris (prép.)",
+      "during": "pendant (prép.)",
+      "crisis": "crise (n.)",
+      "recent": "récentes (adj.)",
+      "mass crossings": "traversées massives (n.)",
+      "went as far as": "est allé jusqu'à (loc.)",
+      "characterizing": "qualifier / caractériser (v.)",
+      "policy": "politique (n.)",
+      "toward": "envers (prép.)",
+      "appeasement": "apaisement / conciliation (n.)",
+      "however": "cependant / toutefois (adv.)",
+      "rejected": "a rejeté (v.)",
+      "stating": "affirmant / déclarant (v.)",
+      "approach": "approche (n.)",
+      "based on": "fondée sur (loc.)",
+      "good-neighborly": "de bon voisinage (adj.)",
+      "constructive": "constructive (adj.)",
+      "clearly": "clairement (adv.)",
+      "defined": "définies (adj.)",
+      "Regarding": "concernant (prép.)",
+      "particularly": "particulièrement (adv.)",
+      "referring to": "faisant référence à (v.)",
+      "occupation": "occupation (n.)",
+      "claiming": "affirmant (v.)",
+      "sovereignty": "souveraineté (n.)",
+      "territorial integrity": "intégrité territoriale (n.)",
+      "continued": "a continué à (v.)",
+      "ignore": "ignorer (v.)",
+      "geographical": "géographique (adj.)",
+      "positioning": "positionnement (n.)",
+      "occupied": "occupées (adj.)",
+      "longstanding": "de longue date (adj.)",
+      "insisting": "insistant (v.)",
+      "status": "statut (n.)",
+      "discussed": "discuté (v.)",
+      "bilaterally": "bilatéralement (adv.)",
+      "amid": "dans un contexte de / au milieu de (prép.)",
+      "renewed": "renouvelés (adj.)",
+      "calls": "appels (n.)",
+      "among": "parmi (prép.)",
+      "negotiating table": "table des négociations (n.)",
+      "Justice Minister": "ministre de la Justice (n.)",
+      "repeatedly": "à plusieurs reprises (adv.)",
+      "stressed": "a souligné (v.)",
+      "effectively": "dans les faits / effectivement (adv.)",
+      "on hold": "en suspens / en attente (loc.)",
+      "topic": "sujet (n.)",
+      "remains": "reste (v.)",
+      "sparked": "ont suscité / déclenché (v.)",
+      "frustration": "frustration (n.)",
+      "flaring": "vive / enflammée (adj.)",
+      "fierce": "féroce / acharnée (adj.)",
+      "campaign": "campagne (n.)",
+      "far right": "extrême droite (n.)",
+      "mass crossing": "traversée massive (n.)",
+      "advance": "faire avancer (v.)",
+      "electoral": "électorales (adj.)",
+      "agendas": "programmes politiques (n.)",
+      "secure": "obtenir / décrocher (v.)",
+      "votes": "voix / votes (n.)",
+      "radical": "radicales (adj.)",
+      "anti-migration": "anti-immigration (adj.)",
+      "policies": "politiques (n.)"
+    },
+    questions: [
+      {
+        skill: "Main Idea",
+        prompt: "What is the central focus of the article?",
+        options: [
+          "Spanish PM Pedro Sanchez defended strategic cooperation with Morocco while firmly ruling out negotiations over Ceuta and Melilla.",
+          "Spain and Morocco signed a historic treaty transferring sovereignty of Ceuta and Melilla to Rabat.",
+          "Pedro Sanchez announced the permanent closure of all border crossings between Spain and Morocco.",
+          "Morocco's Justice Minister praised the Spanish far right for its handling of the July 2026 border crossings."
+        ],
+        answer: "Spanish PM Pedro Sanchez defended strategic cooperation with Morocco while firmly ruling out negotiations over Ceuta and Melilla.",
+        explanationEn: "The article highlights Sanchez's balancing act: praising Morocco as an essential ally on migration and security while insisting that Ceuta and Melilla are non-negotiable 'red lines'.",
+        explanationFr: "L'article met en lumière l'équilibre recherché par Sanchez : saluer le Maroc comme un allié essentiel tout en affirmant que Ceuta et Melilla sont des « lignes rouges » non négociables."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "According to paragraph 2, why did Sanchez describe ties with Morocco as essential?",
+        options: [
+          "They help maintain security, control irregular migration, and ensure stability along the shared border.",
+          "They allow Spanish farmers to export citrus fruits directly into central Africa.",
+          "They replace Spain's existing security partnerships within the European Union.",
+          "They eliminate the need for border patrols around Ceuta and Melilla."
+        ],
+        answer: "They help maintain security, control irregular migration, and ensure stability along the shared border.",
+        explanationEn: "Paragraph 2 specifies that ties with Morocco are vital for 'maintaining security, controlling irregular migration, and ensuring stability along the shared Rabat-Madrid border.'",
+        explanationFr: "Le paragraphe 2 précise que les liens avec le Maroc sont essentiels pour maintenir la sécurité, contrôler la migration irrégulière et assurer la stabilité le long de la frontière."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 3, what does 'migration blackmail' mean?",
+        options: [
+          "Accusations that a state deliberately uses migrant flows as leverage to extract political concessions from another country",
+          "Charging migrants illegal fees in exchange for forged European passports",
+          "Sending anonymous threatening letters to border patrol officers",
+          "Refusing to publish official statistics on annual asylum applications"
+        ],
+        answer: "Accusations that a state deliberately uses migrant flows as leverage to extract political concessions from another country",
+        explanationEn: "'Blackmail' ('chantage') in border politics refers to accusing a neighbor of weaponizing migration flows to pressure a government.",
+        explanationFr: "Le « chantage migratoire » (« migration blackmail ») désigne l'accusation d'utiliser les flux migratoires comme moyen de pression politique."
+      },
+      {
+        skill: "Tone & Framing",
+        prompt: "How did the podcast interviewer, Borja Fernández Zurron, attempt to portray Morocco during the interview?",
+        options: [
+          "As a threat to Spanish interests, echoing far-right rhetoric about political pressure and hybrid warfare",
+          "As a neutral mediator helping resolve domestic disputes inside the Spanish parliament",
+          "As an economic victim of European Union agricultural tariffs",
+          "As a passive neighbor with little influence over Mediterranean security"
+        ],
+        answer: "As a threat to Spanish interests, echoing far-right rhetoric about political pressure and hybrid warfare",
+        explanationEn: "Paragraph 3 states that the interviewer framed ties through 'allegations of political pressure, migration blackmail, and hybrid warfare, echoing rhetoric frequently used by politicians and far-right political figures in Spain.'",
+        explanationFr: "Le paragraphe 3 indique que l'intervieweur a repris la rhétorique de l'extrême droite espagnole dépeignant Rabat comme une menace."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "How has the Spanish government responded to claims of Moroccan espionage against Spanish officials?",
+        options: [
+          "It has long denied the allegations and stressed the absence of any evidence.",
+          "It confirmed the claims and expelled Moroccan diplomats from Madrid.",
+          "It launched a joint military investigation with neighboring Portugal.",
+          "It admitted that espionage took place during the July 2026 crossings."
+        ],
+        answer: "It has long denied the allegations and stressed the absence of any evidence.",
+        explanationEn: "Paragraph 4 notes that the Spanish government 'has long denied' these unverified claims, 'emphasizing the absence of evidence of Morocco's involvement.'",
+        explanationFr: "Le paragraphe 4 précise que le gouvernement espagnol a démenti ces allégations non vérifiées en soulignant l'absence de preuves."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "Which two border incidents were cited by the interviewer as alleged examples of Morocco using migration as a political tool?",
+        options: [
+          "The 2021 border crisis and the mass crossings of July 2026",
+          "The 2015 Mediterranean rescue mission and the 2020 lockdown",
+          "The 2018 general election and the 2023 summit in Rabat",
+          "The 2019 customs dispute and the 2025 port strike"
+        ],
+        answer: "The 2021 border crisis and the mass crossings of July 2026",
+        explanationEn: "Paragraph 5 explicitly mentions 'the 2021 border crisis and the recent mass crossings of July 2026.'",
+        explanationFr: "Le paragraphe 5 mentionne explicitement la crise frontalière de 2021 et les traversées massives de juillet 2026."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 6, the interviewer characterized Sanchez's policy toward Rabat as 'one of appeasement'. What does 'appeasement' imply here?",
+        options: [
+          "Making excessive concessions to avoid conflict or keep another country satisfied",
+          "Imposing harsh financial sanctions and closing all diplomatic channels",
+          "Building reinforced concrete walls along every kilometer of the frontier",
+          "Refusing to communicate with foreign leaders during international crises"
+        ],
+        answer: "Making excessive concessions to avoid conflict or keep another country satisfied",
+        explanationEn: "In international relations, 'appeasement' ('apaisement') is a critical term suggesting a government is yielding too easily to external pressure.",
+        explanationFr: "En relations internationales, une politique d'« apaisement » (« appeasement ») critique le fait de céder trop facilement face à un autre État."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "What did Pedro Sanchez refer to as Spain's 'red lines' in paragraph 8?",
+        options: [
+          "Ceuta and Melilla, asserting that they belong to Spain's national sovereignty and territorial integrity",
+          "Fishing rights in the Atlantic Ocean and offshore energy exploration",
+          "Visa-free travel agreements for Spanish tourists visiting Marrakech",
+          "The construction of a high-speed rail line connecting Madrid and Tangier"
+        ],
+        answer: "Ceuta and Melilla, asserting that they belong to Spain's national sovereignty and territorial integrity",
+        explanationEn: "Sanchez stated that his red lines specifically concerned Ceuta and Melilla, claiming they are part of Spain's national sovereignty and territorial integrity.",
+        explanationFr: "Sanchez a précisé que ses lignes rouges concernaient Ceuta et Melilla, affirmant qu'elles font partie de la souveraineté nationale et de l'intégrité territoriale de l'Espagne."
+      },
+      {
+        skill: "Compare & Contrast",
+        prompt: "How does Morocco's Justice Minister Abdellatif Ouahbi's position on Ceuta and Melilla differ from Sanchez's?",
+        options: [
+          "Ouahbi insists they are Moroccan cities and says that while talks are on hold, the topic remains on the negotiating table.",
+          "Ouahbi agrees that both cities belong permanently to Spain under international law.",
+          "Ouahbi demands an immediate military blockade of both enclaves.",
+          "Ouahbi claims Morocco has never expressed any interest in the status of the two cities."
+        ],
+        answer: "Ouahbi insists they are Moroccan cities and says that while talks are on hold, the topic remains on the negotiating table.",
+        explanationEn: "While Sanchez claimed their status has never been discussed bilaterally, Ouahbi stressed that Ceuta and Melilla are Moroccan cities and that 'the topic remains on the table.'",
+        explanationFr: "Alors que Sanchez affirme que leur statut n'a jamais été discuté, Abdellatif Ouahbi soutient que ce sont des villes marocaines et que le sujet reste sur la table."
+      },
+      {
+        skill: "Cause & Effect",
+        prompt: "According to the final paragraph, how did the Spanish far right react to Ouahbi's remarks and the July crossing into Ceuta?",
+        options: [
+          "They leveraged public frustration to promote their electoral campaigns and win votes through radical anti-migration policies.",
+          "They called for bilateral negotiations with Rabat to establish joint administration of Ceuta.",
+          "They praised Sanchez's constructive cooperation with Moroccan border authorities.",
+          "They abandoned immigration as a campaign issue ahead of upcoming elections."
+        ],
+        answer: "They leveraged public frustration to promote their electoral campaigns and win votes through radical anti-migration policies.",
+        explanationEn: "The last paragraph explains that Spanish far-right politicians used the July mass crossing into Ceuta 'to advance their electoral campaigns and agendas and secure votes through their radical anti-migration policies.'",
+        explanationFr: "Le dernier paragraphe explique que l'extrême droite espagnole a exploité la traversée massive de juillet pour faire avancer ses campagnes électorales et obtenir des voix grâce à ses politiques anti-immigration."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 2: Sanchez emphasized that ties with Morocco are essential to maintaining security and controlling __________ migration.",
+        answer: "irregular",
+        explanationEn: "'Irregular migration' ('migration irrégulière / clandestine') refers to crossing borders outside official legal channels.",
+        explanationFr: "« Irregular » (« irregular migration » = migration irrégulière / clandestine)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the phrase from paragraph 3: The interviewer sought to frame ties through allegations of migration blackmail and __________ warfare.",
+        answer: "hybrid",
+        explanationEn: "'Hybrid warfare' ('guerre hybride') combines political pressure, disinformation, and non-military tactics against another state.",
+        explanationFr: "« Hybrid » (« hybrid warfare » = guerre hybride)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 8: Sanchez claimed that Ceuta and Melilla are part of Spain’s national __________ and territorial integrity.",
+        answer: "sovereignty",
+        explanationEn: "'Sovereignty' ('souveraineté') means a state's supreme legal authority over its territory.",
+        explanationFr: "« Sovereignty » = la souveraineté."
+      },
+      {
+        skill: "Fill in the Blank (Idioms & Diplomacy)",
+        type: "fill",
+        prompt: "Complete the idiom from paragraph 10: Renewed calls among Moroccans urge the government to put the question of Ceuta and Melilla on the __________ table with Spain.",
+        answer: "negotiating",
+        explanationEn: "To put a topic 'on the negotiating table' ('sur la table des négociations') means to formally bring it up for diplomatic talks.",
+        explanationFr: "« Negotiating » (« on the negotiating table » = sur la table des négociations)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 12: Far-right politicians used the mass __________ into Ceuta in July to advance their electoral campaigns.",
+        answer: "crossing",
+        explanationEn: "A 'mass crossing' ('une traversée massive') occurs when a large group of migrants crosses a border simultaneously.",
+        explanationFr: "« Crossing » (« mass crossing » = traversée massive)."
+      }
+    ]
+  },
+
+
+{
+    id: 12,
+    category: "Borders",
+    level: "B1 / B2 • Borders, Migration & Terminology",
+    title: "When is an immigrant not an immigrant? When they’re rich",
+    subtitle: "The British diaspora in the Gulf and Brunei are seen as useful – it’s only poor immigrants who are seen as a problem",
+    byline: "Afua Hirsch • The Guardian • Apr 10, 2019",
+    paragraphs: [
+      "Our attitudes towards immigration involve some stunning doublespeak. My own family tells the story quite well. My grandparents’ generation, of Africans on one side and Jews on the other, were “immigrants” who created “diasporas”. My parents’ generation are British, and when they lived in Brunei, shortly before I was born, enjoyed the label reserved for British immigrants – “expatriates”.",
+      "The difference between expats and immigrants is that, while the latter are a problem, the former are – its celebrants tell us – British people “embracing a limitless life”. This tends, not surprisingly, to take part in the former empire.",
+      "But there is a bigger question about immigration here too. We consider British immigrants to be people of means, like today’s corporate lawyers enjoying tax-free living in the Gulf. If we bothered to think about our real view of British immigration, we would probably conclude that immigrants we don’t regard as a problem are those who aren’t poor.",
+      "We are generous enough to extend these ideas about immigration to a few other people too. On the day the Home Office announced its settlement scheme for EU migrants, I was speaking to a Dutch banker who has lived in the UK for years. “Will you apply?” I asked him, innocently. He looked at me as if I were a bit simple. “I’m just assuming that, like all these things, there will be an exemption for rich people,” he replied.",
+      "He is undoubtedly right. We suspend judgment for all rich immigrants, just as we do for British immigrants – so much so we don’t even call them immigrants."
+    ],
+    glossary: {
+      "immigrant": "immigré(e) (n.)",
+      "rich": "riche(s) (adj.)",
+      "diaspora": "diaspora / communauté expatriée (n.)",
+      "diasporas": "diasporas / communautés expatriées (n.)",
+      "seen": "perçus / vus (v.)",
+      "useful": "utiles (adj.)",
+      "only": "seulement / uniquement (adv.)",
+      "poor": "pauvres (adj.)",
+      "attitudes": "attitudes / mentalités (n.)",
+      "towards": "envers / vis-à-vis de (prép.)",
+      "immigration": "immigration (n.)",
+      "involve": "impliquent / comportent (v.)",
+      "stunning": "stupéfiant / flagrant (adj.)",
+      "doublespeak": "double langage / langue de bois (n.)",
+      "own": "propre (adj.)",
+      "quite": "assez / tout à fait (adv.)",
+      "generation": "génération (n.)",
+      "Africans": "Africains (n.)",
+      "side": "côté (n.)",
+      "Jews": "Juifs (n.)",
+      "immigrants": "immigrés (n.)",
+      "created": "ont créé (v.)",
+      "shortly": "peu de temps (adv.)",
+      "before": "avant (prép.)",
+      "born": "née (adj.)",
+      "enjoyed": "ont bénéficié de (v.)",
+      "label": "étiquette / appellation (n.)",
+      "reserved": "réservée (adj.)",
+      "expatriates": "expatriés (n.)",
+      "difference": "différence (n.)",
+      "between": "entre (prép.)",
+      "expats": "expatriés (n.)",
+      "while": "tandis que / alors que (conj.)",
+      "latter": "ces derniers (pron.)",
+      "former": "premiers / ancien (adj./pron.)",
+      "celebrants": "partisans / admirateurs (n.)",
+      "embracing": "adoptant / profitant pleinement de (v.)",
+      "limitless": "sans limites / illimitée (adj.)",
+      "tends": "a tendance à (v.)",
+      "surprisingly": "étonnamment (adv.)",
+      "take part": "se dérouler / avoir lieu (loc.)",
+      "empire": "empire (n.)",
+      "bigger": "plus vaste / plus importante (adj.)",
+      "consider": "considérons (v.)",
+      "people of means": "personnes aisées / fortunées (loc.)",
+      "corporate": "d'affaires / d'entreprise (adj.)",
+      "lawyers": "avocats (n.)",
+      "enjoying": "profitant de (v.)",
+      "tax-free": "exonérée d'impôts / défiscalisée (adj.)",
+      "living": "vie / mode de vie (n.)",
+      "bothered": "prenions la peine de (v.)",
+      "real": "véritable (adj.)",
+      "view": "vision / opinion (n.)",
+      "probably": "probablement (adv.)",
+      "conclude": "conclurions (v.)",
+      "regard": "considérons / voyons (v.)",
+      "generous": "généreux (adj.)",
+      "enough": "assez / suffisamment (adv.)",
+      "extend": "étendre / appliquer (v.)",
+      "ideas": "idées / conceptions (n.)",
+      "few": "quelques (dét.)",
+      "Home Office": "ministère de l'Intérieur britannique (n.)",
+      "announced": "a annoncé (v.)",
+      "settlement scheme": "programme de régularisation / statut de résident (n.)",
+      "migrants": "migrants (n.)",
+      "Dutch": "néerlandais (adj.)",
+      "banker": "banquier (n.)",
+      "apply": "faire une demande / postuler (v.)",
+      "innocently": "naïvement / innocemment (adv.)",
+      "looked": "a regardé (v.)",
+      "as if": "comme si (loc.)",
+      "bit": "un peu (adv.)",
+      "simple": "naïve / simplette (adj.)",
+      "assuming": "supposant / partant du principe (v.)",
+      "exemption": "exemption / dispense (n.)",
+      "replied": "a répondu (v.)",
+      "undoubtedly": "sans aucun doute (adv.)",
+      "right": "raison (adj.)",
+      "suspend": "suspendons / mettons de côté (v.)",
+      "judgment": "jugement (n.)",
+      "just as": "tout comme (loc.)",
+      "so much so": "à tel point que (loc.)",
+      "even": "même (adv.)",
+      "columnist": "chroniqueuse / éditorialiste (n.)"
+    },
+    questions: [
+      {
+        skill: "Main Idea",
+        prompt: "What is the central argument of Afua Hirsch's article?",
+        options: [
+          "Society avoids calling wealthy Westerners 'immigrants'—using positive labels like 'expats' instead—while viewing poorer migrants as a problem.",
+          "British citizens moving to Brunei and the Gulf face stricter visa rules than migrants arriving in the United Kingdom.",
+          "The UK Home Office officially abolished all immigration paperwork for European bankers after Brexit.",
+          "Most African and Jewish immigrants in Britain belong to the same generation as corporate lawyers in the Gulf."
+        ],
+        answer: "Society avoids calling wealthy Westerners 'immigrants'—using positive labels like 'expats' instead—while viewing poorer migrants as a problem.",
+        explanationEn: "Throughout the article, Hirsch argues that wealth and nationality determine whether someone is praised as an 'expatriate' or stigmatized as an 'immigrant'.",
+        explanationFr: "Tout au long de l'article, Afua Hirsch montre que la richesse et la nationalité déterminent si une personne est valorisée comme « expatriée » ou stigmatisée comme « immigrée »."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 1, what does the author mean by 'stunning doublespeak'?",
+        options: [
+          "Deliberately ambiguous or contradictory language used to disguise uncomfortable truths about class and race in migration",
+          "The ability of bilingual migrants to speak two European languages fluently",
+          "Official government pamphlets translated into both English and Arabic",
+          "A formal diplomatic speech delivered twice in front of Parliament"
+        ],
+        answer: "Deliberately ambiguous or contradictory language used to disguise uncomfortable truths about class and race in migration",
+        explanationEn: "'Doublespeak' ('double langage') refers to language that distorts meaning—for instance, calling rich British migrants 'expats' while calling others 'immigrants'.",
+        explanationFr: "Le « doublespeak » (« double langage ») désigne un langage contradictoire qui masque la réalité, par exemple en appelant les Britanniques aisés des « expatriés » plutôt que des « immigrés »."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "How does Afua Hirsch illustrate 'doublespeak' using her own family history?",
+        options: [
+          "Her African and Jewish grandparents were called 'immigrants', whereas her British parents living in Brunei were called 'expatriates'.",
+          "Her parents moved illegally to the Gulf while her grandparents worked as corporate lawyers in London.",
+          "Both her grandparents and her parents refused to apply for British citizenship.",
+          "Her family lived exclusively in the Netherlands before settling in Brunei."
+        ],
+        answer: "Her African and Jewish grandparents were called 'immigrants', whereas her British parents living in Brunei were called 'expatriates'.",
+        explanationEn: "Paragraph 1 contrasts her grandparents' generation (labeled 'immigrants' creating 'diasporas') with her British parents in Brunei (given the label 'expatriates').",
+        explanationFr: "Le paragraphe 1 oppose la génération de ses grands-parents (qualifiés d'« immigrés ») à celle de ses parents britanniques à Brunei (qualifiés d'« expatriés »)."
+      },
+      {
+        skill: "Grammar & Reference",
+        prompt: "In paragraph 2 ('while the latter are a problem, the former are... British people embracing a limitless life'), what do 'the latter' and 'the former' refer to?",
+        options: [
+          "'The latter' = immigrants; 'the former' = expats",
+          "'The latter' = expats; 'the former' = immigrants",
+          "'The latter' = celebrants; 'the former' = British people",
+          "'The latter' = Brunei; 'the former' = the Gulf"
+        ],
+        answer: "'The latter' = immigrants; 'the former' = expats",
+        explanationEn: "In the phrase 'between expats and immigrants', 'the former' refers to the first-mentioned group ('expats') and 'the latter' to the second ('immigrants').",
+        explanationFr: "Dans « between expats and immigrants », « the former » renvoie au premier terme (« expats ») et « the latter » au second (« immigrants »)."
+      },
+      {
+        skill: "Inference & Historical Context",
+        prompt: "Where does the author note that British 'expatriate' life tends to take place?",
+        options: [
+          "In territories of the former British Empire (such as Brunei and the Gulf)",
+          "Exclusively in rural farming villages across northern Scandinavia",
+          "Inside refugee camps managed by international charities",
+          "In countries where British citizens are forbidden from owning property"
+        ],
+        answer: "In territories of the former British Empire (such as Brunei and the Gulf)",
+        explanationEn: "Paragraph 2 states: 'This tends, not surprisingly, to take part in the former empire.'",
+        explanationFr: "Le paragraphe 2 souligne que cette vie d'expatrié britannique se déroule généralement dans l'ancien Empire britannique (« in the former empire »)."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 3, what does the phrase 'people of means' refer to?",
+        options: [
+          "Wealthy, financially well-off individuals",
+          "Workers who rely on public transport to commute",
+          "Politicians who invent new definitions for legal terms",
+          "Migrants who travel without any financial savings"
+        ],
+        answer: "Wealthy, financially well-off individuals",
+        explanationEn: "'People of means' ('personnes aisées / fortunées') is a formal English expression meaning rich people with substantial financial resources.",
+        explanationFr: "L'expression « people of means » signifie « des personnes aisées / fortunées »."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "What example of 'people of means' in the Gulf does Hirsch give in paragraph 3?",
+        options: [
+          "Corporate lawyers enjoying tax-free living",
+          "Seasonal agricultural workers harvesting dates",
+          "Unemployed graduates searching for charity housing",
+          "Retired teachers volunteering at local clinics"
+        ],
+        answer: "Corporate lawyers enjoying tax-free living",
+        explanationEn: "Paragraph 3 mentions 'today's corporate lawyers enjoying tax-free living in the Gulf.'",
+        explanationFr: "Le paragraphe 3 cite l'exemple des avocats d'affaires (« corporate lawyers ») profitant d'une vie exonérée d'impôts dans le Golfe."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "Why did the Dutch banker in London look at the author 'as if [she] were a bit simple'?",
+        options: [
+          "He assumed rich migrants like him would naturally be exempt from bureaucratic immigration schemes.",
+          "He had never heard of the European Union or the United Kingdom.",
+          "He had already moved back to Amsterdam several years earlier.",
+          "He thought she was asking him for a personal bank loan."
+        ],
+        answer: "He assumed rich migrants like him would naturally be exempt from bureaucratic immigration schemes.",
+        explanationEn: "The banker assumed that, as a wealthy professional, he wouldn't need to apply because 'there will be an exemption for rich people.'",
+        explanationFr: "Le banquier néerlandais partait du principe qu'il y aurait une exemption pour les personnes riches comme lui (« an exemption for rich people »)."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "In paragraph 4, what was the UK Home Office's 'settlement scheme' for EU migrants?",
+        options: [
+          "An official government registration program allowing EU citizens to secure legal residency rights in the UK",
+          "A financial compensation fund paying British citizens to leave Europe",
+          "A temporary tourist visa valid for a single weekend",
+          "A housing construction project in Brunei"
+        ],
+        answer: "An official government registration program allowing EU citizens to secure legal residency rights in the UK",
+        explanationEn: "The EU Settlement Scheme was the post-Brexit registration process required for EU citizens living in the UK to retain their right to live and work there.",
+        explanationFr: "Le « settlement scheme » était le dispositif officiel permettant aux citoyens européens résidant au Royaume-Uni d'obtenir un statut de résident permanent."
+      },
+      {
+        skill: "Author's Conclusion",
+        prompt: "According to the final paragraph, how does society treat rich immigrants?",
+        options: [
+          "We suspend judgment toward them so completely that we don't even call them immigrants.",
+          "We subject them to stricter border checks than low-income workers.",
+          "We require them to give up their original nationality upon arrival.",
+          "We view them as a major economic burden on public services."
+        ],
+        answer: "We suspend judgment toward them so completely that we don't even call them immigrants.",
+        explanationEn: "Hirsch concludes: 'We suspend judgment for all rich immigrants, just as we do for British immigrants – so much so we don’t even call them immigrants.'",
+        explanationFr: "L'autrice conclut que la société suspend son jugement pour tous les immigrés riches, au point de ne même plus les appeler des immigrés."
+      },
+      {
+        skill: "Synonyms (Borders & Migration Vocab)",
+        prompt: "Which word is the closest synonym for 'exemption' as used in paragraph 4 ('there will be an exemption for rich people')?",
+        options: [
+          "immunity / exception",
+          "penalty / fine",
+          "obligation / duty",
+          "deportation / expulsion"
+        ],
+        answer: "immunity / exception",
+        explanationEn: "An 'exemption' ('une dispense / une exemption') is special permission not to follow a rule or requirement that applies to others—synonymous with an 'exception' or 'immunity'.",
+        explanationFr: "« Exemption » signifie « dispense / exception » : le fait d'être dispensé d'une obligation imposée aux autres."
+      },
+      {
+        skill: "Synonyms (Borders & Migration Vocab)",
+        prompt: "Which phrase is the closest synonym for 'suspend judgment' in the final paragraph ('We suspend judgment for all rich immigrants')?",
+        options: [
+          "withhold criticism / refrain from condemning",
+          "pass a harsh prison sentence",
+          "conduct a strict background investigation",
+          "cancel a court hearing"
+        ],
+        answer: "withhold criticism / refrain from condemning",
+        explanationEn: "To 'suspend judgment' ('suspendre son jugement') means to hold back criticism or negative assumptions about someone.",
+        explanationFr: "« To suspend judgment » signifie s'abstenir de critiquer ou de juger négativement quelqu'un."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 1: My parents’ generation enjoyed the label reserved for British immigrants – “__________”.",
+        answer: "expatriates",
+        explanationEn: "'Expatriates' ('expatriés') is the privileged term often used for Westerners living abroad.",
+        explanationFr: "« Expatriates » = expatriés."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 1: My grandparents’ generation were “immigrants” who created “__________”.",
+        answer: "diasporas",
+        explanationEn: "'Diasporas' refers to communities of people living outside their ancestral homeland.",
+        explanationFr: "« Diasporas » = communautés d'origine immigrée dispersées hors de leur pays d'origine."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 3: We consider British immigrants to be people of __________, like today’s corporate lawyers in the Gulf.",
+        answer: "means",
+        explanationEn: "'People of means' ('personnes aisées') refers to wealthy individuals.",
+        explanationFr: "« Means » (« people of means » = personnes fortunées / aisées)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 4: On the day the Home Office announced its __________ scheme for EU migrants, I was speaking to a Dutch banker.",
+        answer: "settlement",
+        explanationEn: "A 'settlement scheme' is a legal program granting permanent residency status to migrants.",
+        explanationFr: "« Settlement » (« settlement scheme » = programme de régularisation / statut de résident)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 4: “I’m just assuming that, like all these things, there will be an __________ for rich people,” he replied.",
+        answer: "exemption",
+        explanationEn: "An 'exemption' is an official exception freeing someone from a rule or requirement.",
+        explanationFr: "« Exemption » = dispense / exemption."
+      }
+    ]
+  },
+
+{
+    id: 13,
+    category: "Borders",
+    level: "B1 / B2 • Comprehensive Borders Vocabulary Synthesis",
+    title: "Between Open Doors and High Walls: How Modern Nations Manage Their Borders",
+    subtitle: "From Schengen checkpoints to heavily guarded frontiers, governments balance public safety, migration flows, and humanitarian aid",
+    byline: "Adapted Exam Synthesis • Borders & Migration Module",
+    paragraphs: [
+      "Across the globe, every country defines its territory by a physical or political border, yet the way nations manage these dividing lines varies dramatically. Within much of the European Union, open frontiers allow citizens to travel freely without routine passport inspections, transforming daily commerce and tourism. By contrast, closed frontiers elsewhere rely on fortified checkpoints where every foreigner must present official documents before entering.",
+      "At an official border crossing or coastal port of entry, customs officers inspect vehicles and luggage to stop illegal drugs and organized trafficking networks. Governments argue that strict controls are essential for public safety, especially when criminal groups pose a direct threat to local communities. In extreme cases, violent crimes such as murder linked to cross-border cartels prompt leaders to deploy additional border patrol units to patrol remote deserts, rivers, and mountain passes.",
+      "To further secure vulnerable frontiers, some administrations choose to construct a physical barrier made of steel fencing, concrete walls, and surveillance sensors. Supporters claim these structures deter unauthorized entry and reinforce national sovereignty. Critics, however, point out that walls rarely halt global migration flows; instead, they often push desperate travelers toward harsher terrain and into the hands of a ruthless trafficker who charges exorbitant fees for a perilous journey.",
+      "Understanding who crosses a frontier is equally central to the debate. While economic immigrants leave their home country in search of better wages and stability, a refugee flees war, persecution, or environmental disaster and cannot safely return. Upon reaching a potential host country, an asylum seeker formally requests legal protection, whereas an undocumented immigrant lives and works without official authorization while risking detention or deportation.",
+      "Ultimately, every government policy on immigration reflects a delicate balancing act between enforcement and compassion. Tightening entry restrictions may satisfy domestic demands for tighter control, yet churches, volunteers, and international charities continue to provide vital humanitarian aid—offering water, medical care, and temporary shelter to vulnerable people who risk everything to build a new life."
+    ],
+    glossary: {
+      "Between": "entre (prép.)",
+      "Open": "ouvertes / ouverts (adj.)",
+      "Walls": "murs (n.)",
+      "Modern": "modernes (adj.)",
+      "Nations": "nations (n.)",
+      "Manage": "gèrent (v.)",
+      "Borders": "frontières (n.)",
+      "checkpoints": "postes de contrôle (n.)",
+      "heavily": "fortement / lourdement (adv.)",
+      "guarded": "gardées / surveillées (adj.)",
+      "frontiers": "frontières (n.)",
+      "governments": "gouvernements (n.)",
+      "balance": "équilibrent / concilient (v.)",
+      "public safety": "sécurité publique (n.)",
+      "migration flows": "flux migratoires (n.)",
+      "humanitarian aid": "aide humanitaire (n.)",
+      "Across": "à travers / dans (prép.)",
+      "globe": "globe / monde (n.)",
+      "country": "pays (n.)",
+      "defines": "définit (v.)",
+      "territory": "territoire (n.)",
+      "physical": "physique (adj.)",
+      "political": "politique (adj.)",
+      "border": "frontière (n.)",
+      "yet": "pourtant / cependant (conj.)",
+      "dividing": "de séparation / qui séparent (adj.)",
+      "lines": "lignes (n.)",
+      "varies": "varie (v.)",
+      "dramatically": "considérablement / radicalement (adv.)",
+      "Within": "au sein de (prép.)",
+      "open": "ouvertes (adj.)",
+      "allow": "permettent à (v.)",
+      "citizens": "citoyens (n.)",
+      "travel": "voyager / se déplacer (v.)",
+      "freely": "librement (adv.)",
+      "without": "sans (prép.)",
+      "routine": "systématiques / habituels (adj.)",
+      "inspections": "contrôles / inspections (n.)",
+      "transforming": "transformant (v.)",
+      "daily": "quotidien (adj.)",
+      "commerce": "commerce (n.)",
+      "tourism": "tourisme (n.)",
+      "By contrast": "en revanche / par opposition (loc.)",
+      "closed": "fermées (adj.)",
+      "elsewhere": "ailleurs (adv.)",
+      "rely on": "reposent sur / s'appuient sur (v.)",
+      "fortified": "fortifiés / renforcés (adj.)",
+      "foreigner": "étranger (n.)",
+      "present": "présenter (v.)",
+      "official": "officiels (adj.)",
+      "documents": "documents (n.)",
+      "before": "avant de (prép.)",
+      "entering": "entrer (v.)",
+      "border crossing": "passage frontalier / poste-frontière (n.)",
+      "coastal": "côtier (adj.)",
+      "port of entry": "point d'entrée / port d'entrée (n.)",
+      "customs": "douanes (n.)",
+      "officers": "agents / douaniers (n.)",
+      "inspect": "inspectent / contrôlent (v.)",
+      "vehicles": "véhicules (n.)",
+      "luggage": "bagages (n.)",
+      "illegal": "illégales (adj.)",
+      "drugs": "drogues / stupéfiants (n.)",
+      "organized": "organisés (adj.)",
+      "trafficking": "trafic (n.)",
+      "networks": "réseaux (n.)",
+      "argue": "soutiennent / font valoir (v.)",
+      "strict": "stricts (adj.)",
+      "controls": "contrôles (n.)",
+      "essential": "essentiels (adj.)",
+      "especially": "en particulier / surtout (adv.)",
+      "criminal": "criminels (adj.)",
+      "groups": "groupes (n.)",
+      "pose": "représentent / constituent (v.)",
+      "direct": "directe (adj.)",
+      "threat": "menace (n.)",
+      "local": "locales (adj.)",
+      "communities": "communautés / populations (n.)",
+      "extreme": "extrêmes (adj.)",
+      "cases": "cas (n.)",
+      "violent": "violents (adj.)",
+      "crimes": "crimes (n.)",
+      "such as": "tels que (loc.)",
+      "murder": "meurtre (n.)",
+      "linked to": "liés à (loc.)",
+      "cross-border": "transfrontaliers (adj.)",
+      "cartels": "cartels (n.)",
+      "prompt": "poussent / incitent (v.)",
+      "leaders": "dirigeants (n.)",
+      "deploy": "déployer (v.)",
+      "additional": "supplémentaires (adj.)",
+      "border patrol": "patrouille frontalière (n.)",
+      "units": "unités (n.)",
+      "patrol": "patrouiller / surveiller (v.)",
+      "remote": "reculés / isolés (adj.)",
+      "deserts": "déserts (n.)",
+      "mountain passes": "cols de montagne (n.)",
+      "further": "davantage (adv.)",
+      "secure": "sécuriser / protéger (v.)",
+      "vulnerable": "vulnérables (adj.)",
+      "administrations": "gouvernements / administrations (n.)",
+      "choose": "choisissent de (v.)",
+      "construct": "construire (v.)",
+      "barrier": "barrière / mur / clôture (n.)",
+      "steel": "acier (n.)",
+      "fencing": "clôtures (n.)",
+      "concrete": "béton (n.)",
+      "walls": "murs (n.)",
+      "surveillance": "surveillance (n.)",
+      "sensors": "capteurs (n.)",
+      "Supporters": "partisans / défenseurs (n.)",
+      "claim": "affirment (v.)",
+      "structures": "structures / ouvrages (n.)",
+      "deter": "dissuadent (v.)",
+      "unauthorized": "non autorisée (adj.)",
+      "entry": "entrée (n.)",
+      "reinforce": "renforcent (v.)",
+      "sovereignty": "souveraineté (n.)",
+      "Critics": "détracteurs / critiques (n.)",
+      "however": "cependant / toutefois (adv.)",
+      "point out": "soulignent / font remarquer (v.)",
+      "rarely": "rarement (adv.)",
+      "halt": "stoppent / arrêtent (v.)",
+      "global": "mondiaux (adj.)",
+      "instead": "au lieu de cela (adv.)",
+      "push": "poussent (v.)",
+      "desperate": "désespérés (adj.)",
+      "travelers": "voyageurs / migrants (n.)",
+      "toward": "vers (prép.)",
+      "harsher": "plus hostile / plus rude (adj.)",
+      "terrain": "terrain (n.)",
+      "ruthless": "impitoyable (adj.)",
+      "trafficker": "trafiquant / passeur (n.)",
+      "charges": "exige / facture (v.)",
+      "exorbitant": "exorbitants (adj.)",
+      "fees": "frais / tarifs (n.)",
+      "perilous": "périlleux / dangereux (adj.)",
+      "journey": "voyage / périple (n.)",
+      "Understanding": "comprendre (n./v.)",
+      "crosses": "traverse (v.)",
+      "frontier": "frontière (n.)",
+      "equally": "tout aussi (adv.)",
+      "central": "centrale / essentielle (adj.)",
+      "debate": "débat (n.)",
+      "While": "tandis que / alors que (conj.)",
+      "economic": "économiques (adj.)",
+      "immigrants": "immigrés (n.)",
+      "leave": "quittent (v.)",
+      "home country": "pays d'origine (n.)",
+      "in search of": "à la recherche de (loc.)",
+      "wages": "salaires (n.)",
+      "stability": "stabilité (n.)",
+      "refugee": "réfugié (n.)",
+      "flees": "fuit (v.)",
+      "war": "guerre (n.)",
+      "persecution": "persécution (n.)",
+      "environmental": "environnementale (adj.)",
+      "disaster": "catastrophe (n.)",
+      "safely": "en toute sécurité (adv.)",
+      "return": "retourner (v.)",
+      "Upon reaching": "dès qu'il atteint / en arrivant dans (loc.)",
+      "potential": "potentiel (adj.)",
+      "host country": "pays d'accueil (n.)",
+      "asylum seeker": "demandeur d'asile (n.)",
+      "formally": "officiellement / formellement (adv.)",
+      "requests": "demande (v.)",
+      "legal": "légale / juridique (adj.)",
+      "protection": "protection (n.)",
+      "whereas": "tandis que / alors que (conj.)",
+      "undocumented immigrant": "immigré sans papiers (n.)",
+      "authorization": "autorisation (n.)",
+      "while": "tout en (conj.)",
+      "risking": "risquant (v.)",
+      "detention": "détention / rétention (n.)",
+      "deportation": "expulsion / reconduite à la frontière (n.)",
+      "Ultimately": "en fin de compte / finalement (adv.)",
+      "government policy": "politique gouvernementale (n.)",
+      "immigration": "immigration (n.)",
+      "reflects": "reflète (v.)",
+      "delicate": "délicat (adj.)",
+      "balancing act": "exercice d'équilibre (n.)",
+      "enforcement": "application de la loi / contrôle (n.)",
+      "compassion": "compassion (n.)",
+      "Tightening": "durcir / resserrer (v.)",
+      "restrictions": "restrictions (n.)",
+      "satisfy": "satisfaire (v.)",
+      "domestic": "intérieures / nationales (adj.)",
+      "demands": "exigences / demandes (n.)",
+      "tighter": "plus strict (adj.)",
+      "control": "contrôle (n.)",
+      "charities": "organisations caritatives (n.)",
+      "continue": "continuent à (v.)",
+      "provide": "fournir (v.)",
+      "vital": "vitale / essentielle (adj.)",
+      "offering": "offrant (v.)",
+      "medical care": "soins médicaux (n.)",
+      "temporary": "temporaire (adj.)",
+      "shelter": "abri / hébergement (n.)",
+      "risk": "risquent (v.)"
+    },
+    questions: [
+      {
+        skill: "Main Idea",
+        prompt: "What is the overarching theme of the article?",
+        options: [
+          "Governments face an ongoing challenge in balancing border security and entry restrictions with humanitarian protection for migrants.",
+          "All countries inside the European Union have permanently replaced open borders with concrete walls.",
+          "Physical border barriers have completely eliminated drug trafficking and irregular migration worldwide.",
+          "Asylum seekers and economic immigrants follow identical legal procedures when entering a host country."
+        ],
+        answer: "Governments face an ongoing challenge in balancing border security and entry restrictions with humanitarian protection for migrants.",
+        explanationEn: "From the subtitle through the final paragraph, the article explains how nations balance security, public safety, and entry controls with compassion and humanitarian aid.",
+        explanationFr: "Du sous-titre jusqu'au dernier paragraphe, l'article montre comment les États cherchent un équilibre entre sécurité frontalière et aide humanitaire."
+      },
+      {
+        skill: "Compare & Contrast",
+        prompt: "How does the article contrast open borders with closed borders in paragraph 1?",
+        options: [
+          "Open borders allow citizens to travel freely without routine passport checks, whereas closed borders require every foreigner to pass through fortified checkpoints.",
+          "Open borders exist only in desert regions, while closed borders exist exclusively along coastal ports.",
+          "Open borders forbid tourism and trade, whereas closed borders encourage visa-free movement.",
+          "Open borders are patrolled by military units, while closed borders have no customs officers."
+        ],
+        answer: "Open borders allow citizens to travel freely without routine passport checks, whereas closed borders require every foreigner to pass through fortified checkpoints.",
+        explanationEn: "Paragraph 1 contrasts the European Union's open frontiers (free travel without routine inspections) with closed frontiers that rely on fortified checkpoints.",
+        explanationFr: "Le paragraphe 1 oppose les frontières ouvertes de l'UE (libre circulation sans contrôles systématiques) aux frontières fermées dotées de postes de contrôle fortifiés."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "What are customs officers looking for at an official border crossing or port of entry?",
+        options: [
+          "Illegal drugs and organized trafficking networks",
+          "Tourists carrying valid European passports",
+          "Volunteers distributing bottled water in the desert",
+          "Construction materials for building surveillance sensors"
+        ],
+        answer: "Illegal drugs and organized trafficking networks",
+        explanationEn: "Paragraph 2 states that customs officers inspect vehicles and luggage 'to stop illegal drugs and organized trafficking networks.'",
+        explanationFr: "Le paragraphe 2 indique que les douaniers inspectent les véhicules et les bagages pour stopper les drogues illégales et les réseaux de trafic organisé."
+      },
+      {
+        skill: "Cause & Effect",
+        prompt: "According to paragraph 2, what prompts leaders to deploy additional border patrol units to remote areas?",
+        options: [
+          "Violent crimes such as murder linked to cross-border cartels that threaten public safety",
+          "A shortage of commercial flights between neighboring capital cities",
+          "Requests from international charities to close coastal ports of entry",
+          "Seasonal tourist traffic during summer holidays"
+        ],
+        answer: "Violent crimes such as murder linked to cross-border cartels that threaten public safety",
+        explanationEn: "Paragraph 2 explains that violent crimes like murder linked to cartels prompt governments to send border patrol units into remote deserts, rivers, and mountain passes.",
+        explanationFr: "Le paragraphe 2 précise que des crimes violents comme le meurtre liés aux cartels transfrontaliers incitent les dirigeants à déployer des patrouilles frontalières supplémentaires."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "What materials and technology do some administrations use when they construct a border barrier?",
+        options: [
+          "Steel fencing, concrete walls, and surveillance sensors",
+          "Wooden bridges and solar-powered streetlamps",
+          "Underground tunnels and high-speed railway tracks",
+          "Floating buoys and commercial cargo ships"
+        ],
+        answer: "Steel fencing, concrete walls, and surveillance sensors",
+        explanationEn: "Paragraph 3 notes that some governments construct a barrier 'made of steel fencing, concrete walls, and surveillance sensors.'",
+        explanationFr: "Le paragraphe 3 mentionne que certains gouvernements construisent une barrière faite de clôtures en acier, de murs en béton et de capteurs de surveillance."
+      },
+      {
+        skill: "Critical Thinking & Inference",
+        prompt: "What unintended consequence of border walls do critics emphasize in paragraph 3?",
+        options: [
+          "Rather than stopping migration flows, walls push travelers onto harsher terrain and make them dependent on expensive, ruthless traffickers.",
+          "Walls immediately lower the fees charged by human smugglers across mountain passes.",
+          "Walls eliminate the need for any surveillance sensors or border patrol agents.",
+          "Walls encourage refugees to return voluntarily to active war zones."
+        ],
+        answer: "Rather than stopping migration flows, walls push travelers onto harsher terrain and make them dependent on expensive, ruthless traffickers.",
+        explanationEn: "Critics argue that barriers rarely stop migration flows; instead, they redirect migrants toward dangerous terrain and ruthless traffickers.",
+        explanationFr: "Les détracteurs soulignent que les murs arrêtent rarement les flux migratoires mais poussent les migrants vers des terrains plus dangereux et des passeurs impitoyables."
+      },
+      {
+        skill: "Vocabulary & Distinction",
+        prompt: "According to paragraph 4, what is the key difference between an economic immigrant and a refugee?",
+        options: [
+          "An economic immigrant leaves for better wages and stability, whereas a refugee flees war, persecution, or disaster and cannot safely return.",
+          "An economic immigrant always enters without documents, whereas a refugee never applies for legal protection.",
+          "An economic immigrant flees natural disasters, whereas a refugee travels strictly for tourism.",
+          "An economic immigrant is born in the host country, whereas a refugee is a customs officer."
+        ],
+        answer: "An economic immigrant leaves for better wages and stability, whereas a refugee flees war, persecution, or disaster and cannot safely return.",
+        explanationEn: "Paragraph 4 distinguishes economic immigrants (seeking wages and stability) from refugees (fleeing war, persecution, or disaster).",
+        explanationFr: "Le paragraphe 4 distingue les immigrés économiques (en quête de meilleurs salaires) des réfugiés (qui fuient la guerre, la persécution ou une catastrophe)."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "How does the article define an 'asylum seeker' in paragraph 4?",
+        options: [
+          "Someone who formally requests legal protection upon reaching a potential host country",
+          "A border patrol officer responsible for inspecting luggage at a port of entry",
+          "A smuggler who guides travelers across remote deserts for money",
+          "A citizen traveling between two European Union countries without a passport"
+        ],
+        answer: "Someone who formally requests legal protection upon reaching a potential host country",
+        explanationEn: "An 'asylum seeker' ('demandeur d'asile') is someone who arrives in a host country and formally applies for legal protection.",
+        explanationFr: "Un « asylum seeker » (« demandeur d'asile ») demande officiellement une protection juridique dès son arrivée dans un pays d'accueil."
+      },
+      {
+        skill: "Vocabulary in Context",
+        prompt: "What risk does an 'undocumented immigrant' face according to paragraph 4?",
+        options: [
+          "Living and working without official authorization while risking detention or deportation",
+          "Being forced to work as a customs officer at a coastal port of entry",
+          "Losing citizenship in every country of the European Union",
+          "Having to pay taxes twice in both the home country and the host country"
+        ],
+        answer: "Living and working without official authorization while risking detention or deportation",
+        explanationEn: "Paragraph 4 explains that an undocumented immigrant ('un sans-papiers') resides without legal authorization and faces the risk of detention or deportation.",
+        explanationFr: "Le paragraphe 4 indique qu'un immigré sans papiers vit et travaille sans autorisation officielle et risque la rétention ou l'expulsion."
+      },
+      {
+        skill: "Detail & Comprehension",
+        prompt: "Who provides humanitarian aid to vulnerable migrants according to the final paragraph?",
+        options: [
+          "Churches, volunteers, and international charities offering water, medical care, and temporary shelter",
+          "Cross-border cartels operating in remote mountain passes",
+          "Private companies manufacturing steel fencing and concrete walls",
+          "Customs officials inspecting commercial cargo at ports of entry"
+        ],
+        answer: "Churches, volunteers, and international charities offering water, medical care, and temporary shelter",
+        explanationEn: "Paragraph 5 notes that churches, volunteers, and international charities provide humanitarian aid such as water, medical care, and shelter.",
+        explanationFr: "Le paragraphe 5 précise que les églises, les bénévoles et les organisations caritatives internationales fournissent une aide humanitaire (eau, soins, abri)."
+      },
+      {
+        skill: "Synonyms (Borders Vocab)",
+        prompt: "Which word is the closest synonym for 'trafficker' as used in paragraph 3 ('into the hands of a ruthless trafficker')?",
+        options: [
+          "smuggler / coyote",
+          "customs officer / inspector",
+          "asylum seeker / refugee",
+          "volunteer / aid worker"
+        ],
+        answer: "smuggler / coyote",
+        explanationEn: "A 'trafficker' ('trafiquant / passeur') is someone who illegally transports people or contraband across borders—synonymous with a 'smuggler' (or 'coyote' on the US-Mexico border).",
+        explanationFr: "« Trafficker » est synonyme de « smuggler » (passeur / trafiquant)."
+      },
+      {
+        skill: "Synonyms (Borders Vocab)",
+        prompt: "Which word is the closest synonym for 'barrier' as used in paragraph 3 ('construct a physical barrier')?",
+        options: [
+          "wall / fence / obstacle",
+          "port of entry / gateway",
+          "humanitarian aid / shelter",
+          "passport / visa"
+        ],
+        answer: "wall / fence / obstacle",
+        explanationEn: "In border terminology, a 'barrier' ('barrière / mur / clôture') refers to any physical obstacle such as a wall, fence, or ditch designed to block passage.",
+        explanationFr: "Dans le vocabulaire des frontières, « barrier » désigne un mur, une clôture ou tout obstacle physique bloquant le passage."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 2: At an official border crossing or coastal __________ of entry, customs officers inspect vehicles and luggage.",
+        answer: "port",
+        explanationEn: "A 'port of entry' ('point d'entrée / port d'entrée') is an official location where travelers and goods may legally enter a country.",
+        explanationFr: "« Port » (« port of entry » = point d'entrée officiel)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 2: Leaders deploy additional border __________ units to patrol remote deserts, rivers, and mountain passes.",
+        answer: "patrol",
+        explanationEn: "'Border patrol' ('patrouille frontalière') refers to the security agency or officers guarding a frontier.",
+        explanationFr: "« Patrol » (« border patrol » = patrouille frontalière)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 3: Critics point out that walls rarely halt global migration __________; instead, they redirect travelers toward harsher terrain.",
+        answer: "flows",
+        explanationEn: "'Migration flows' ('les flux migratoires') describes the movement and direction of people migrating across regions.",
+        explanationFr: "« Flows » (« migration flows » = flux migratoires)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 4: Upon reaching a potential __________ country, an asylum seeker formally requests legal protection.",
+        answer: "host",
+        explanationEn: "A 'host country' ('pays d'accueil') is the nation receiving immigrants or refugees.",
+        explanationFr: "« Host » (« host country » = pays d'accueil)."
+      },
+      {
+        skill: "Fill in the Blank (Borders Vocab)",
+        type: "fill",
+        prompt: "Complete the sentence from paragraph 5: Tightening entry __________ may satisfy domestic demands for tighter control.",
+        answer: "restrictions",
+        explanationEn: "'Restrictions' ('restrictions / limitations') are official limits or controls placed on who may enter a country.",
+        explanationFr: "« Restrictions » = restrictions / contrôles."
+      }
+    ]
   }
-
-
 
 ];
 let currentReadingIndex = 0;
@@ -15648,7 +16711,14 @@ function updateReadingScorePill() {
   let correct = 0;
 
   article.questions.forEach((q, idx) => {
-    if (readingAnswersState[idx] === q.answer) correct++;
+    const userAns = readingAnswersState[idx];
+    if (userAns !== undefined) {
+      if (q.type === "fill") {
+        if (userAns.trim().toLowerCase() === q.answer.trim().toLowerCase()) correct++;
+      } else {
+        if (userAns === q.answer) correct++;
+      }
+    }
   });
 
   document.getElementById("reading-score-pill").textContent = "Score: " + correct + " / " + total;
@@ -15666,8 +16736,57 @@ function renderReadingQuestions() {
 
     const chosen = readingAnswersState[qIdx];
     const isAnswered = chosen !== undefined;
-    const isCorrect = chosen === q.answer;
 
+    if (q.type === "fill") {
+      const isCorrect = isAnswered && chosen.trim().toLowerCase() === q.answer.trim().toLowerCase();
+      const inputStyle = isAnswered
+        ? (isCorrect
+            ? "border-color:var(--success); background:var(--success-soft); color:#14532d;"
+            : "border-color:var(--danger); background:var(--danger-soft); color:#7f1d1d;")
+        : "border-color:var(--border); background:var(--surface); color:var(--text);";
+
+      let feedbackHtml = "";
+      if (isAnswered) {
+        feedbackHtml =
+          '<div class="rq-feedback show ' + (isCorrect ? "correct" : "incorrect") + '">' +
+          '<strong>' + (isCorrect ? "✓ Correct!" : '✗ Incorrect — Expected: "' + q.answer + '"') + '</strong> — ' + q.explanationEn +
+          '<div class="rq-fb-fr"><strong>Explication (FR) :</strong> ' + q.explanationFr + '</div>' +
+          '</div>';
+      }
+
+      card.innerHTML =
+        '<div class="rq-header">' +
+        '<span class="rq-skill">' + q.skill + '</span>' +
+        '<span class="rq-num">Question ' + (qIdx + 1) + ' of ' + article.questions.length + '</span>' +
+        '</div>' +
+        '<div class="rq-prompt">' + q.prompt + '</div>' +
+        '<div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">' +
+   '<input type="text" id="rq-fill-input-' + qIdx + '" value="' + (isAnswered ? String(chosen).split('"').join("'") : "") + '" ' +
+        (isAnswered ? "disabled " : "") +
+        'placeholder="Type missing word..." autocomplete="off" spellcheck="false" ' +
+        'style="flex:1; min-width:180px; padding:0.65rem 0.85rem; border-radius:9px; border:1.5px solid; font-family:inherit; font-size:0.95rem; font-weight:600; ' + inputStyle + '" />' +
+        '<button type="button" class="btn btn-primary" ' + (isAnswered ? "disabled " : "") +
+        'onclick="submitReadingFill(' + qIdx + ')">Check</button>' +
+        '</div>' +
+        feedbackHtml;
+
+      container.appendChild(card);
+
+      if (!isAnswered) {
+        const inp = document.getElementById("rq-fill-input-" + qIdx);
+        if (inp) {
+          inp.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              submitReadingFill(qIdx);
+            }
+          });
+        }
+      }
+      return;
+    }
+
+    const isCorrect = chosen === q.answer;
     let optionsHtml = q.options
       .map((opt, oIdx) => {
         let extraClass = "";
@@ -15716,6 +16835,14 @@ function submitReadingAnswer(qIdx, optionIdx) {
   renderReadingQuestions();
 }
 
+function submitReadingFill(qIdx) {
+  const inp = document.getElementById("rq-fill-input-" + qIdx);
+  if (!inp) return;
+  readingAnswersState[qIdx] = inp.value;
+  updateReadingScorePill();
+  renderReadingQuestions();
+}
+
 window.addEventListener("load", function() {
   initReadingLab();
   const navReading = document.getElementById("nav-reading");
@@ -15729,5 +16856,4 @@ window.addEventListener("load", function() {
 </script>
 </body>
 </html>
-
 ```
